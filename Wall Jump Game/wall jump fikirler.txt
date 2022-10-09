@@ -1,0 +1,21 @@
+Saw
+Lazer (3 saniyede bir lazer ateş ediyor)
+whip
+turning stable saw
+bouncy wall
+enemy sağ sol hareket
+enemy ateş
+kare enemy
+kareye dönüşme
+üçgen enemy
+üçgene dönüşme
+
+Obstacle'ların çok yakınından geçersek extra puan vermesi ve ekranda çıkması bunun
+
+YENİ MAPLER
+UI
+
+Çizimler
+Animasyon
+ses
+müzik
