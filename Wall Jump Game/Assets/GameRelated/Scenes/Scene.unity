@@ -3010,6 +3010,7 @@ GameObject:
   - component: {fileID: 175513387}
   - component: {fileID: 175513388}
   - component: {fileID: 175513385}
+  - component: {fileID: 175513389}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3073,6 +3074,7 @@ MonoBehaviour:
   slowPanel: {fileID: 132755508}
   sprite: {fileID: 1418594511}
   restartMenu: {fileID: 1342385129}
+  animator: {fileID: 1418594516}
   pointText: {fileID: 117729828}
   jumpCountText: {fileID: 1160748027}
   BarePassXCount: {fileID: 1293312496}
@@ -3101,6 +3103,8 @@ MonoBehaviour:
   slowRate: 0.2
   slowTime: 0.6
   maxSlowUsage: 2
+  wallTime: 3.5
+  droppedFromWall: 0
   slingShotYPower: 322
   doublePointTimer: 10
   bomberTimer: 10
@@ -3118,6 +3122,26 @@ MonoBehaviour:
   jumpCount: 0
   slowUsage: 0
   yPos: 0
+--- !u!95 &175513389
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175513383}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 84184cce9ce55e64792ed93585ee94c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &178624010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5368,8 +5392,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainMenuObject: {fileID: 0}
   ShopObject: {fileID: 0}
-  mainMenuBg: {fileID: 0}
-  shopBg: {fileID: 0}
+  ShopPage1: {fileID: 0}
+  ShopPage2: {fileID: 0}
+  mainBG: {fileID: 0}
+  shopbg1: {fileID: 0}
+  shopbg2: {fileID: 0}
 --- !u!4 &274609746
 Transform:
   m_ObjectHideFlags: 0
@@ -12114,9 +12141,9 @@ MonoBehaviour:
   Bomber: {fileID: 866542618895615541, guid: 39f42242d3c17ac49802d801679303a0, type: 3}
   doublePoint: {fileID: 4765930840733988060, guid: 98deee887e1a7844a962b13e5dfcd9b9, type: 3}
   slingShot: {fileID: 1604675854221863411, guid: 542d2a1b8cf5bcd49ba7bfa2b4eebfad, type: 3}
-  bomberSpawnRate: 5
-  doublePointSpawnRate: 7
-  slingShotSpawnRate: 9
+  bomberSpawnRate: 1
+  doublePointSpawnRate: 2
+  slingShotSpawnRate: 3
   empty: {fileID: 262331777868835719, guid: ddff5193a6ecfa94ebb32a4b8e22bff7, type: 3}
   entryLevels:
   - {fileID: 2136790591}
@@ -12149,10 +12176,11 @@ MonoBehaviour:
   - {fileID: 1428724415}
   - {fileID: 352902656}
   - {fileID: 754842949}
-  levelCount: 12
-  levelDeleteNumber: 1
+  powerUps: []
+  levelCount: 50
+  levelDeleteNumber: 2
   loop: 1
-  difficulty: 10
+  difficulty: 5
 --- !u!4 &653323763
 Transform:
   m_ObjectHideFlags: 0
@@ -31767,6 +31795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit

@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6295704786010513536
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2972064449557388888, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_Name
+      value: WhipFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388891, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388892, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_Color.b
+      value: 0.02264148
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388892, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_Color.g
+      value: 0.02264148
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388892, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388893, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: CanTurnFast
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388893, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: fastTurnTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388893, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: slowTurnTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388893, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: fastTurnSpeed
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972064449557388893, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+      propertyPath: fastTurnTimer
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}

@@ -81,12 +81,13 @@ public class PlayerSprite : MonoBehaviour
 
         collider.enabled = true;
     }
+
     public IEnumerator SlingShotImmunity()
     {
         Physics2D.IgnoreLayerCollision(6, 8,true); //Player and Enemy
         animator.SetBool("isInvis", true);
 
-        yield return new WaitForSeconds(player.slingShotYPower / 10);
+        yield return new WaitForSeconds(player.slingShotYPower / 8);
 
         animator.SetBool("isInvis", false);
         Physics2D.IgnoreLayerCollision(6, 8, false);

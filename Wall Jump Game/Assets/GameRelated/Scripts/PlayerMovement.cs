@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer sprite;
 
     public GameObject restartMenu;
+    public Animator animator;
 
     [Header("Texts")]
     public TextMeshProUGUI pointText;
@@ -51,6 +52,9 @@ public class PlayerMovement : MonoBehaviour
     public float slowRate;
     public float slowTime;
     public int maxSlowUsage;
+    public float wallTime;
+    public bool droppedFromWall;
+    
 
     [Header("PowerUpValues")]
     public int slingShotYPower;
@@ -82,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
     private float startFixedDeltaTime;
     private float currentBarePassTimer;
     private float currentKillCountTimer;
+    private float currentWallTimer;
     private int currentCoin;
     private float currentCoinExponent = 1;
 
@@ -130,6 +135,10 @@ public class PlayerMovement : MonoBehaviour
         slowUsage = maxSlowUsage;
         startFixedDeltaTime = Time.fixedDeltaTime;
         currentBarePassTimer = BarePassTimer;
+
+        slingShotYPower = PlayerPrefs.GetInt("slingShotPower");
+        doublePointTimer = PlayerPrefs.GetFloat("doublePointTimer");
+        bomberTimer = PlayerPrefs.GetFloat("bomberTimer");
 
         Line.SetActive(false);
         yPos = transform.position.y;
@@ -198,6 +207,7 @@ public class PlayerMovement : MonoBehaviour
             onInvisWall = true;
             transform.rotation = Quaternion.Euler(Vector3.zero);
             rb.gravityScale = 0;
+            currentWallTimer = wallTime;
         }
         if (collision.tag == "EndLine")
         {
@@ -263,13 +273,14 @@ public class PlayerMovement : MonoBehaviour
 
         if(collision.gameObject.tag == "Slingshot")
         {
-            StopCoroutine(playerSprite.SlingShotImmunity());
+            StopAllCoroutines();
             resetVelocity();
             StartCoroutine(playerSprite.SlingShotImmunity());
             rb.AddForce(Vector2.up * slingShotYPower, ForceMode2D.Impulse);
             slowUsed = false;
             jumpCount = maxJumpCount;
             slowUsage = maxSlowUsage;
+            Destroy(collision.gameObject);
             //Add Anim and voice
         }
         if (collision.gameObject.tag == "DoublePoint")
@@ -317,6 +328,8 @@ public class PlayerMovement : MonoBehaviour
         doublePointTimerText.text = currentDoublePointTimer.ToString();
         currentBomberTimer -= Time.deltaTime;
         bomberTimerText.text = currentBomberTimer.ToString();
+
+        //Timer checks
         if (currentBarePassTimer <= 0)
         {
             BarePassExponent = 0;
@@ -341,6 +354,25 @@ public class PlayerMovement : MonoBehaviour
             isBomber = false;
             bomberTimerText.gameObject.SetActive(false);
         }
+
+        if(onWall)
+        {
+            currentWallTimer -= Time.deltaTime;
+            animator.SetFloat("wallTime", currentWallTimer);
+            if (currentWallTimer < 0)
+            {
+                animator.SetFloat("wallTime", 3.5f);
+                droppedFromWall = true;
+                onWall = false;
+                currentWallTimer = wallTime;
+            }
+        }
+        if(droppedFromWall)
+        {
+            onWall = false;
+            onInvisWall = false;
+            rb.gravityScale = 1;
+        }
         //Health check
         if (currentHealth <= 0 && !died)
         {
@@ -363,6 +395,7 @@ public class PlayerMovement : MonoBehaviour
         //Touch movement Drag and jump
         if (Input.touchCount > 0 && jumpCount > 0 && !died)
         {
+            
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
@@ -394,8 +427,11 @@ public class PlayerMovement : MonoBehaviour
             }
             if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
+                
                 Move(dir);
-                if(resetted)
+                droppedFromWall = false; // if player is dropped from wall, until they move they cant stick to wall.
+                animator.SetFloat("wallTime", 3.5f);
+                if (resetted)
                 {
                     resetVelocity();
                     transform.position = new Vector3(0, -12, 0);

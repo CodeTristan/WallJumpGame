@@ -7,11 +7,12 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject MainMenuObject;
     public GameObject ShopObject;
+    public GameObject ShopPage1;
+    public GameObject ShopPage2;
 
-    public GameObject mainMenuBg;
-    public GameObject shopBg;
-
-
+    public GameObject mainBG;
+    public GameObject shopbg1;
+    public GameObject shopbg2;
     public void Play()
     {
         SceneManager.LoadScene(1); // Game Scene
@@ -19,16 +20,33 @@ public class MenuManager : MonoBehaviour
     public void Shop()
     {
         MainMenuObject.SetActive(false);
-        mainMenuBg.SetActive(false);
         ShopObject.SetActive(true);
-        shopBg.SetActive(true);
+        mainBG.SetActive(false);
+        shopbg1.SetActive(true);
+        shopbg2.SetActive(false);
     }
     public void ShopToMenu()
     {
         MainMenuObject.SetActive(true);
-        mainMenuBg.SetActive(true);
         ShopObject.SetActive(false);
-        shopBg.SetActive(false);
+        mainBG.SetActive(true);
+        shopbg1.SetActive(false);
+        shopbg2.SetActive(false);
+    }
+
+    public void goShopPage1()
+    {
+        ShopPage1.SetActive(true);
+        ShopPage2.SetActive(false);
+        shopbg1.SetActive(true);
+        shopbg2.SetActive(false);
+    }
+    public void goShopPage2()
+    {
+        ShopPage1.SetActive(false);
+        ShopPage2.SetActive(true);
+        shopbg1.SetActive(false);
+        shopbg2.SetActive(true);
     }
     public void MainMenu()
     {

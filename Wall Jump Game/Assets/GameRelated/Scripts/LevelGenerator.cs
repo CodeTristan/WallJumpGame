@@ -19,17 +19,19 @@ public class LevelGenerator : MonoBehaviour
 
     [SerializeField]
     public GameObject[,] spawnedLevels;
+    public GameObject[] powerUps;
 
 
     public int levelCount;
     public int levelDeleteNumber = 5;
     public int loop = 1;
-    public int difficulty = 10;
+    public int difficulty = 0;
 
     private int index = 0;
+    private int powerUpIndex = 0;
     private PlayerMovement player;
     private GameObject spawned;
-    private int random;
+    private float random;
 
 
     private void Awake()
@@ -37,6 +39,7 @@ public class LevelGenerator : MonoBehaviour
         player = FindObjectOfType<PlayerMovement>();
         FindObjectOfType<SaveSystem>().LoadGame();
         spawnedLevels = new GameObject[2,levelCount];
+        powerUps = new GameObject[levelCount];
         MakeGame();
         
     }
@@ -45,12 +48,14 @@ public class LevelGenerator : MonoBehaviour
     {
         if(player.completedLevels / loop >= levelCount + levelDeleteNumber)
         {
+            player.completedLevels -= levelDeleteNumber; // Added this because leveldeletenum adds up and levels doesnt spawn enough.
             deleteRest();
             createLevel();
         }
     }
     public void MakeGame()
     {
+        
         index = 0;
         int randomEntry = Random.Range(0, entryLevels.Length);
         spawned = Instantiate(entryLevels[randomEntry], transform.position, Quaternion.identity);
@@ -76,6 +81,7 @@ public class LevelGenerator : MonoBehaviour
     {
         index++;
         loop++;
+        
         if (index > 1)
             index = 0;
         if(difficulty < 5)
@@ -89,6 +95,7 @@ public class LevelGenerator : MonoBehaviour
             }
 
         }
+        DeletePowerUps();
     }
     public void createLevel()
     {
@@ -101,7 +108,7 @@ public class LevelGenerator : MonoBehaviour
             if(randomDif == 9)
             {
                 spawned = Instantiate(HardLevels[randomHard], spawned.transform.position + new Vector3(0, 30, 0), Quaternion.identity);
-                spawned.name = i.ToString();
+                spawned.name = i.ToString() + " HARD";
                 spawnedLevels[index, i] = spawned;
 
                 randomHard = Random.Range(0, HardLevels.Length);
@@ -128,22 +135,29 @@ public class LevelGenerator : MonoBehaviour
 
         if (random <= bomberSpawnRate && !powerSpawned)
         {
-            Instantiate(Bomber, spawned.transform.position + new Vector3(0, -15, 0), Quaternion.identity);
+            powerUps[powerUpIndex] = Instantiate(Bomber, spawned.transform.position + new Vector3(0, -15, 0), Quaternion.identity);
+            powerUps[powerUpIndex].name = spawned.name + " Bomber";
+            powerUpIndex++;
             powerSpawned = true;
+            
         }
 
         random = Random.Range(0, 100);
         if (random <= slingShotSpawnRate && !powerSpawned)
         {
+            powerUps[powerUpIndex] = Instantiate(slingShot, spawned.transform.position + new Vector3(0, -15, 0), Quaternion.identity);
+            powerUps[powerUpIndex].name = spawned.name + " SlingShot";
+            powerUpIndex++;
             powerSpawned = true;
-            Instantiate(slingShot, spawned.transform.position + new Vector3(0, -15, 0), Quaternion.identity);
         }
             
         random = Random.Range(0, 100);
         if (random <= doublePointSpawnRate && !powerSpawned)
         {
+            powerUps[powerUpIndex] = Instantiate(doublePoint, spawned.transform.position + new Vector3(0, -15, 0), Quaternion.identity);
+            powerUps[powerUpIndex].name = spawned.name + " doublePoint";
+            powerUpIndex++;
             powerSpawned = true;
-            Instantiate(doublePoint, spawned.transform.position + new Vector3(0, -15, 0), Quaternion.identity);
         }
             
         
@@ -164,8 +178,21 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
+        DeletePowerUps();
+        
         loop = 1;
 
+    }
+
+    private void DeletePowerUps()
+    {
+        for (int i = 0; i < powerUpIndex; i++) 
+        {
+            Debug.Log(powerUps[i].name + " is destroyed");
+            Destroy(powerUps[i].gameObject);
+            powerUps[i] = empty;
+        }
+        powerUpIndex = 0;
     }
 
 }
