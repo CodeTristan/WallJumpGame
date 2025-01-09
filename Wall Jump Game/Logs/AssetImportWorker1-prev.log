@@ -15,7 +15,7 @@ C:/Users/citri/OneDrive/Masaüstü/WallJumpGame/Wall Jump Game
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-51847
+61310
 Successfully changed project path to: C:/Users/citri/OneDrive/Masaüstü/WallJumpGame/Wall Jump Game
 C:/Users/citri/OneDrive/Masaüstü/WallJumpGame/Wall Jump Game
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,11 +47,11 @@ C:/Users/citri/OneDrive/Masaüstü/WallJumpGame/Wall Jump Game
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [4736] Host "[IP] 192.168.1.28 [Port] 0 [Flags] 2 [Guid] 2522221434 [EditorId] 2522221434 [Version] 1048832 [Id] WindowsEditor(7,Eren) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [24040] Host "[IP] 192.168.1.28 [Port] 0 [Flags] 2 [Guid] 1505833809 [EditorId] 1505833809 [Version] 1048832 [Id] WindowsEditor(7,Eren) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [4736] Host "[IP] 192.168.1.28 [Port] 0 [Flags] 2 [Guid] 2522221434 [EditorId] 2522221434 [Version] 1048832 [Id] WindowsEditor(7,Eren) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [24040] Host "[IP] 192.168.1.28 [Port] 0 [Flags] 2 [Guid] 1505833809 [EditorId] 1505833809 [Version] 1048832 [Id] WindowsEditor(7,Eren) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 128.65 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 110.42 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.15f1 (e8e88683f834)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/Resources/UnitySubsystems
@@ -62,101 +62,101 @@ Direct3D:
     Renderer: NVIDIA GeForce RTX 3050 Ti Laptop GPU (ID=0x25a0)
     Vendor:   NVIDIA
     VRAM:     3962 MB
-    Driver:   32.0.15.6070
+    Driver:   32.0.15.6590
 Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56272
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56348
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll
-Registered in 0.009188 seconds.
+Registered in 0.006935 seconds.
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 116.23 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 94.72 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.760 seconds
+- Completed reload, in  0.611 seconds
 Domain Reload Profiling:
-	ReloadAssembly (761ms)
-		BeginReloadAssembly (94ms)
+	ReloadAssembly (611ms)
+		BeginReloadAssembly (66ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (545ms)
-			LoadAssemblies (91ms)
+		EndReloadAssembly (446ms)
+			LoadAssemblies (65ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (122ms)
+			SetupTypeCache (98ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (27ms)
-			SetupLoadedEditorAssemblies (340ms)
+			RebuildScriptCaches (25ms)
+			SetupLoadedEditorAssemblies (274ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (65ms)
+				InitializePlatformSupportModulesInManaged (52ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (116ms)
+				RefreshPlugins (95ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (105ms)
-				ProcessInitializeOnLoadMethodAttributes (52ms)
+				ProcessInitializeOnLoadAttributes (85ms)
+				ProcessInitializeOnLoadMethodAttributes (41ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.011090 seconds.
+Registered in 0.009302 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\citri\OneDrive\Masaüstü\WallJumpGame\Wall Jump Game\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\citri\OneDrive\Masaüstü\WallJumpGame\Wall Jump Game\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 110.47 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 90.72 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
 Package Manager log level set to [2]
-- Completed reload, in  1.470 seconds
+- Completed reload, in  1.169 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1471ms)
-		BeginReloadAssembly (232ms)
+	ReloadAssembly (1172ms)
+		BeginReloadAssembly (203ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
+			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (126ms)
-		EndReloadAssembly (1092ms)
-			LoadAssemblies (110ms)
+			CreateAndSetChildDomain (120ms)
+		EndReloadAssembly (868ms)
+			LoadAssemblies (97ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (282ms)
+			SetupTypeCache (218ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (66ms)
-			SetupLoadedEditorAssemblies (590ms)
+			RebuildScriptCaches (53ms)
+			SetupLoadedEditorAssemblies (455ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (14ms)
+				InitializePlatformSupportModulesInManaged (12ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (111ms)
-				BeforeProcessingInitializeOnLoad (177ms)
-				ProcessInitializeOnLoadAttributes (237ms)
-				ProcessInitializeOnLoadMethodAttributes (45ms)
-				AfterProcessingInitializeOnLoad (7ms)
+				RefreshPlugins (91ms)
+				BeforeProcessingInitializeOnLoad (98ms)
+				ProcessInitializeOnLoadAttributes (214ms)
+				ProcessInitializeOnLoadMethodAttributes (34ms)
+				AfterProcessingInitializeOnLoad (5ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (6ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 1.19 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 0.99 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 4366 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 61 unused Assets / (229.0 KB). Loaded Objects now: 4803.
-Memory consumption went from 162.3 MB to 162.1 MB.
-Total: 3.386300 ms (FindLiveObjects: 0.424800 ms CreateObjectMapping: 0.186400 ms MarkObjects: 2.605300 ms  DeleteObjects: 0.168500 ms)
+Unloading 4363 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 61 unused Assets / (229.1 KB). Loaded Objects now: 4800.
+Memory consumption went from 162.4 MB to 162.2 MB.
+Total: 3.336900 ms (FindLiveObjects: 0.368900 ms CreateObjectMapping: 0.161400 ms MarkObjects: 2.623100 ms  DeleteObjects: 0.181900 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -171,17 +171,7 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 429979.061840 seconds.
-  path: Assets/GameRelated/Obstacles/Whip.prefab
-  artifactKey: Guid(2bf759620dc40dd4fa107401ed142e77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameRelated/Obstacles/Whip.prefab using Guid(2bf759620dc40dd4fa107401ed142e77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70be5157d8dfa7d19b4ed2c6cfd2370f') in 0.138833 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000031 seconds.
-  path: Assets/GameRelated/Obstacles/WhipFire.prefab
-  artifactKey: Guid(23ad3d33eb42c8c40810bd060ef461fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameRelated/Obstacles/WhipFire.prefab using Guid(23ad3d33eb42c8c40810bd060ef461fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '211a98d93c377d981eec7fefa13de79d') in 0.030921 seconds 
-Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
-AssetImportWorker is now disconnected from the server
-Process exiting
-Exiting without the bug reporter. Application will terminate with return code 0
+  Time since last request: 431103.036831 seconds.
+  path: Assets/GameRelated/OtherSprite/Whip.png
+  artifactKey: Guid(8317a4e0790bb714abade95f1486e276) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameRelated/OtherSprite/Whip.png using Guid(8317a4e0790bb714abade95f1486e276) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b190c4096fcce46f0b7ca3b63736ec81') in 0.154434 seconds 
