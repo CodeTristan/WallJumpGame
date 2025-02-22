@@ -9,10 +9,10 @@ EditorUserSettings:
       value: 5057575e04560d5f5c5d097413740c4414161e2f2a7e7365792d4b35e6e2373c
       flags: 0
     RecentlyUsedSceneGuid-1:
-      value: 0652555504005e5d095d082113250f44434f4f782e7170617e7d1f32b6b16769
+      value: 5b08045f56060d0f0c565c2641215944464f4d28782c2060782d1e67bae6303b
       flags: 0
     RecentlyUsedSceneGuid-2:
-      value: 5b08045f56060d0f0c565c2641215944464f4d28782c2060782d1e67bae6303b
+      value: 0652555504005e5d095d082113250f44434f4f782e7170617e7d1f32b6b16769
       flags: 0
     UnityRemoteDevice:
       value: 2d5e5a03
@@ -34,4 +34,5 @@ EditorUserSettings:
   m_VCHierarchyOverlayIcons: 1
   m_VCOtherOverlayIcons: 1
   m_VCAllowAsyncUpdate: 1
+  m_VCScanLocalPackagesOnConnect: 1
   m_ArtifactGarbageCollection: 1

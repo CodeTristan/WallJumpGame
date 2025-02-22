@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerData
 {
     public int MaxHealth;
-    public int Coins;
+    public int Coin;
     public int MaxJumpCount;
     public int MaxCombo;
     public int MaxSpeed;
@@ -22,7 +22,7 @@ public class PlayerData
     public PlayerData()
     {
         MaxHealth = 1;
-        Coins = 0;
+        Coin = 0;
         MaxJumpCount = 2;
         MaxCombo = 2;
         MaxSpeed = 11;
@@ -36,7 +36,7 @@ public class PlayerData
     public PlayerData(PlayerData data)
     {
         MaxHealth = data.MaxHealth;
-        Coins = data.Coins;
+        Coin = data.Coin;
         MaxJumpCount = data.MaxJumpCount;
         MaxCombo = data.MaxCombo;
         MaxSpeed = data.MaxSpeed;

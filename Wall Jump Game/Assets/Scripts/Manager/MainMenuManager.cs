@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour
     {
         instance = this;
 
-        //menuManager.Init();
-        //shop.Init();
+        menuManager.Init();
+        shop.Init();
     }
 }

@@ -10,7 +10,7 @@ public class SaveSystem : MonoBehaviour
 {
     public static SaveSystem instance;
 
-    private SaveData saveData;
+    public SaveData saveData;
 
     private string savePath;
     private const string FILE_NAME = "SaveFile.sav";
@@ -41,7 +41,7 @@ public class SaveSystem : MonoBehaviour
         Debug.Log("Data Loaded");
     }
 
-    private void SaveData()
+    public void SaveData()
     {
         Debug.Log("Saving Data...");
         var binaryFormatter = new BinaryFormatter();
@@ -51,8 +51,4 @@ public class SaveSystem : MonoBehaviour
         Debug.Log("Data Saved");
     }
 
-    public SaveData GetSaveData()
-    {
-        return saveData;
-    }
 }
