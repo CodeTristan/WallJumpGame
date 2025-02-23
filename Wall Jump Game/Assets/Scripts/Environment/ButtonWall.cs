@@ -14,7 +14,6 @@ public class ButtonWall : MonoBehaviour
             StartCoroutine(closeAnim());
             wall.SetActive(false);
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = force;
-            collision.gameObject.GetComponent<PlayerMovement>().jumpCount++;
         }
     }
 

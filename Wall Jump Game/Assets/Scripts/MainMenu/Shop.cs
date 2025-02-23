@@ -23,7 +23,7 @@ public class Shop : MonoBehaviour
     {
         instance = this;
 
-        playerData = SaveSystem.instance.saveData.playerData;
+        playerData = SaveSystem.instance.GameData.playerData;
         coinText.text = playerData.Coin.ToString();
 
         for (int i = 0; i < upgrades.Length; i++)
@@ -68,7 +68,7 @@ public class Shop : MonoBehaviour
         upgradeable.upgradeIndex++;
         upgradeable.moneyText.text = upgradeable.Coins[upgradeable.upgradeIndex].ToString();
 
-        SaveSystem.instance.saveData.shopUpgradableData[(int)upgradeType].UpgradeIndex = upgradeable.upgradeIndex;
+        SaveSystem.instance.GameData.shopUpgradableData[(int)upgradeType].UpgradeIndex = upgradeable.upgradeIndex;
         SaveSystem.instance.SaveData();
     }
 

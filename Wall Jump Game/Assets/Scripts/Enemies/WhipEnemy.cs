@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WhipEnemy : MonoBehaviour
+public class WhipEnemy : EnemyBase
 {
     public float turnSpeed;
     public float fastTurnSpeed;

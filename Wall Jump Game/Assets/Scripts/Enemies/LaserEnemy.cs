@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserEnemy : MonoBehaviour
+public class LaserEnemy : EnemyBase
 {
     public float ShootTimer;
     public float LaserTimer;
