@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     public int currentJumpCount;
     private int currentSlowUsage;
+
     private bool inSlowMode;
     private Vector2 touchDirection;
     private Vector2 touchStartPos;
@@ -42,15 +43,23 @@ public class PlayerMovement : MonoBehaviour
         currentSlowUsage = playerData.MaxSlowUsage;
 
         PlayerEventHandler.OnPlayerJump += Jump;
-        PlayerEventHandler.OnTouchWall += OnEnterWall;
+        PlayerEventHandler.OnEnemyKilled += EnemyKilled;
+        PlayerEventHandler.OnEnterWall += OnEnterWall;
         PlayerEventHandler.OnLeaveWall += OnExitWall;
+        PlayerEventHandler.OnEnterInvisibleWall += OnEnterInvisibleWall;
+        PlayerEventHandler.OnLeaveInvisibleWall += OnExitInvisibleWall;
     }
 
     private void OnDestroy()
     {
         PlayerEventHandler.OnPlayerJump -= Jump;
-        PlayerEventHandler.OnTouchWall -= OnEnterWall;
+        PlayerEventHandler.OnEnemyKilled -= EnemyKilled;
+        PlayerEventHandler.OnEnterWall -= OnEnterWall;
         PlayerEventHandler.OnLeaveWall -= OnExitWall;
+        PlayerEventHandler.OnEnterInvisibleWall -= OnEnterInvisibleWall;
+        PlayerEventHandler.OnLeaveInvisibleWall -= OnExitInvisibleWall;
+
+
     }
 
 
@@ -86,8 +95,8 @@ public class PlayerMovement : MonoBehaviour
                 { 
                     if (!inSlowMode && currentSlowUsage > 0)
                         slowModeCoroutine = StartCoroutine(slowMode());
-
-                        playerSprite.transform.localScale = Vector2.Lerp(playerSprite.transform.localScale, new Vector2(1,0.5f), SlowTimePlayerShrinkSpeed * Time.deltaTime);
+                    
+                    StartCoroutine(PlayerScaleEnumerator(0.5f));
                 }
             }
             if (touch.phase == TouchPhase.Moved)
@@ -114,6 +123,8 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+
+
     private void EnemyKilled()
     {
         currentJumpCount++;
@@ -122,13 +133,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnterWall()
     {
-        ResetValues();
+        Debug.Log("On Wall");
         rb.gravityScale = 0;
+        ResetValues();
     }
 
     private void OnExitWall()
     {
+        Debug.Log("Exit Wall");
         rb.gravityScale = 1;
+    }
+
+    private void OnEnterInvisibleWall()
+    {
+
+    }
+
+    private void OnExitInvisibleWall()
+    {
+
     }
     private void ResetValues()
     {
@@ -140,15 +163,39 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        StartCoroutine(PlayerScaleEnumerator(1));
         currentJumpCount--;
         Move(touchDirection);
         StopSlow();
         Line.gameObject.SetActive(false);
     }
 
+    private IEnumerator PlayerScaleEnumerator(float scale)
+    {
+        float duration = 0.1f; // Animasyon süresi (1 saniye)
+        float elapsedTime = 0f; // Geçen zaman
+
+        Vector2 startScale = playerSprite.transform.localScale; // Baþlangýç boyutu
+        Vector2 targetVector = new Vector2(1, scale); // Hedef boyutu
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration); // 0 ile 1 arasýnda deðer
+
+            playerSprite.transform.localScale = Vector2.Lerp(startScale, targetVector, t);
+
+            yield return null; // Bir frame bekle
+        }
+
+        // Son deðeri kesinleþtir
+        playerSprite.transform.localScale = targetVector;
+    }
+
     private void StopSlow()
     {
-        StopCoroutine(slowModeCoroutine);
+        if(slowModeCoroutine != null)
+            StopCoroutine(slowModeCoroutine);
         Time.timeScale = 1;
         inSlowMode = false;
     }
@@ -157,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
     {
         inSlowMode = true;
         currentSlowUsage--;
-        Time.timeScale = playerData.SlowRate;
+        Time.timeScale = 1 - playerData.SlowRate;
         yield return new WaitForSecondsRealtime(playerData.MaxSlowTime);
         Time.timeScale = 1;
         inSlowMode = false;

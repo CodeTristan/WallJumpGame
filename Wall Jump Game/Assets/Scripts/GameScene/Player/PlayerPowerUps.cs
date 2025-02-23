@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerPowerUps : MonoBehaviour
 {
-
-
     public int PointExponent = 1;
 
     private float currentBomberTimer;

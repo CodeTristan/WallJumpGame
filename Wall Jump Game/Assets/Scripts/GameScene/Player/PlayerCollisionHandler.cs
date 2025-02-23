@@ -7,16 +7,14 @@ using static PlayerSprite;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
-    [SerializeField] LayerMask WallLayer;
     [SerializeField] private CircleCollider2D CircleCollider;
     [SerializeField] private BoxCollider2D CubeCollider;
     [SerializeField] private PolygonCollider2D TriangleCollider;
 
     [HideInInspector] public Collider2D currentCollider;
 
-    private float KillCountTimer = 1.5f;
-    private float currentKillCountTimer;
-    private int KillCountExponent;
+    public int KillCountExponent;
+    public int BarePassExponent;
 
     private PlayerData playerData;
 
@@ -37,7 +35,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == WallLayer)
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             PlayerManager.instance.OnWall = true;
             PlayerEventHandler.TouchWall();
@@ -46,7 +44,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == WallLayer)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             PlayerManager.instance.OnWall = false;
             PlayerEventHandler.LeaveWall();
@@ -56,23 +54,34 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == WallLayer)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
+            Debug.Log("Trigger Enter: " + collision.name);
             PlayerManager.instance.OnInvisWall = true;
+            PlayerEventHandler.TouchInvisibleWall();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == WallLayer)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
+            Debug.Log("Trigger Enter: " + collision.name);
             PlayerManager.instance.OnInvisWall = false;
+            PlayerEventHandler.LeaveInvisibleWall();
         }
+    }
+
+    public void BarePass()
+    {
+        BarePassExponent = BarePassExponent > playerData.MaxCombo ? playerData.MaxCombo : ++BarePassExponent;
+        PlayerManager.instance.Point += 15 * BarePassExponent * PlayerManager.instance.playerPowerUps.PointExponent;
+
+        GameSceneUIManager.instance.BarePassToText(BarePassExponent, PlayerManager.instance.playerPowerUps.PointExponent);
     }
 
     private void EnemyKilled()
     {
         KillCountExponent = KillCountExponent > playerData.MaxCombo ? playerData.MaxCombo : ++KillCountExponent;
-        currentKillCountTimer = KillCountTimer;
 
         PlayerManager.instance.Point += (15 * KillCountExponent * PlayerManager.instance.playerPowerUps.PointExponent);
         playerData.Coin += (15 * KillCountExponent * PlayerManager.instance.playerPowerUps.PointExponent);

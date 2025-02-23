@@ -1009,7 +1009,7 @@ GameObject:
   - component: {fileID: 53628602}
   m_Layer: 6
   m_Name: holder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3081,7 +3081,7 @@ GameObject:
   - component: {fileID: 172476922}
   m_Layer: 6
   m_Name: PlayerHealth
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3187,6 +3187,7 @@ GameObject:
   - component: {fileID: 175513387}
   - component: {fileID: 175513390}
   - component: {fileID: 175513388}
+  - component: {fileID: 175513391}
   - component: {fileID: 175513385}
   m_Layer: 6
   m_Name: Player
@@ -3258,7 +3259,7 @@ MonoBehaviour:
   rb: {fileID: 175513385}
   cameraSpeed: 0.2
   wallTime: 3.5
-  SlowTimePlayerShrinkSpeed: 5
+  SlowTimePlayerShrinkSpeed: 50
   currentJumpCount: 0
 --- !u!114 &175513390
 MonoBehaviour:
@@ -3274,11 +3275,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 172476922}
   playerPowerUps: {fileID: 935186981}
-  playerCollisionHandler: {fileID: 1001505254}
+  playerCollisionHandler: {fileID: 175513391}
   playerMovement: {fileID: 175513388}
   playerSprite: {fileID: 1418594514}
   Point: 0
   EnemyKillCounterTimer: 5
+  BarePassCounterTimer: 5
   playerData:
     MaxHealth: 1
     Coin: 0
@@ -3295,6 +3297,24 @@ MonoBehaviour:
   OnWall: 0
   OnInvisWall: 0
   isDead: 0
+--- !u!114 &175513391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175513383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c491cb48f322e0744a846d5c25e57477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CircleCollider: {fileID: 1001505253}
+  CubeCollider: {fileID: 1001505252}
+  TriangleCollider: {fileID: 1001505251}
+  currentCollider: {fileID: 0}
+  KillCountExponent: 0
+  BarePassExponent: 0
 --- !u!1001 &178624010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7691,10 +7711,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2136790592}
     m_Modifications:
-    - target: {fileID: 8589614066411610986, guid: 0271d22ed17794d468604d837b762395, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8589614066411610986, guid: 0271d22ed17794d468604d837b762395, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.78
@@ -14873,10 +14889,6 @@ PrefabInstance:
       value: Saw
       objectReference: {fileID: 0}
     - target: {fileID: 679049785845635015, guid: f3c104a5daa3aee4e82ad833f11c2080, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 679049785845635015, guid: f3c104a5daa3aee4e82ad833f11c2080, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.21
       objectReference: {fileID: 0}
@@ -16947,7 +16959,7 @@ GameObject:
   - component: {fileID: 935186981}
   m_Layer: 6
   m_Name: PlayerPowerUps
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18065,10 +18077,9 @@ GameObject:
   - component: {fileID: 1001505253}
   - component: {fileID: 1001505252}
   - component: {fileID: 1001505251}
-  - component: {fileID: 1001505254}
   m_Layer: 6
   m_Name: PlayerCollisionHandler
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18221,25 +18232,6 @@ CircleCollider2D:
   m_Offset: {x: -0.018748105, y: -0.013802469}
   serializedVersion: 2
   m_Radius: 0.49045044
---- !u!114 &1001505254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001505249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c491cb48f322e0744a846d5c25e57477, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WallLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  CircleCollider: {fileID: 1001505253}
-  CubeCollider: {fileID: 1001505252}
-  TriangleCollider: {fileID: 1001505251}
-  currentCollider: {fileID: 0}
 --- !u!1 &1002016655
 GameObject:
   m_ObjectHideFlags: 0
@@ -19386,10 +19378,6 @@ PrefabInstance:
     - target: {fileID: 1498080570662701292, guid: 45fef295202527a4d82e6930ccc7c690, type: 3}
       propertyPath: m_Name
       value: LeftWall
-      objectReference: {fileID: 0}
-    - target: {fileID: 7517277240475188169, guid: 45fef295202527a4d82e6930ccc7c690, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7517277240475188169, guid: 45fef295202527a4d82e6930ccc7c690, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40844,6 +40832,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1437869494}
     - target: {fileID: 6342630869669333802, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
+      propertyPath: BarePassPointText
+      value: 
+      objectReference: {fileID: 477493930}
+    - target: {fileID: 6342630869669333802, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
       propertyPath: DeathMaxPointText
       value: 
       objectReference: {fileID: 401572382}
@@ -40855,6 +40847,10 @@ PrefabInstance:
       propertyPath: doublePointTimerText
       value: 
       objectReference: {fileID: 311339948}
+    - target: {fileID: 6342630869669333802, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
+      propertyPath: BarePassTextParentObject
+      value: 
+      objectReference: {fileID: 1835834223}
     - target: {fileID: 6342630869669333802, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
       propertyPath: EnemyKilledTextParentObject
       value: 

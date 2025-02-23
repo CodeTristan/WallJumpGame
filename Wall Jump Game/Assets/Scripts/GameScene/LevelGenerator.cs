@@ -39,7 +39,7 @@ public class LevelGenerator : MonoBehaviour
         player = FindObjectOfType<PlayerMovement>();
         spawnedLevels = new GameObject[2,levelCount];
         powerUps = new GameObject[levelCount];
-        MakeGame();
+        //MakeGame();
         
     }
 

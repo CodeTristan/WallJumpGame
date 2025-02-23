@@ -3,11 +3,17 @@ public class PlayerEventHandler
     public delegate void OnPlayerJumpDelegate();
     public static event OnPlayerJumpDelegate OnPlayerJump;
 
-    public delegate void OnTouchWallDelegate();
-    public static event OnTouchWallDelegate OnTouchWall;
+    public delegate void OnEnterWallDelegate();
+    public static event OnEnterWallDelegate OnEnterWall;
+
+    public delegate void OnEnterInvisibleWallDelegate();
+    public static event OnEnterInvisibleWallDelegate OnEnterInvisibleWall;
+
+    public delegate void OnLeaveInvisibleWallDelegate();
+    public static event OnEnterInvisibleWallDelegate OnLeaveInvisibleWall;
 
     public delegate void OnLeaveWallDelegate();
-    public static event OnTouchWallDelegate OnLeaveWall;
+    public static event OnEnterWallDelegate OnLeaveWall;
 
     public delegate void OnEnemyKilledDelegate();
     public static event OnEnemyKilledDelegate OnEnemyKilled;
@@ -27,12 +33,22 @@ public class PlayerEventHandler
 
     public static void TouchWall()
     {
-        OnTouchWall?.Invoke();
+        OnEnterWall?.Invoke();
+    }
+
+    public static void TouchInvisibleWall()
+    {
+        OnEnterInvisibleWall?.Invoke();
     }
 
     public static void LeaveWall()
     {
         OnLeaveWall?.Invoke();
+    }
+
+    public static void LeaveInvisibleWall()
+    {
+        OnLeaveInvisibleWall?.Invoke();
     }
 
     public static void EnemyKilled()

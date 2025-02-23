@@ -11,13 +11,21 @@ public class EnemyBase : MonoBehaviour
         {
             OnPlayerTouch();
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") 
+            && !PlayerManager.instance.playerPowerUps.HasPowerUp(PowerUpType.Bomber)
+            && !PlayerManager.instance.isDead)
         {
-            OnPlayerTouch();
+            PlayerManager.instance.playerCollisionHandler.BarePass();
         }
     }
 

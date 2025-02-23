@@ -28,6 +28,6 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        sahneManager.LoadScene(FirstSceneToLoad);
+        //sahneManager.LoadScene(FirstSceneToLoad);
     }
 }

@@ -16,14 +16,18 @@ public class PlayerManager : MonoBehaviour
 
     public int Point;
     public float EnemyKillCounterTimer;
+    public float BarePassCounterTimer;
     public PlayerData playerData;
     public bool OnWall;
     public bool OnInvisWall;
     public bool isDead;
 
+    private PlayerEventHandler playerEventHandler;
+
     public void Init()
     {
         instance = this;
+        playerEventHandler = new PlayerEventHandler();
         playerData = SaveSystem.instance.GameData.playerData;
         
 
