@@ -19,3 +19,22 @@ UI
 Animasyon
 ses
 müzik
+
+reklam;
+	öldükten sonra yeniden doğmak için
+	2x para kazanmak için
+	her 5 oyundan sonra 5 snlik reklam 
+	günlük bonus için
+
+	
+görevler 
+shop ekonomi designı
+	
+karakter görünümü + aksesuarlar
+
+Premium koyulsun;
+	reklamsız oyun
+	özel kostüm ve aksesuar
+	özel yeni mapler
+	321
+
