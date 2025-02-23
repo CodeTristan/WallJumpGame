@@ -37,7 +37,7 @@ public class ShapeEnemy : EnemyBase
 
     public override void OnPlayerTouch()
     {
-        if (PlayerManager.instance.playerPowerUps.HasPowerUp(PlayerPowerUps.powerUpType.Bomber)
+        if (PlayerManager.instance.playerPowerUps.HasPowerUp(PowerUpType.Bomber)
             || PlayerManager.instance.playerSprite.currentShape == shape)
         {
             Die();

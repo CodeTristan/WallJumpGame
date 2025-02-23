@@ -23,7 +23,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void OnPlayerTouch()
     {
-        if(PlayerManager.instance.playerPowerUps.HasPowerUp(PlayerPowerUps.powerUpType.Bomber))
+        if(PlayerManager.instance.playerPowerUps.HasPowerUp(PowerUpType.Bomber))
         {
             Die();
             PlayerEventHandler.EnemyKilled();

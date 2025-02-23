@@ -31,6 +31,8 @@ public class GameSceneUIManager : MonoBehaviour
     {
         instance = this;
         UpdateJumpCountText();
+        ToggleBomberText(false);
+        ToggleDoublePointText(false);
 
         PlayerEventHandler.OnPlayerJump += UpdateJumpCountText;
     }

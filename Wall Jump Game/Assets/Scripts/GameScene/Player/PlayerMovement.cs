@@ -38,17 +38,19 @@ public class PlayerMovement : MonoBehaviour
         playerData = PlayerManager.instance.playerData;
         playerSprite = PlayerManager.instance.playerSprite;
 
-        ResetValues();
+        currentJumpCount = playerData.MaxJumpCount;
+        currentSlowUsage = playerData.MaxSlowUsage;
 
         PlayerEventHandler.OnPlayerJump += Jump;
-        PlayerEventHandler.OnTouchWall += ResetValues;
+        PlayerEventHandler.OnTouchWall += OnEnterWall;
+        PlayerEventHandler.OnLeaveWall += OnExitWall;
     }
 
     private void OnDestroy()
     {
         PlayerEventHandler.OnPlayerJump -= Jump;
-        PlayerEventHandler.OnTouchWall -= ResetValues;
-
+        PlayerEventHandler.OnTouchWall -= OnEnterWall;
+        PlayerEventHandler.OnLeaveWall -= OnExitWall;
     }
 
 
@@ -112,7 +114,22 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+    private void EnemyKilled()
+    {
+        currentJumpCount++;
 
+    }
+
+    private void OnEnterWall()
+    {
+        ResetValues();
+        rb.gravityScale = 0;
+    }
+
+    private void OnExitWall()
+    {
+        rb.gravityScale = 1;
+    }
     private void ResetValues()
     {
         ResetVelocity();

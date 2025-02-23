@@ -1,5 +1,92 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5533689162263054499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4155380208891222571}
+  - component: {fileID: 4150691244845902706}
+  m_Layer: 0
+  m_Name: LevelGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4155380208891222571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5533689162263054499}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -670.16547, y: -1041.7227, z: 11.58707}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7672736327301773378}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4150691244845902706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5533689162263054499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7bf50139c1432345ad67972b8dac790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bomber: {fileID: 866542618895615541, guid: 39f42242d3c17ac49802d801679303a0, type: 3}
+  doublePoint: {fileID: 4765930840733988060, guid: 98deee887e1a7844a962b13e5dfcd9b9, type: 3}
+  slingShot: {fileID: 1604675854221863411, guid: 542d2a1b8cf5bcd49ba7bfa2b4eebfad, type: 3}
+  bomberSpawnRate: 1
+  doublePointSpawnRate: 2
+  slingShotSpawnRate: 3
+  empty: {fileID: 262331777868835719, guid: ddff5193a6ecfa94ebb32a4b8e22bff7, type: 3}
+  entryLevels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  NoobLevels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  HardLevels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  powerUps: []
+  levelCount: 10
+  levelDeleteNumber: 2
+  loop: 1
+  difficulty: 5
 --- !u!1 &5858432865294518728
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,12 +131,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc8ea78b8b1b8347b30513ff26f92b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyKilledTextParentObject: {fileID: 0}
   pointText: {fileID: 0}
   jumpCountText: {fileID: 0}
   BarePassXCount: {fileID: 0}
   BarePassXCountTimer: {fileID: 0}
   KillCountX: {fileID: 0}
   KillCountXTimer: {fileID: 0}
+  KillPointText: {fileID: 0}
   DeathMaxPointText: {fileID: 0}
   DeathPointText: {fileID: 0}
   DeathCoinText: {fileID: 0}
@@ -87,6 +176,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5146156019606226051}
+  - {fileID: 4155380208891222571}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5931678871616237208
@@ -103,3 +193,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   UI_Manager: {fileID: 6342630869669333802}
+  levelGenerator: {fileID: 4150691244845902706}

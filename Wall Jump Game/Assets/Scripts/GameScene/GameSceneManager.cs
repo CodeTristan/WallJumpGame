@@ -8,6 +8,7 @@ public class GameSceneManager : MonoBehaviour
 
     [SerializeField] private PlayerManager player;
     [SerializeField] private GameSceneUIManager UI_Manager;
+    [SerializeField] private LevelGenerator levelGenerator;
     public void Init()
     {
         if(instance != null)
@@ -19,5 +20,6 @@ public class GameSceneManager : MonoBehaviour
 
         player.Init();
         UI_Manager.Init();
+        levelGenerator.Init();
     }
 }
