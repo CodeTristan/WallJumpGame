@@ -9,6 +9,7 @@
 [Bb]uilds
 [Ll]ogs
 [Mm]emoryCaptures
+[Uu]ser[Ss]ettings
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -61,4 +62,4 @@ sysinfo.txt
 crashlytics-build.properties
 
 Wall Jump Game/UserSettings/Layouts/default-2022.dwlt
-/Wall Jump Game/UserSettings
+/UserSettings
