@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerPowerUps : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     public int PointExponent = 1;
 
     private float currentBomberTimer;
@@ -80,10 +81,30 @@ public class PlayerPowerUps : MonoBehaviour
                     currentBomberTimer = PlayerData.PowerUpData.BomberTimer;
                     break;
                 case PowerUpType.SlingShot:
-                    PlayerMovement.ResetVelocity();
-                    PlayerMovement.rb.AddForce(Vector2.up * PlayerData.PowerUpData.SlingShotPower, ForceMode2D.Impulse);
+                    StopAllCoroutines();
+                    StartCoroutine(SlingShot());
                     break;
             }
         }
+    }
+
+    private IEnumerator SlingShot()
+    {
+        PlayerMovement.ResetValues();
+
+        PlayerCollisionHandler playerCollisionHandler = PlayerManager.instance.playerCollisionHandler;
+        playerCollisionHandler.currentCollider.enabled = false;
+        animator.SetBool("isInvis", true);
+
+        PlayerMovement.rb.AddForce(Vector2.up * PlayerData.PowerUpData.SlingShotPower, ForceMode2D.Impulse);
+
+        while (PlayerMovement.rb.velocity.y > 1)
+        {
+            yield return null;
+        }
+
+        playerCollisionHandler.currentCollider.enabled = true;
+        animator.SetBool("isInvis", false);
+
     }
 }

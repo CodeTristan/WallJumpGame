@@ -6,6 +6,7 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform Line;
+    [SerializeField] private Animator animator;
     [SerializeField] public Rigidbody2D rb;
 
 
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerData playerData;
     private PlayerSprite playerSprite;
     private Coroutine slowModeCoroutine;
+    private Coroutine fallFromWallCoroutine;
     public void Init()
     {
         Line.gameObject.SetActive(false);
@@ -43,19 +45,30 @@ public class PlayerMovement : MonoBehaviour
         currentSlowUsage = playerData.MaxSlowUsage;
 
         PlayerEventHandler.OnPlayerJump += Jump;
+
+        PlayerEventHandler.OnPlayerDied += OnPlayerDied;
+
         PlayerEventHandler.OnEnemyKilled += EnemyKilled;
+
         PlayerEventHandler.OnEnterWall += OnEnterWall;
         PlayerEventHandler.OnLeaveWall += OnExitWall;
+
         PlayerEventHandler.OnEnterInvisibleWall += OnEnterInvisibleWall;
         PlayerEventHandler.OnLeaveInvisibleWall += OnExitInvisibleWall;
+
     }
 
     private void OnDestroy()
     {
         PlayerEventHandler.OnPlayerJump -= Jump;
+
+        PlayerEventHandler.OnPlayerDied -= OnPlayerDied;
+
         PlayerEventHandler.OnEnemyKilled -= EnemyKilled;
+
         PlayerEventHandler.OnEnterWall -= OnEnterWall;
         PlayerEventHandler.OnLeaveWall -= OnExitWall;
+
         PlayerEventHandler.OnEnterInvisibleWall -= OnEnterInvisibleWall;
         PlayerEventHandler.OnLeaveInvisibleWall -= OnExitInvisibleWall;
 
@@ -75,14 +88,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        //Point Adjustment
-        if (transform.position.y > yPos + 1)
-        {
-            //Point = Point + (1 * doublePointExponent);
-            //yPos = transform.position.y;
-        }
-
-
         //Touch movement Drag and jump
         if (Input.touchCount > 0 &&  currentJumpCount > 0 && !PlayerManager.instance.isDead)
         {
@@ -133,14 +138,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnterWall()
     {
-        Debug.Log("On Wall");
         rb.gravityScale = 0;
         ResetValues();
+
+        if (fallFromWallCoroutine != null)
+            StopCoroutine(fallFromWallCoroutine);
+        fallFromWallCoroutine = StartCoroutine(FallFromWall());
     }
 
     private void OnExitWall()
     {
-        Debug.Log("Exit Wall");
+        animator.SetBool("OnWall", false);
         rb.gravityScale = 1;
     }
 
@@ -153,12 +161,36 @@ public class PlayerMovement : MonoBehaviour
     {
 
     }
-    private void ResetValues()
+
+    private IEnumerator FallFromWall()
+    {
+        animator.SetBool("OnWall", true);
+
+        float currentWallTime = wallTime;
+        while ( currentWallTime > 0)
+        {
+            currentWallTime -= Time.deltaTime;
+            animator.SetFloat("WallTime", currentWallTime);
+            yield return null;
+        }
+
+        rb.gravityScale = 1;
+
+    }
+    public void ResetValues()
     {
         ResetVelocity();
         StopSlow();
         currentJumpCount = playerData.MaxJumpCount;
         currentSlowUsage = playerData.MaxSlowUsage;
+        GameSceneUIManager.instance.UpdateJumpCountText();
+    }
+
+    private void OnPlayerDied()
+    {
+        ResetValues();
+        StopAllCoroutines();
+        rb.gravityScale = 0;
     }
 
     private void Jump()
@@ -215,8 +247,6 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(0, 0, 0);
         rb.angularVelocity = 0;
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        currentJumpCount = playerData.MaxJumpCount;
-        currentSlowUsage = playerData.MaxSlowUsage;
     }
 
     private void Move(Vector2 dir)

@@ -8,8 +8,11 @@ public class GameSceneUIManager : MonoBehaviour
 {
     public static GameSceneUIManager instance;
 
+    [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject EnemyKilledTextParentObject;
     [SerializeField] private GameObject BarePassTextParentObject;
+    [SerializeField] private Animator coinTextAnimator;
+    [SerializeField] private RectTransform coinTextAnimatorPosition;
 
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI pointText;
@@ -53,6 +56,13 @@ public class GameSceneUIManager : MonoBehaviour
     {
         PlayerEventHandler.OnPlayerJump -= UpdateJumpCountText;
 
+    }
+
+    public void CoinGainText()
+    {
+        Vector2 pos = coinTextAnimatorPosition.position + new Vector3(Random.Range(-100, 100), Random.Range(-100, 100));
+        var obj = Instantiate(coinTextAnimator.gameObject, pos,Quaternion.identity,canvas.transform);
+        Destroy(obj.gameObject, 1f);
     }
 
     public void ToggleDoublePointText(bool value)

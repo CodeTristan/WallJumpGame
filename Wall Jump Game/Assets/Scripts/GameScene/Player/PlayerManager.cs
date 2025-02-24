@@ -24,12 +24,14 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerEventHandler playerEventHandler;
 
+    private float yPos;
+
     public void Init()
     {
         instance = this;
         playerEventHandler = new PlayerEventHandler();
         playerData = SaveSystem.instance.GameData.playerData;
-        
+        yPos = transform.position.y;
 
         playerHealth.Init();
         playerPowerUps.Init();
@@ -38,6 +40,16 @@ public class PlayerManager : MonoBehaviour
         playerSprite.Init();
     }
 
+    private void Update()
+    {
+        //Point Adjustment
+        if (transform.position.y > yPos + 1)
+        {
+            Point = Point + (1 * playerPowerUps.PointExponent);
+            yPos = transform.position.y;
+            GameSceneUIManager.instance.UpdatePointText();
+        }
+    }
 
 
     public void Restart()

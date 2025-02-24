@@ -20,7 +20,6 @@ public class PlayerSprite : MonoBehaviour
     public PlayerShape currentShape;
 
     private Dictionary<PlayerShape, Sprite> shapeSpriteDict;
-    private Collider2D currentCollider;
     public void Init()
     {
         spriteRenderer.size = new Vector2(0.5f, 0.5f);
@@ -28,8 +27,7 @@ public class PlayerSprite : MonoBehaviour
         shapeSpriteDict.Add(PlayerShape.Sphere, sphereSprite);
         shapeSpriteDict.Add(PlayerShape.Cube, cubeSprite);
         shapeSpriteDict.Add(PlayerShape.Triangle, triangleSprite);
-        currentCollider = PlayerManager.instance.playerCollisionHandler.currentCollider;
-        ChangeShape(PlayerShape.Sphere, PlayerManager.instance.playerCollisionHandler.currentCollider);
+        ChangeShape(PlayerShape.Sphere);
     }
 
     
@@ -39,23 +37,11 @@ public class PlayerSprite : MonoBehaviour
         currentShape = PlayerShape.Sphere;
     }
 
-    public void ChangeShape(PlayerShape shape, Collider2D collider)
+    public void ChangeShape(PlayerShape shape)
     {
         currentShape = shape;
+        spriteRenderer.sprite = shapeSpriteDict[shape];
 
-        currentCollider.enabled = false;
-        currentCollider = collider;
-        currentCollider.enabled = true;
+        PlayerManager.instance.playerCollisionHandler.ChangeCollider(shape);
     }
-
-    //public IEnumerator SlingShotImmunity()
-    //{
-    //    Physics2D.IgnoreLayerCollision(6, 8,true); //Player and Enemy
-    //    animator.SetBool("isInvis", true);
-
-    //    yield return new WaitForSeconds(player.slingShotYPower / 8);
-
-    //    animator.SetBool("isInvis", false);
-    //    Physics2D.IgnoreLayerCollision(6, 8, false);
-    //}
 }

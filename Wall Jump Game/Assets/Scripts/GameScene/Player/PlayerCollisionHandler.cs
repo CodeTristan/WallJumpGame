@@ -89,5 +89,23 @@ public class PlayerCollisionHandler : MonoBehaviour
         GameSceneUIManager.instance.EnemyKilledToText(KillCountExponent, PlayerManager.instance.playerPowerUps.PointExponent);
     }
 
+    public void ChangeCollider(PlayerShape shape)
+    {
+        currentCollider.enabled = false;
 
+        switch(shape)
+        {
+            case PlayerShape.Sphere: 
+                currentCollider = CircleCollider;
+                break;
+            case PlayerShape.Cube:
+                currentCollider = CubeCollider;
+                break;
+            case PlayerShape.Triangle:
+                currentCollider = TriangleCollider;
+                break;
+        }
+
+        currentCollider.enabled = true;
+    }
 }
