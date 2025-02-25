@@ -44,7 +44,7 @@ public class GameSceneUIManager : MonoBehaviour
         BarePassTextParentObject.SetActive(false);
 
 
-        PlayerEventHandler.OnPlayerJump += UpdateJumpCountText;
+        PlayerEventHandler.instance.OnPlayerJump += UpdateJumpCountText;
     }
 
     private void Update()
@@ -54,7 +54,7 @@ public class GameSceneUIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        PlayerEventHandler.OnPlayerJump -= UpdateJumpCountText;
+        PlayerEventHandler.instance.OnPlayerJump -= UpdateJumpCountText;
 
     }
 

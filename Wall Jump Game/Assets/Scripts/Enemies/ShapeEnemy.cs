@@ -11,16 +11,22 @@ public class ShapeEnemy : EnemyBase
 
     private Vector2 MoveTarget;
 
-    [SerializeField] private int index;
+    private int index;
 
-    private void Start()
+    public override void Init()
     {
         MoveTarget = path[0];
         MoveTarget = (Vector2)transform.position + MoveTarget;
+        Inited = true;
     }
 
     private void Update()
     {
+        if (Inited == false)
+        {
+            return;
+        }
+
         if (Vector3.Distance(MoveTarget,transform.position) > 0.01)
             transform.position = Vector3.MoveTowards(transform.position, MoveTarget, speed * Time.deltaTime);
         else
@@ -41,11 +47,11 @@ public class ShapeEnemy : EnemyBase
             || PlayerManager.instance.playerSprite.currentShape == shape)
         {
             Die();
-            PlayerEventHandler.EnemyKilled();
+            PlayerEventHandler.instance.EnemyKilled();
             return;
         }
 
-        PlayerEventHandler.PlayerDamaged();
+        PlayerEventHandler.instance.PlayerDamaged();
     }
 
     private void OnDrawGizmosSelected()

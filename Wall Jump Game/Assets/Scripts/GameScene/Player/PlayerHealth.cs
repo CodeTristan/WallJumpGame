@@ -13,14 +13,14 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        PlayerEventHandler.OnPlayerDamaged += TakeDamage;
-        PlayerEventHandler.OnPlayerDied += Die;
+        PlayerEventHandler.instance.OnPlayerDamaged += TakeDamage;
+        PlayerEventHandler.instance.OnPlayerDied += Die;
     }
 
     private void OnDestroy()
     {
-        PlayerEventHandler.OnPlayerDamaged -= TakeDamage;
-        PlayerEventHandler.OnPlayerDied -= Die;
+        PlayerEventHandler.instance.OnPlayerDamaged -= TakeDamage;
+        PlayerEventHandler.instance.OnPlayerDied -= Die;
     }
 
     public void TakeDamage()
@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            PlayerEventHandler.PlayerDied();
+            PlayerEventHandler.instance.PlayerDied();
         }
     }
 

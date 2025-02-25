@@ -22,14 +22,14 @@ public class PlayerManager : MonoBehaviour
     public bool OnInvisWall;
     public bool isDead;
 
-    private PlayerEventHandler playerEventHandler;
+    private PlayerEventHandler PlayerEventHandler;
 
     private float yPos;
 
     public void Init()
     {
         instance = this;
-        playerEventHandler = new PlayerEventHandler();
+        PlayerEventHandler = new PlayerEventHandler();
         playerData = SaveSystem.instance.GameData.playerData;
         yPos = transform.position.y;
 

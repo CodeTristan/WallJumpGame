@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-
+    public bool Inited;
+    public virtual void Init()
+    {
+        Inited = true;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -34,16 +38,22 @@ public class EnemyBase : MonoBehaviour
         if(PlayerManager.instance.playerPowerUps.HasPowerUp(PowerUpType.Bomber))
         {
             Die();
-            PlayerEventHandler.EnemyKilled();
+            PlayerEventHandler.instance.EnemyKilled();
             return;
         }
 
-        PlayerEventHandler.PlayerDamaged();
+        PlayerEventHandler.instance.PlayerDamaged();
     }
 
     public virtual void Die()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+
+    public void Disable()
+    {
+        Inited = false;
+        gameObject.SetActive(false);
     }
 
 }

@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform Line;
     [SerializeField] private Animator animator;
+    [SerializeField] private Image slowMotionImage;
     [SerializeField] public Rigidbody2D rb;
 
 
@@ -44,33 +45,33 @@ public class PlayerMovement : MonoBehaviour
         currentJumpCount = playerData.MaxJumpCount;
         currentSlowUsage = playerData.MaxSlowUsage;
 
-        PlayerEventHandler.OnPlayerJump += Jump;
+        PlayerEventHandler.instance.OnPlayerJump += Jump;
 
-        PlayerEventHandler.OnPlayerDied += OnPlayerDied;
+        PlayerEventHandler.instance.OnPlayerDied += OnPlayerDied;
 
-        PlayerEventHandler.OnEnemyKilled += EnemyKilled;
+        PlayerEventHandler.instance.OnEnemyKilled += EnemyKilled;
 
-        PlayerEventHandler.OnEnterWall += OnEnterWall;
-        PlayerEventHandler.OnLeaveWall += OnExitWall;
+        PlayerEventHandler.instance.OnEnterWall += OnEnterWall;
+        PlayerEventHandler.instance.OnLeaveWall += OnExitWall;
 
-        PlayerEventHandler.OnEnterInvisibleWall += OnEnterInvisibleWall;
-        PlayerEventHandler.OnLeaveInvisibleWall += OnExitInvisibleWall;
+        PlayerEventHandler.instance.OnEnterInvisibleWall += OnEnterInvisibleWall;
+        PlayerEventHandler.instance.OnLeaveInvisibleWall += OnExitInvisibleWall;
 
     }
 
     private void OnDestroy()
     {
-        PlayerEventHandler.OnPlayerJump -= Jump;
+        PlayerEventHandler.instance.OnPlayerJump -= Jump;
 
-        PlayerEventHandler.OnPlayerDied -= OnPlayerDied;
+        PlayerEventHandler.instance.OnPlayerDied -= OnPlayerDied;
 
-        PlayerEventHandler.OnEnemyKilled -= EnemyKilled;
+        PlayerEventHandler.instance.OnEnemyKilled -= EnemyKilled;
 
-        PlayerEventHandler.OnEnterWall -= OnEnterWall;
-        PlayerEventHandler.OnLeaveWall -= OnExitWall;
+        PlayerEventHandler.instance.OnEnterWall -= OnEnterWall;
+        PlayerEventHandler.instance.OnLeaveWall -= OnExitWall;
 
-        PlayerEventHandler.OnEnterInvisibleWall -= OnEnterInvisibleWall;
-        PlayerEventHandler.OnLeaveInvisibleWall -= OnExitInvisibleWall;
+        PlayerEventHandler.instance.OnEnterInvisibleWall -= OnEnterInvisibleWall;
+        PlayerEventHandler.instance.OnLeaveInvisibleWall -= OnExitInvisibleWall;
 
 
     }
@@ -123,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
-                PlayerEventHandler.PlayerJump();
+                PlayerEventHandler.instance.PlayerJump();
             }
 
         }
@@ -229,16 +230,19 @@ public class PlayerMovement : MonoBehaviour
         if(slowModeCoroutine != null)
             StopCoroutine(slowModeCoroutine);
         Time.timeScale = 1;
+        slowMotionImage.color = new Color32(79, 79, 79, 0);
         inSlowMode = false;
     }
 
     private IEnumerator slowMode()
     {
         inSlowMode = true;
+        slowMotionImage.color = new Color32(79,79,79,140);
         currentSlowUsage--;
         Time.timeScale = 1 - playerData.SlowRate;
         yield return new WaitForSecondsRealtime(playerData.MaxSlowTime);
         Time.timeScale = 1;
+        slowMotionImage.color = new Color32(79, 79, 79, 0);
         inSlowMode = false;
     }
 

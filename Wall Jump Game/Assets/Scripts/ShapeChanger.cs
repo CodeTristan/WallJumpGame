@@ -12,7 +12,7 @@ public class ShapeChanger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerManager.instance.playerSprite.ChangeShape(shape);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

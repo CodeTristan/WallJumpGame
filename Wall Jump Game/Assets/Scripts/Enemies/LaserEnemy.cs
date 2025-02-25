@@ -8,28 +8,26 @@ public class LaserEnemy : EnemyBase
     public float LaserTimer;
 
 
-    public float currentShootTimer;
-    public float currentLaserTimer;
+    private float currentShootTimer;
+    private float currentLaserTimer;
 
-    public GameObject Laser;
-    public SpriteRenderer LaserLine;
+    [SerializeField] private GameObject LaserBeam;
+    [SerializeField] private SpriteRenderer LaserLine;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private Color32 laserLineColor;
 
-    public Sprite[] sprites;
-    public float animTimer;
-    public int animIndex = 0;
-    public int animDivider = 6;
-    public byte colorInc;
+    [SerializeField] private Sprite[] sprites;
+    private float animTimer;
+    private int animIndex = 0;
+    private int animDivider = 6;
+    private byte colorInc;
 
-    private SpriteRenderer spriteRenderer;
     private int currentAnimDivider;
     private int currentAnimIndex;
     private byte colorStart = 0;
 
-    private void Start()
+    public override void Init()
     {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
         currentShootTimer = ShootTimer;
         currentLaserTimer = LaserTimer;
         currentAnimDivider = animDivider;
@@ -37,9 +35,16 @@ public class LaserEnemy : EnemyBase
 
         animTimer = currentShootTimer / currentAnimDivider;
         laserLineColor = LaserLine.color;
+
+        Inited = true;
     }
     private void Update()
     {
+        if (Inited == false)
+        {
+            return;
+        }
+
         currentShootTimer -= Time.deltaTime;
         animTimer -= Time.deltaTime;
         if(animTimer <= 0 && currentShootTimer > 0)
@@ -58,12 +63,12 @@ public class LaserEnemy : EnemyBase
 
         if (currentShootTimer <= 0)
         {
-            Laser.SetActive(true);
+            LaserBeam.SetActive(true);
             currentLaserTimer -= Time.deltaTime;
             spriteRenderer.sprite = sprites[4];
             if (currentLaserTimer < 0)
             {
-                Laser.SetActive(false);
+                LaserBeam.SetActive(false);
                 currentShootTimer = ShootTimer;
                 currentLaserTimer = LaserTimer;
                 currentAnimDivider = animDivider;

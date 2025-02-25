@@ -14,13 +14,19 @@ public class DragonEnemy : EnemyBase
     public float attackTimer;
     private float currentAttackTimer;
 
-    private void Start()
+    public override void Init()
     {
         currentAttackTimer = attackTimer;
+        Inited = true;
     }
 
     private void Update()
     {
+        if (Inited == false)
+        {
+            return;
+        }
+
         currentAttackTimer -= Time.deltaTime;
 
         if(currentAttackTimer  < 0)

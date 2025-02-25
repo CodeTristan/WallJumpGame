@@ -359,17 +359,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8a1bbec852aeb43b366aec0423b6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootTimer: 0
-  LaserTimer: 0
-  currentShootTimer: 0
-  currentLaserTimer: 0
-  Laser: {fileID: 0}
-  LaserLine: {fileID: 0}
-  sprites: []
-  animTimer: 0
-  animIndex: 0
-  animDivider: 6
-  colorInc: 0
+  ShootTimer: 3
+  LaserTimer: 1
+  LaserBeam: {fileID: 857552377904818603}
+  LaserLine: {fileID: 656213036093312840}
+  spriteRenderer: {fileID: 857552378877462782}
+  sprites:
+  - {fileID: 21300000, guid: f049647ee092e614c893192b21037b7a, type: 3}
+  - {fileID: 21300000, guid: 8a134ca0e4492844282575460c890309, type: 3}
+  - {fileID: 21300000, guid: 99a3581e872b07e4a995783a65976103, type: 3}
+  - {fileID: 21300000, guid: 1fde6edd9b02d924080fdcbdd9a85ab5, type: 3}
+  - {fileID: 21300000, guid: fb1dfc763c844644b8cf91a4e7f5302c, type: 3}
 --- !u!60 &857552378877462781
 PolygonCollider2D:
   m_ObjectHideFlags: 0

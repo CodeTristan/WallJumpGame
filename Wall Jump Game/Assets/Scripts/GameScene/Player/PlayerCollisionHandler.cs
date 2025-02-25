@@ -23,13 +23,12 @@ public class PlayerCollisionHandler : MonoBehaviour
         currentCollider = CircleCollider;
         playerData = PlayerManager.instance.playerData;
 
-        PlayerEventHandler.OnEnemyKilled += EnemyKilled;
+        PlayerEventHandler.instance.OnEnemyKilled += EnemyKilled;
     }
 
     private void OnDestroy()
     {
-        PlayerEventHandler.OnEnemyKilled -= EnemyKilled;
-
+        PlayerEventHandler.instance.OnEnemyKilled -= EnemyKilled;
     }
 
 
@@ -38,7 +37,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             PlayerManager.instance.OnWall = true;
-            PlayerEventHandler.TouchWall();
+            PlayerEventHandler.instance.TouchWall();
         }
     }
 
@@ -47,7 +46,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             PlayerManager.instance.OnWall = false;
-            PlayerEventHandler.LeaveWall();
+            PlayerEventHandler.instance.LeaveWall();
         }
     }
 
@@ -56,18 +55,21 @@ public class PlayerCollisionHandler : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            Debug.Log("Trigger Enter: " + collision.name);
             PlayerManager.instance.OnInvisWall = true;
-            PlayerEventHandler.TouchInvisibleWall();
+            PlayerEventHandler.instance.TouchInvisibleWall();
+        }
+        if(collision.gameObject.tag == "EndLine")
+        {
+            LevelGenerator.instance.OnLevelCompletedEvent();
+            collision.gameObject.SetActive(false);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            Debug.Log("Trigger Enter: " + collision.name);
             PlayerManager.instance.OnInvisWall = false;
-            PlayerEventHandler.LeaveInvisibleWall();
+            PlayerEventHandler.instance.LeaveInvisibleWall();
         }
     }
 

@@ -13,13 +13,19 @@ public class WhipEnemy : EnemyBase
     private bool isFast;
     private float currentSeconds;
 
-    private void Start()
+    public override void Init()
     {
         currentSeconds = slowTurnTime;
+        Inited = true;
     }
     private void Update()
     {
-        if(isFast == false)
+        if(Inited == false)
+        {
+            return;
+        }
+
+        if (isFast == false)
             transform.Rotate(new Vector3(0, 0, 1 * turnSpeed * Time.deltaTime));
         else
             transform.Rotate(new Vector3(0, 0, 1 * fastTurnSpeed * Time.deltaTime));

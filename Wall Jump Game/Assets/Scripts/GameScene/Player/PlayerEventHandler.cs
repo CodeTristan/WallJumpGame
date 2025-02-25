@@ -1,67 +1,73 @@
 public class PlayerEventHandler
 {
+    public static PlayerEventHandler instance;
+
     public delegate void OnPlayerJumpDelegate();
-    public static event OnPlayerJumpDelegate OnPlayerJump;
+    public event OnPlayerJumpDelegate OnPlayerJump;
 
     public delegate void OnEnterWallDelegate();
-    public static event OnEnterWallDelegate OnEnterWall;
+    public event OnEnterWallDelegate OnEnterWall;
 
     public delegate void OnEnterInvisibleWallDelegate();
-    public static event OnEnterInvisibleWallDelegate OnEnterInvisibleWall;
+    public event OnEnterInvisibleWallDelegate OnEnterInvisibleWall;
 
     public delegate void OnLeaveInvisibleWallDelegate();
-    public static event OnEnterInvisibleWallDelegate OnLeaveInvisibleWall;
+    public event OnEnterInvisibleWallDelegate OnLeaveInvisibleWall;
 
     public delegate void OnLeaveWallDelegate();
-    public static event OnEnterWallDelegate OnLeaveWall;
+    public event OnEnterWallDelegate OnLeaveWall;
 
     public delegate void OnEnemyKilledDelegate();
-    public static event OnEnemyKilledDelegate OnEnemyKilled;
+    public event OnEnemyKilledDelegate OnEnemyKilled;
 
     public delegate void OnPlayerDamagedDelegate();
-    public static event OnPlayerDamagedDelegate OnPlayerDamaged;
+    public event OnPlayerDamagedDelegate OnPlayerDamaged;
 
     public delegate void OnPlayerDiedDelegate();
-    public static event OnPlayerDiedDelegate OnPlayerDied;
+    public event OnPlayerDiedDelegate OnPlayerDied;
 
 
+    public PlayerEventHandler()
+    {
+        instance = this;
+    }
 
-    public static void PlayerJump()
+    public void PlayerJump()
     {
         OnPlayerJump?.Invoke();
     }
 
-    public static void TouchWall()
+    public void TouchWall()
     {
         OnEnterWall?.Invoke();
     }
 
-    public static void TouchInvisibleWall()
+    public void TouchInvisibleWall()
     {
         OnEnterInvisibleWall?.Invoke();
     }
 
-    public static void LeaveWall()
+    public void LeaveWall()
     {
         OnLeaveWall?.Invoke();
     }
 
-    public static void LeaveInvisibleWall()
+    public void LeaveInvisibleWall()
     {
         OnLeaveInvisibleWall?.Invoke();
     }
 
-    public static void EnemyKilled()
+    public void EnemyKilled()
     {
         OnEnemyKilled?.Invoke();
     }
 
-    public static void PlayerDamaged()
+    public void PlayerDamaged()
     {
         OnPlayerDamaged?.Invoke();
     }
 
-    public static void PlayerDied()
+    public void PlayerDied()
     {
         OnPlayerDied?.Invoke();
     }
