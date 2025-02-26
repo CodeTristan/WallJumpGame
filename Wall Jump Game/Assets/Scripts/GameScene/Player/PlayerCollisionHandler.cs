@@ -24,11 +24,13 @@ public class PlayerCollisionHandler : MonoBehaviour
         playerData = PlayerManager.instance.playerData;
 
         PlayerEventHandler.instance.OnEnemyKilled += EnemyKilled;
+        PlayerEventHandler.instance.OnPlayerDied += OnPlayerDied;
     }
 
     private void OnDestroy()
     {
         PlayerEventHandler.instance.OnEnemyKilled -= EnemyKilled;
+        PlayerEventHandler.instance.OnPlayerDied -= OnPlayerDied;
     }
 
 
@@ -71,6 +73,11 @@ public class PlayerCollisionHandler : MonoBehaviour
             PlayerManager.instance.OnInvisWall = false;
             PlayerEventHandler.instance.LeaveInvisibleWall();
         }
+    }
+
+    private void OnPlayerDied()
+    {
+        currentCollider.enabled = false;
     }
 
     public void BarePass()

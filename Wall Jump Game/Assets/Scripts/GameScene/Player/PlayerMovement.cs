@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     private bool inSlowMode;
     private Vector2 touchDirection;
     private Vector2 touchStartPos;
-    private float yPos;
 
     private PlayerData playerData;
     private PlayerSprite playerSprite;
@@ -36,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     public void Init()
     {
         Line.gameObject.SetActive(false);
-        yPos = transform.position.y;
         cam = Camera.main;
 
         playerData = PlayerManager.instance.playerData;
@@ -84,11 +82,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 target = new Vector3(cam.transform.position.x, transform.position.y, transform.position.z) + cameraOffset;
         Vector3 smoothPos = Vector3.Lerp(cam.transform.position, target, cameraSpeed);
 
-        if (transform.position.y > 0)
+        if (transform.position.y > 0 && !PlayerManager.instance.isDead)
             cam.transform.position = smoothPos;
     }
     private void Update()
     {
+
         //Touch movement Drag and jump
         if (Input.touchCount > 0 &&  currentJumpCount > 0 && !PlayerManager.instance.isDead)
         {
@@ -97,8 +96,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 touchStartPos = touch.position;
                 Line.gameObject.SetActive(true);
+                Line.localScale = Vector3.zero;
                 if (!PlayerManager.instance.OnWall)
-                { 
+                {
                     if (!inSlowMode && currentSlowUsage > 0)
                         slowModeCoroutine = StartCoroutine(slowMode());
                     
@@ -124,7 +124,8 @@ public class PlayerMovement : MonoBehaviour
             }
             if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
-                PlayerEventHandler.instance.PlayerJump();
+                if(Vector2.Distance(touchStartPos,touch.position) > 50)
+                    PlayerEventHandler.instance.PlayerJump();
             }
 
         }
@@ -165,6 +166,9 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator FallFromWall()
     {
+        if (transform.position.y < 5) //If on the start
+            yield break;
+
         animator.SetBool("OnWall", true);
 
         float currentWallTime = wallTime;
@@ -191,7 +195,6 @@ public class PlayerMovement : MonoBehaviour
     {
         ResetValues();
         StopAllCoroutines();
-        rb.gravityScale = 0;
     }
 
     private void Jump()

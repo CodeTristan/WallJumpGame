@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SaveSystem saveSystem;
     [SerializeField] private MusicManager musicManager;
     [SerializeField] private SahneManager sahneManager;
+    [SerializeField] private AdManager adManager;
 
 
     void Awake()
@@ -26,8 +27,12 @@ public class GameManager : MonoBehaviour
         saveSystem.Init();
         sahneManager.Init();
 
+        adManager.Init();
+
         DontDestroyOnLoad(gameObject);
 
-        //sahneManager.LoadScene(FirstSceneToLoad);
+        if(FirstSceneToLoad != sahneManager.currentScene)
+            sahneManager.LoadScene(FirstSceneToLoad);
+
     }
 }

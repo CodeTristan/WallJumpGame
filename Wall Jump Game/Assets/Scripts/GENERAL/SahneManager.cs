@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,8 @@ public class SahneManager : MonoBehaviour
 {
     public static SahneManager instance;
 
+    public SceneEnum currentScene;
+
     private Dictionary<SceneEnum,string> sceneNamePairs = new Dictionary<SceneEnum, string>()
     {
         {SceneEnum.MainMenu,"MainMenu"},
@@ -21,6 +24,7 @@ public class SahneManager : MonoBehaviour
     {
         instance = this;
 
+        currentScene = sceneNamePairs.FirstOrDefault(x => x.Value == SceneManager.GetActiveScene().name).Key;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -33,7 +37,8 @@ public class SahneManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene,LoadSceneMode loadSceneMode)
     {
-        if(scene.name == "GameScene")
+        AdManager.instance.DestroyBannerAd();
+        if (scene.name == "GameScene")
         {
             // Do something
             FindObjectOfType<GameSceneManager>().Init();
@@ -42,7 +47,8 @@ public class SahneManager : MonoBehaviour
         {
             // Do something
             FindObjectOfType<MainMenuManager>().Init();
-
+            AdManager.instance.LoadBannerAd();
+            AdManager.instance.ShowBannerAd();
         }
     }
 }

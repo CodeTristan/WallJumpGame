@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerSprite playerSprite;
 
     public int Point;
+    public float DieFromHeightTreshHold;
     public float EnemyKillCounterTimer;
     public float BarePassCounterTimer;
     public PlayerData playerData;
@@ -48,6 +49,12 @@ public class PlayerManager : MonoBehaviour
             Point = Point + (1 * playerPowerUps.PointExponent);
             yPos = transform.position.y;
             GameSceneUIManager.instance.UpdatePointText();
+        }
+
+        if (yPos - transform.position.y > DieFromHeightTreshHold && isDead == false)
+        {
+            PlayerEventHandler.instance.PlayerDied();
+            return;
         }
     }
 
