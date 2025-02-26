@@ -13,6 +13,8 @@ public class LevelGenerator : MonoBehaviour
     public float DoublePointSpawnChanceIn1000;
     public float SlingShotSpawnChanceIn1000;
 
+    public Level currentLevel;
+
     [SerializeField] private List<Level> levelPool;
 
     private List<Level> levelInUse;
@@ -46,6 +48,7 @@ public class LevelGenerator : MonoBehaviour
     private void CompleteLevel()
     {
         completedLevelCount++;
+        currentLevel = levelInUse[completedLevelCount];
     }
 
     public void GenerateLevel()
@@ -64,6 +67,8 @@ public class LevelGenerator : MonoBehaviour
             levelPool.Remove(level);
             levelSpawnYPosition += level.SpawnOffset.y;
         }
+
+        currentLevel = levelInUse[completedLevelCount];
     }
 
     private void DisableLevels()

@@ -51,6 +51,11 @@ public class PlayerManager : MonoBehaviour
             GameSceneUIManager.instance.UpdatePointText();
         }
 
+        if(yPos > LevelGenerator.instance.currentLevel.EndLine.transform.position.y)
+        {
+            LevelGenerator.instance.OnLevelCompletedEvent();
+        }
+
         if (yPos - transform.position.y > DieFromHeightTreshHold && isDead == false)
         {
             PlayerEventHandler.instance.PlayerDied();

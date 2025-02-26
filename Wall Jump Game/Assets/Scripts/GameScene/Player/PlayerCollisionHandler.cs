@@ -60,11 +60,6 @@ public class PlayerCollisionHandler : MonoBehaviour
             PlayerManager.instance.OnInvisWall = true;
             PlayerEventHandler.instance.TouchInvisibleWall();
         }
-        if(collision.gameObject.tag == "EndLine")
-        {
-            LevelGenerator.instance.OnLevelCompletedEvent();
-            collision.gameObject.SetActive(false);
-        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
