@@ -75,6 +75,17 @@ public class PlayerCollisionHandler : MonoBehaviour
         currentCollider.enabled = false;
     }
 
+    public void PlayerTotalIgnoreCollision(bool ignore)
+    {
+        Physics2D.IgnoreLayerCollision(6, 8, ignore);
+        Physics2D.IgnoreLayerCollision(6, 9, ignore);
+    }
+
+    public void PlayerIgnoreCollisionEnemy(bool ignore)
+    {
+        Physics2D.IgnoreLayerCollision(6, 8, ignore);
+
+    }
     public void BarePass()
     {
         BarePassExponent = BarePassExponent > playerData.MaxCombo ? playerData.MaxCombo : ++BarePassExponent;

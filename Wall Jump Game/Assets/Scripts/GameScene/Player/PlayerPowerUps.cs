@@ -93,7 +93,7 @@ public class PlayerPowerUps : MonoBehaviour
         PlayerMovement.ResetValues();
 
         PlayerCollisionHandler playerCollisionHandler = PlayerManager.instance.playerCollisionHandler;
-        playerCollisionHandler.currentCollider.enabled = false;
+        playerCollisionHandler.PlayerIgnoreCollisionEnemy(true);
         animator.SetBool("isInvis", true);
 
         PlayerMovement.rb.AddForce(Vector2.up * PlayerData.PowerUpData.SlingShotPower, ForceMode2D.Impulse);
@@ -102,8 +102,10 @@ public class PlayerPowerUps : MonoBehaviour
         {
             yield return null;
         }
+        yield return new WaitForSeconds(1.5f);
 
-        playerCollisionHandler.currentCollider.enabled = true;
+        playerCollisionHandler.PlayerIgnoreCollisionEnemy(false);
+
         animator.SetBool("isInvis", false);
 
     }

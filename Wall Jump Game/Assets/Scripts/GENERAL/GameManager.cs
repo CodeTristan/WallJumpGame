@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        if(FirstSceneToLoad != sahneManager.currentScene)
-            sahneManager.LoadScene(FirstSceneToLoad);
+        //if(FirstSceneToLoad != sahneManager.currentScene)
+        //    sahneManager.LoadScene(FirstSceneToLoad);
 
     }
 }

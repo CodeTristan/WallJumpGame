@@ -16,6 +16,7 @@ public class ShapeEnemy : EnemyBase
     public override void Init()
     {
         MoveTarget = path[0];
+        index = 0;
         MoveTarget = (Vector2)transform.position + MoveTarget;
         Inited = true;
     }
