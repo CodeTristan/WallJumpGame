@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour
             GameSceneUIManager.instance.UpdatePointText();
         }
 
-        if(yPos > LevelGenerator.instance.currentLevel.EndLine.transform.position.y)
+        if(LevelGenerator.instance.currentLevel != null && yPos > LevelGenerator.instance.currentLevel.EndLine.transform.position.y)
         {
             LevelGenerator.instance.OnLevelCompletedEvent();
         }

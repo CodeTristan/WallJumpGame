@@ -38,7 +38,7 @@ public class SahneManager : MonoBehaviour
     public void OnSceneLoaded(Scene scene,LoadSceneMode loadSceneMode)
     {
         AdManager.instance.DestroyBannerAd();
-        if (scene.name == "GameScene")
+        if (scene.name == "GameScene" || scene.name == "Taha map")
         {
             // Do something
             FindObjectOfType<GameSceneManager>().Init();
