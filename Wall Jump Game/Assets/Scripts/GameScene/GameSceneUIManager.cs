@@ -13,6 +13,7 @@ public class GameSceneUIManager : MonoBehaviour
     [SerializeField] private GameObject BarePassTextParentObject;
     [SerializeField] private Animator coinTextAnimator;
     [SerializeField] private RectTransform coinTextAnimatorPosition;
+    [SerializeField] private GameObject deathScreen;
 
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI pointText;
@@ -45,6 +46,7 @@ public class GameSceneUIManager : MonoBehaviour
 
 
         PlayerEventHandler.instance.OnPlayerJump += UpdateJumpCountText;
+        PlayerEventHandler.instance.OnPlayerDied += DeathScreen;
     }
 
     private void Update()
@@ -55,8 +57,48 @@ public class GameSceneUIManager : MonoBehaviour
     private void OnDestroy()
     {
         PlayerEventHandler.instance.OnPlayerJump -= UpdateJumpCountText;
-
+        PlayerEventHandler.instance.OnPlayerDied -= DeathScreen;
     }
+
+    private void DeathScreen()
+    {
+        int gainedCoin = PlayerManager.instance.Point / 5;
+        deathScreen.SetActive(true);
+        StartCoroutine(AnimateGoldGainOnEnd(gainedCoin));
+    }
+
+    private IEnumerator AnimateGoldGainOnEnd(int amount)
+    {
+
+        int startGold = PlayerManager.instance.playerData.Coin;
+        int targetGold = startGold + amount;
+        float duration = 3f;
+        float elapsed = 0f;
+
+        GainedCoinText.gameObject.SetActive(true);
+        GainedCoinText.text = $"+0"; // Baþlangýçta 0'dan baþlayacak
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            int currentGold = (int)Mathf.Lerp(startGold, targetGold, t);
+            int gainedGold = currentGold - startGold;
+
+            DeathCoinText.text = currentGold.ToString(); // Ana altýn göstergesini güncelle
+            GainedCoinText.text = $"+{gainedGold}";
+
+            yield return null;
+        }
+
+        PlayerManager.instance.playerData.Coin = targetGold; // Son deðeri sabitle
+        DeathCoinText.text = PlayerManager.instance.playerData.Coin.ToString();
+        GainedCoinText.text = $"+{amount}";
+
+        yield return new WaitForSeconds(1f); // Biraz bekle, sonra kaybolsun
+        GainedCoinText.gameObject.SetActive(false);
+    }
+
 
     public void CoinGainText()
     {

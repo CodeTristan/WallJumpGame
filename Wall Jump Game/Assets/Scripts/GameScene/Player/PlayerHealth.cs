@@ -38,21 +38,5 @@ public class PlayerHealth : MonoBehaviour
         ////Add Animation
         Debug.Log("Player Died");
         PlayerManager.instance.isDead = true;
-        //GainedCoinText.gameObject.GetComponent<Animator>().SetBool("Dead", true);
-        //Coin += Point * 3 / 10;
-
-        //if (PlayerPrefs.GetInt("MaxPoint") < Point)
-        //    PlayerPrefs.SetInt("MaxPoint", Point);
-
-        //DeathMaxPointText.text = PlayerPrefs.GetInt("MaxPoint").ToString();
-        //DeathPointText.text = Point.ToString();
-        //GainedCoinText.text = "+ " + (Coin - currentCoin).ToString() + "$";
-
-        //currentHealth = 0;
-        //barePassImage.SetActive(false);
-        //restartMenu.SetActive(true);
-        //pointText.gameObject.SetActive(false);
-        //rb.gravityScale = 0;
-        //rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 }
