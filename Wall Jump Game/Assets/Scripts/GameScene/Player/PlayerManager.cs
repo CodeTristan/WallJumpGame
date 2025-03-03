@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerMovement playerMovement;
     public PlayerSprite playerSprite;
 
+    public const int MAX_PLAYER_RESPAWN_COUNT = 3;
     public int Point;
     public float DieFromHeightTreshHold;
     public float EnemyKillCounterTimer;
@@ -23,26 +24,35 @@ public class PlayerManager : MonoBehaviour
     public bool OnInvisWall;
     public bool isDead;
 
-    private PlayerEventHandler PlayerEventHandler;
-
     private float yPos;
+    private int currentPlayerRespawnCount;
+
+
+    private Vector2 startPos;
 
     public void Init()
     {
         instance = this;
-        PlayerEventHandler = new PlayerEventHandler();
         playerData = SaveSystem.instance.GameData.playerData;
         yPos = transform.position.y;
+        startPos = transform.position;
 
         playerHealth.Init();
         playerPowerUps.Init();
         playerCollisionHandler.Init();
         playerMovement.Init();
         playerSprite.Init();
+
     }
+
 
     private void Update()
     {
+        if (AdManager.instance.InAdMenu) //WAIT IN AD MENU
+            return;
+
+
+
         //Point Adjustment
         if (transform.position.y > yPos + 1)
         {
@@ -58,16 +68,70 @@ public class PlayerManager : MonoBehaviour
 
         if (yPos - transform.position.y > DieFromHeightTreshHold && isDead == false)
         {
-            PlayerEventHandler.instance.PlayerDied();
+            GameSceneEventHandler.instance.PlayerDied();
             return;
         }
+    }
+
+    
+    public void OnPlayerDied()
+    {
+        currentPlayerRespawnCount++;
+        GameSceneUIManager.instance.ToggleDeathAdScreen(true);
+        //if(currentPlayerRespawnCount < MAX_PLAYER_RESPAWN_COUNT)
+        //{
+        //    currentPlayerRespawnCount++;
+        //    GameSceneUIManager.instance.ToggleDeathAdScreen(true);
+        //}
+        //else
+        //{
+        //    GameSceneEventHandler.instance.PlayerDiedFR();
+        //}
+    }
+
+    public void OnPlayerDieFR()
+    {
+        if (Point > playerData.MaxPoint)
+            playerData.MaxPoint = Point;
+
+        playerData.Coins += Point / 5;
+
+        SaveSystem.instance.SaveData();
     }
 
 
     public void Restart()
     {
-        
+        transform.position = startPos;
+
+        isDead = false;
+        Point = 0;
+        currentPlayerRespawnCount = 0;
+        yPos = 0;
+        Camera.main.transform.position = new Vector3(0,0,-10);
+
+        playerHealth.Init();
+        playerMovement.Init();
+        playerSprite.Init();  //Also enables the collider
+
+        LevelGenerator.instance.Restart();
+        GameSceneUIManager.instance.Restart();
+
+        playerMovement.ResetValues();
+        AdManager.instance.HideBannerAd();
     }
 
+    public void Respawn()
+    {
+        transform.position = new Vector2(0, yPos);
 
+
+        playerHealth.Init();
+        playerMovement.Init();
+        playerSprite.Init();  //Also enables the collider
+
+        playerPowerUps.AddPowerUp(PowerUpType.DoublePoint);
+        playerPowerUps.AddPowerUp(PowerUpType.SlingShot);
+
+    }
 }

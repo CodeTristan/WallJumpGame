@@ -9,6 +9,8 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private PlayerManager player;
     [SerializeField] private GameSceneUIManager UI_Manager;
     [SerializeField] private LevelGenerator levelGenerator;
+
+    private GameSceneEventHandler eventHandler;
     public void Init()
     {
         if(instance != null)
@@ -21,5 +23,12 @@ public class GameSceneManager : MonoBehaviour
         player.Init();
         UI_Manager.Init();
         levelGenerator.Init();
+
+        eventHandler = new GameSceneEventHandler();
+    }
+
+    private void OnDestroy()
+    {
+        eventHandler.UnSubscribeAll();
     }
 }

@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3393152798328280864, guid: cb5fd4409a44feb4f9fd6529ab771b52, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4929952675610362808, guid: cb5fd4409a44feb4f9fd6529ab771b52, type: 3}
       propertyPath: m_LocalPosition.x
@@ -178,9 +178,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5479833136630751877, guid: cb5fd4409a44feb4f9fd6529ab771b52, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6689860222690342484, guid: cb5fd4409a44feb4f9fd6529ab771b52, type: 3}
       propertyPath: FirstSceneToLoad
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731219924050442585, guid: cb5fd4409a44feb4f9fd6529ab771b52, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -949,6 +957,7 @@ MonoBehaviour:
   slowMotionImage: {fileID: 984554489}
   rb: {fileID: 175513385}
   cameraSpeed: 0.2
+  sameWallJumpSpeed: {x: 8, y: 15}
   wallTime: 3.5
   SlowTimePlayerShrinkSpeed: 50
   currentJumpCount: 0
@@ -975,13 +984,15 @@ MonoBehaviour:
   BarePassCounterTimer: 5
   playerData:
     MaxHealth: 1
-    Coin: 0
+    Coins: 0
+    Diamonds: 0
     MaxJumpCount: 2
     MaxCombo: 2
     MaxSpeed: 11
     SlowRate: 0.2
     MaxSlowTime: 0.6
     MaxSlowUsage: 1
+    MaxPoint: 0
     PowerUpData:
       SlingShotPower: 11
       DoublePointTimer: 10
@@ -1374,7 +1385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 464481108398598319, guid: 06bcaaa3430663f4384bbfd307b2d202, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4364726775343469648, guid: 06bcaaa3430663f4384bbfd307b2d202, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3167,6 +3178,56 @@ Transform:
   - {fileID: 375607740}
   m_Father: {fileID: 975301093}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &721360268 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5118477258960096756, guid: c130fa4dec7d4344399bc528d9f5cc09, type: 3}
+  m_PrefabInstance: {fileID: 1207844591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &721360272
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721360268}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06931636}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.1386328}
+  m_EdgeRadius: 0
 --- !u!4 &747803824 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7642638410472498019, guid: 182313ed5d5d9c74a98d1e731bf05cc8, type: 3}
@@ -3825,6 +3886,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bf759620dc40dd4fa107401ed142e77, type: 3}
+--- !u!114 &907769645 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6342630869669333802, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
+  m_PrefabInstance: {fileID: 1612122617191028491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc8ea78b8b1b8347b30513ff26f92b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &919656087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 679049785845635015, guid: f3c104a5daa3aee4e82ad833f11c2080, type: 3}
@@ -5642,7 +5714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6194443018578255210, guid: c130fa4dec7d4344399bc528d9f5cc09, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260614234098626231, guid: c130fa4dec7d4344399bc528d9f5cc09, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5687,7 +5759,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5118477258960096756, guid: c130fa4dec7d4344399bc528d9f5cc09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 721360272}
   m_SourcePrefab: {fileID: 100100000, guid: c130fa4dec7d4344399bc528d9f5cc09, type: 3}
 --- !u!4 &1207844592 stripped
 Transform:
@@ -9545,9 +9620,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4150691244845902706, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
-      propertyPath: TEST_MODE
-      value: 0
+    - target: {fileID: 2051163445077249783, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 907769645}
+    - target: {fileID: 2051163445077249783, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: _MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051163445077249783, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameSceneUIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4150691244845902706, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
       propertyPath: levelPool.Array.data[0]
@@ -9593,14 +9676,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 175513390}
-    - target: {fileID: 5979968791019579143, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6251702151999122166, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 175513388}
+      objectReference: {fileID: 175513390}
+    - target: {fileID: 6251702151999122166, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7364232289700456874, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
       propertyPath: m_Name
       value: GameSceneManager

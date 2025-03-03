@@ -24,7 +24,7 @@ public class Shop : MonoBehaviour
         instance = this;
 
         playerData = SaveSystem.instance.GameData.playerData;
-        coinText.text = playerData.Coin.ToString();
+        coinText.text = playerData.Coins.ToString();
 
         for (int i = 0; i < upgrades.Length; i++)
         {
@@ -42,7 +42,7 @@ public class Shop : MonoBehaviour
             Debug.Log("UPGRADE IS FULL LAH");
             return;
         }
-        if (upgradeable.Coins[upgradeable.upgradeIndex] > playerData.Coin)
+        if (upgradeable.Coins[upgradeable.upgradeIndex] > playerData.Coins)
         {
             //DO SOMETHING IN UI
             Debug.Log("NOT ENOUGH COIN LAH");
@@ -50,8 +50,8 @@ public class Shop : MonoBehaviour
         }
 
         SetData();
-        playerData.Coin -= upgradeable.Coins[upgradeable.upgradeIndex];
-        coinText.text = playerData.Coin.ToString();
+        playerData.Coins -= upgradeable.Coins[upgradeable.upgradeIndex];
+        coinText.text = playerData.Coins.ToString();
 
         for (int i = 0; i < upgradeable.upgradeImage.Length; i++)
         {

@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Movement")]
+    public Vector2 sameWallJumpSpeed;
     public float wallTime;
     [SerializeField] private float SlowTimePlayerShrinkSpeed = 5f;
 
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerSprite playerSprite;
     private Coroutine slowModeCoroutine;
     private Coroutine fallFromWallCoroutine;
+
     public void Init()
     {
         Line.gameObject.SetActive(false);
@@ -43,36 +45,9 @@ public class PlayerMovement : MonoBehaviour
         currentJumpCount = playerData.MaxJumpCount;
         currentSlowUsage = playerData.MaxSlowUsage;
 
-        PlayerEventHandler.instance.OnPlayerJump += Jump;
-
-        PlayerEventHandler.instance.OnPlayerDied += OnPlayerDied;
-
-        PlayerEventHandler.instance.OnEnemyKilled += EnemyKilled;
-
-        PlayerEventHandler.instance.OnEnterWall += OnEnterWall;
-        PlayerEventHandler.instance.OnLeaveWall += OnExitWall;
-
-        PlayerEventHandler.instance.OnEnterInvisibleWall += OnEnterInvisibleWall;
-        PlayerEventHandler.instance.OnLeaveInvisibleWall += OnExitInvisibleWall;
-
+        rb.gravityScale = 1;
     }
 
-    private void OnDestroy()
-    {
-        PlayerEventHandler.instance.OnPlayerJump -= Jump;
-
-        PlayerEventHandler.instance.OnPlayerDied -= OnPlayerDied;
-
-        PlayerEventHandler.instance.OnEnemyKilled -= EnemyKilled;
-
-        PlayerEventHandler.instance.OnEnterWall -= OnEnterWall;
-        PlayerEventHandler.instance.OnLeaveWall -= OnExitWall;
-
-        PlayerEventHandler.instance.OnEnterInvisibleWall -= OnEnterInvisibleWall;
-        PlayerEventHandler.instance.OnLeaveInvisibleWall -= OnExitInvisibleWall;
-
-
-    }
 
 
     private void LateUpdate()
@@ -87,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
+        if (AdManager.instance.InAdMenu) //NO MOVEMENT IN AD
+            return;
 
         //Touch movement Drag and jump
         if (Input.touchCount > 0 &&  currentJumpCount > 0 && !PlayerManager.instance.isDead)
@@ -97,15 +74,9 @@ public class PlayerMovement : MonoBehaviour
                 touchStartPos = touch.position;
                 Line.gameObject.SetActive(true);
                 Line.localScale = Vector3.zero;
-                if (!PlayerManager.instance.OnWall)
-                {
-                    if (!inSlowMode && currentSlowUsage > 0)
-                        slowModeCoroutine = StartCoroutine(slowMode());
-                    
-                    StartCoroutine(PlayerScaleEnumerator(0.5f));
-                }
+
             }
-            if (touch.phase == TouchPhase.Moved)
+            else if (Vector2.Distance(touchStartPos,touch.position) > 50 &&(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary))
             {
                 touchDirection = touchStartPos - touch.position;
 
@@ -121,24 +92,46 @@ public class PlayerMovement : MonoBehaviour
                 if (Line.transform.localScale.y < 1f)
                     Line.transform.localScale = new Vector3(1f, 1, 1);
 
+                if (!PlayerManager.instance.OnWall && Vector2.Distance(touchStartPos, touch.position) > 30)
+                {
+                    if (!inSlowMode && currentSlowUsage > 0)
+                    {
+                        slowModeCoroutine = StartCoroutine(slowMode());
+                        StartCoroutine(PlayerScaleEnumerator(0.5f));
+                    }
+                }
+
             }
-            if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
-                if(Vector2.Distance(touchStartPos,touch.position) > 50)
-                    PlayerEventHandler.instance.PlayerJump();
+                if (Vector2.Distance(touchStartPos, touch.position) > 50)
+                {
+                    GameSceneEventHandler.instance.PlayerJump();
+                }
+                else if(PlayerManager.instance.OnWall)
+                    StartCoroutine(JumpOnSameWall());
             }
 
         }
     }
 
-
-    private void EnemyKilled()
+    private IEnumerator JumpOnSameWall()
     {
-        currentJumpCount++;
+        int dir = transform.position.x > 0 ? -1 : 1;
+        rb.velocity = new Vector2(dir * sameWallJumpSpeed.x, 1 * sameWallJumpSpeed.y);
+        yield return new WaitForSeconds(0.085f);
+        rb.velocity = new Vector2(-dir * sameWallJumpSpeed.x, 1 * sameWallJumpSpeed.y);
 
     }
 
-    private void OnEnterWall()
+
+    public void EnemyKilled()
+    {
+        currentJumpCount++;
+        rb.velocity = Vector2.up * 5;
+    }
+
+    public void OnEnterWall()
     {
         rb.gravityScale = 0;
         ResetValues();
@@ -148,18 +141,18 @@ public class PlayerMovement : MonoBehaviour
         fallFromWallCoroutine = StartCoroutine(FallFromWall());
     }
 
-    private void OnExitWall()
+    public void OnExitWall()
     {
         animator.SetBool("OnWall", false);
         rb.gravityScale = 1;
     }
 
-    private void OnEnterInvisibleWall()
+    public void OnEnterInvisibleWall()
     {
 
     }
 
-    private void OnExitInvisibleWall()
+    public void OnExitInvisibleWall()
     {
 
     }
@@ -191,13 +184,14 @@ public class PlayerMovement : MonoBehaviour
         GameSceneUIManager.instance.UpdateJumpCountText();
     }
 
-    private void OnPlayerDied()
+    public void OnPlayerDie()
     {
         ResetValues();
         StopAllCoroutines();
+        rb.gravityScale = 0;
     }
 
-    private void Jump()
+    public void Jump()
     {
         StartCoroutine(PlayerScaleEnumerator(1));
         currentJumpCount--;

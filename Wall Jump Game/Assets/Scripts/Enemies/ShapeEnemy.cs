@@ -48,11 +48,11 @@ public class ShapeEnemy : EnemyBase
             || PlayerManager.instance.playerSprite.currentShape == shape)
         {
             Die();
-            PlayerEventHandler.instance.EnemyKilled();
+            GameSceneEventHandler.instance.EnemyKilled();
             return;
         }
 
-        PlayerEventHandler.instance.PlayerDamaged();
+        GameSceneEventHandler.instance.PlayerDamaged();
     }
 
     private void OnDrawGizmosSelected()

@@ -10,7 +10,7 @@ public class CoinObject : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerManager.instance.playerData.Coin += amount;
+            PlayerManager.instance.playerData.Coins += amount;
             GameSceneUIManager.instance.CoinGainText();
             Destroy(gameObject);
         }

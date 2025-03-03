@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SahneManager sahneManager;
     [SerializeField] private AdManager adManager;
 
-
+    public int Number_Of_Game_Before_Ad = 3;
+    public int current_Game_Before_Ad = 0;
     void Awake()
     {
         if (instance != null)
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         }
 
         instance = this;
+        current_Game_Before_Ad = Number_Of_Game_Before_Ad;
 
         musicManager.Init();
         saveSystem.Init();
@@ -31,8 +33,8 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        //if(FirstSceneToLoad != sahneManager.currentScene)
-        //    sahneManager.LoadScene(FirstSceneToLoad);
+        if (FirstSceneToLoad != sahneManager.currentSceneEnum || sahneManager.currentScene.name == "SplashScene")
+            sahneManager.LoadScene(FirstSceneToLoad);
 
     }
 }

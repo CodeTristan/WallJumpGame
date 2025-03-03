@@ -12,16 +12,8 @@ public class PlayerHealth : MonoBehaviour
     public void Init()
     {
         currentHealth = maxHealth;
-
-        PlayerEventHandler.instance.OnPlayerDamaged += TakeDamage;
-        PlayerEventHandler.instance.OnPlayerDied += Die;
     }
 
-    private void OnDestroy()
-    {
-        PlayerEventHandler.instance.OnPlayerDamaged -= TakeDamage;
-        PlayerEventHandler.instance.OnPlayerDied -= Die;
-    }
 
     public void TakeDamage()
     {
@@ -29,11 +21,11 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            PlayerEventHandler.instance.PlayerDied();
+            GameSceneEventHandler.instance.PlayerDied();
         }
     }
 
-    private void Die()
+    public void Die()
     {
         ////Add Animation
         Debug.Log("Player Died");
