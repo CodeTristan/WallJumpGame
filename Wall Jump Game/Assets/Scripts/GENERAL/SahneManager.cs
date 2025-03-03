@@ -13,7 +13,8 @@ public class SahneManager : MonoBehaviour
 {
     public static SahneManager instance;
 
-    public SceneEnum currentScene;
+    public SceneEnum currentSceneEnum;
+    public Scene currentScene;
 
     private Dictionary<SceneEnum,string> sceneNamePairs = new Dictionary<SceneEnum, string>()
     {
@@ -23,24 +24,27 @@ public class SahneManager : MonoBehaviour
     public void Init()
     {
         instance = this;
+        currentScene = SceneManager.GetActiveScene();
 
-        currentScene = sceneNamePairs.FirstOrDefault(x => x.Value == SceneManager.GetActiveScene().name).Key;
+        currentSceneEnum = sceneNamePairs.FirstOrDefault(x => x.Value == SceneManager.GetActiveScene().name).Key;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
 
     public void LoadScene(SceneEnum sceneName)
     {
+        currentSceneEnum = sceneName;
         string sceneNameString = sceneNamePairs.GetValueOrDefault(sceneName,"MainMenu");
         SceneManager.LoadScene(sceneNameString);
     }
 
     public void OnSceneLoaded(Scene scene,LoadSceneMode loadSceneMode)
     {
-        AdManager.instance.DestroyBannerAd();
+        currentScene = scene;
         if (scene.name == "GameScene" || scene.name == "Taha map")
         {
             // Do something
+            AdManager.instance.HideBannerAd();
             FindObjectOfType<GameSceneManager>().Init();
         }
         else if (scene.name == "MainMenu")

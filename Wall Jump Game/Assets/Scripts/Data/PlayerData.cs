@@ -6,13 +6,15 @@ using UnityEngine;
 public class PlayerData
 {
     public int MaxHealth;
-    public int Coin;
+    public int Coins;
+    public int Diamonds;
     public int MaxJumpCount;
     public int MaxCombo;
     public int MaxSpeed;
     public float SlowRate;
     public float MaxSlowTime;
     public int MaxSlowUsage;
+    public int MaxPoint;
 
 
 
@@ -22,7 +24,7 @@ public class PlayerData
     public PlayerData()
     {
         MaxHealth = 1;
-        Coin = 0;
+        Coins = 0;
         MaxJumpCount = 2;
         MaxCombo = 2;
         MaxSpeed = 11;
@@ -36,7 +38,7 @@ public class PlayerData
     public PlayerData(PlayerData data)
     {
         MaxHealth = data.MaxHealth;
-        Coin = data.Coin;
+        Coins = data.Coins;
         MaxJumpCount = data.MaxJumpCount;
         MaxCombo = data.MaxCombo;
         MaxSpeed = data.MaxSpeed;
@@ -60,7 +62,7 @@ public class PlayerPowerUpData
 
     public PlayerPowerUpData()
     {
-        SlingShotPower = 11;
+        SlingShotPower = 50;
         DoublePointTimer = 10;
         BomberTimer = 10;
     }

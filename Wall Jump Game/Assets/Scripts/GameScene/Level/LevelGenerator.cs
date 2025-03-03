@@ -18,6 +18,7 @@ public class LevelGenerator : MonoBehaviour
     public Level currentLevel;
 
     [SerializeField] private List<Level> levelPool;
+    [SerializeField] private List<Level> StartLevelList;
 
     private List<Level> EasyLevelList;
     private List<Level> MediumLevelList;
@@ -32,8 +33,8 @@ public class LevelGenerator : MonoBehaviour
     public void Init()
     {
         instance = this;
-        levelSpawnYPosition = 0;
         levelInUse = new List<Level>();
+
         EasyLevelList = new List<Level>();
         MediumLevelList = new List<Level>();
         HardLevelList = new List<Level>();
@@ -57,12 +58,33 @@ public class LevelGenerator : MonoBehaviour
             TestModeLevelSpawn();
             return;
         }
-        GenerateLevel();
+
+        Restart();
     }
 
     private void OnDestroy()
     {
         OnLevelCompleted -= GenerateLevel;
+    }
+
+    public void Restart()
+    {
+        levelSpawnYPosition = 0;
+        completedLevelCount = 0;
+        TotalCompletedLevelCount = 0;
+
+        int count = levelInUse.Count;
+        for (int i = 0; i < count; i++)
+        {
+            Level level = levelInUse[0];
+            level.Disable();
+            levelInUse.RemoveAt(0);
+            levelPool.Add(level);
+        }
+        levelInUse.Clear();
+
+
+        GenerateLevel();
     }
 
     public void OnLevelCompletedEvent()

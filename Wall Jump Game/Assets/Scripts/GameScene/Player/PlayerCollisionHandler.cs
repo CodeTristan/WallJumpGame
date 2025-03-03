@@ -23,14 +23,8 @@ public class PlayerCollisionHandler : MonoBehaviour
         currentCollider = CircleCollider;
         playerData = PlayerManager.instance.playerData;
 
-        PlayerEventHandler.instance.OnEnemyKilled += EnemyKilled;
-        PlayerEventHandler.instance.OnPlayerDied += OnPlayerDied;
-    }
-
-    private void OnDestroy()
-    {
-        PlayerEventHandler.instance.OnEnemyKilled -= EnemyKilled;
-        PlayerEventHandler.instance.OnPlayerDied -= OnPlayerDied;
+        KillCountExponent = 0;
+        BarePassExponent = 0;
     }
 
 
@@ -39,7 +33,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             PlayerManager.instance.OnWall = true;
-            PlayerEventHandler.instance.TouchWall();
+            GameSceneEventHandler.instance.EnterWall();
         }
     }
 
@@ -48,7 +42,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             PlayerManager.instance.OnWall = false;
-            PlayerEventHandler.instance.LeaveWall();
+            GameSceneEventHandler.instance.LeaveWall();
         }
     }
 
@@ -58,7 +52,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             PlayerManager.instance.OnInvisWall = true;
-            PlayerEventHandler.instance.TouchInvisibleWall();
+            GameSceneEventHandler.instance.TouchInvisibleWall();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -66,11 +60,11 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             PlayerManager.instance.OnInvisWall = false;
-            PlayerEventHandler.instance.LeaveInvisibleWall();
+            GameSceneEventHandler.instance.LeaveInvisibleWall();
         }
     }
 
-    private void OnPlayerDied()
+    public void OnPlayerDie()
     {
         currentCollider.enabled = false;
     }
@@ -88,18 +82,18 @@ public class PlayerCollisionHandler : MonoBehaviour
     }
     public void BarePass()
     {
-        BarePassExponent = BarePassExponent > playerData.MaxCombo ? playerData.MaxCombo : ++BarePassExponent;
+        BarePassExponent = BarePassExponent >= playerData.MaxCombo ? playerData.MaxCombo : ++BarePassExponent;
         PlayerManager.instance.Point += 15 * BarePassExponent * PlayerManager.instance.playerPowerUps.PointExponent;
 
         GameSceneUIManager.instance.BarePassToText(BarePassExponent, PlayerManager.instance.playerPowerUps.PointExponent);
     }
 
-    private void EnemyKilled()
+    public void EnemyKilled()
     {
-        KillCountExponent = KillCountExponent > playerData.MaxCombo ? playerData.MaxCombo : ++KillCountExponent;
+        KillCountExponent = KillCountExponent >= playerData.MaxCombo ? playerData.MaxCombo : ++KillCountExponent;
 
         PlayerManager.instance.Point += (15 * KillCountExponent * PlayerManager.instance.playerPowerUps.PointExponent);
-        playerData.Coin += (15 * KillCountExponent * PlayerManager.instance.playerPowerUps.PointExponent);
+        playerData.Coins += (15 * KillCountExponent * PlayerManager.instance.playerPowerUps.PointExponent);
 
         GameSceneUIManager.instance.EnemyKilledToText(KillCountExponent, PlayerManager.instance.playerPowerUps.PointExponent);
     }

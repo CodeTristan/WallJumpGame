@@ -17,7 +17,7 @@ public class PlayerSprite : MonoBehaviour
     [SerializeField] private Sprite cubeSprite;
     [SerializeField] private Sprite triangleSprite;
 
-    public PlayerShape currentShape;
+    public PlayerShape currentShape = PlayerShape.Sphere;
 
     private Dictionary<PlayerShape, Sprite> shapeSpriteDict;
     public void Init()
@@ -27,7 +27,7 @@ public class PlayerSprite : MonoBehaviour
         shapeSpriteDict.Add(PlayerShape.Sphere, sphereSprite);
         shapeSpriteDict.Add(PlayerShape.Cube, cubeSprite);
         shapeSpriteDict.Add(PlayerShape.Triangle, triangleSprite);
-        ChangeShape(PlayerShape.Sphere);
+        ChangeShape(currentShape);
     }
 
     

@@ -38,11 +38,11 @@ public class EnemyBase : MonoBehaviour
         if(PlayerManager.instance.playerPowerUps.HasPowerUp(PowerUpType.Bomber))
         {
             Die();
-            PlayerEventHandler.instance.EnemyKilled();
+            GameSceneEventHandler.instance.EnemyKilled();
             return;
         }
 
-        PlayerEventHandler.instance.PlayerDamaged();
+        GameSceneEventHandler.instance.PlayerDamaged();
     }
 
     public virtual void Die()

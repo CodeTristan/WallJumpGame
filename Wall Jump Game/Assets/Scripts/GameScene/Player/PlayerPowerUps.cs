@@ -18,10 +18,15 @@ public class PlayerPowerUps : MonoBehaviour
     {
         PlayerMovement = PlayerManager.instance.playerMovement;
         PlayerData = PlayerManager.instance.playerData;
+        currentPowerUps.Clear();
+
     }
 
     private void Update()
     {
+        if (AdManager.instance.InAdMenu) //WAIT IN AD MENU
+            return;
+
         if (currentPowerUps.Contains(PowerUpType.DoublePoint))
         {
             currentDoublePointTimer -= Time.deltaTime;
