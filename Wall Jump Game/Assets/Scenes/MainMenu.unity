@@ -290,10 +290,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9224777782912545, guid: 4dea532975450b04a82f6300fb28ff55, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 33f76400e1e010d488e9069cc07f7192, type: 3}
+    - target: {fileID: 1171045158040332915, guid: 4dea532975450b04a82f6300fb28ff55, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a90a8d0fa9f95c74f9736f55d71eb0fe, type: 3}
     - target: {fileID: 1553623206667648212, guid: 4dea532975450b04a82f6300fb28ff55, type: 3}
       propertyPath: m_Name
       value: MainMenuManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3129199832970692876, guid: 4dea532975450b04a82f6300fb28ff55, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 13172428878c3b449ba8e1482c91cf2c, type: 3}
     - target: {fileID: 3208099121116776867, guid: 4dea532975450b04a82f6300fb28ff55, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.9833772
@@ -333,6 +345,14 @@ PrefabInstance:
     - target: {fileID: 3208099121116776867, guid: 4dea532975450b04a82f6300fb28ff55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8658370948691634914, guid: 4dea532975450b04a82f6300fb28ff55, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.45220947
+      objectReference: {fileID: 0}
+    - target: {fileID: 8658370948691634914, guid: 4dea532975450b04a82f6300fb28ff55, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.22607422
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
