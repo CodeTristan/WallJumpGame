@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         currentSlowUsage = playerData.MaxSlowUsage;
 
         rb.gravityScale = 1;
+        rb.velocity = Vector2.zero;
     }
 
 

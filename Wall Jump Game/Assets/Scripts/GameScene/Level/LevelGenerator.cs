@@ -17,12 +17,12 @@ public class LevelGenerator : MonoBehaviour
 
     public Level currentLevel;
 
-    [SerializeField] private List<Level> levelPool;
-    [SerializeField] private List<Level> StartLevelList;
+    [SerializeField] private LevelPool levelPool;
 
     private List<Level> EasyLevelList;
     private List<Level> MediumLevelList;
     private List<Level> HardLevelList;
+    private List<Level> HardcoreLevelList;
 
     private List<Level> levelInUse;
     private const int MAX_LEVEL_NUMBER = 8;
@@ -38,14 +38,12 @@ public class LevelGenerator : MonoBehaviour
         EasyLevelList = new List<Level>();
         MediumLevelList = new List<Level>();
         HardLevelList = new List<Level>();
+        HardcoreLevelList = new List<Level>();
 
         OnLevelCompleted += CompleteLevel;
         OnLevelCompleted += GenerateLevel;
 
-        foreach (Level level in levelPool)
-        {
-            level.Init();
-        }
+        levelPool.Init();
 
         if(TEST_MODE)
         {
@@ -83,7 +81,11 @@ public class LevelGenerator : MonoBehaviour
         }
         levelInUse.Clear();
 
-
+        Level starterLevel = levelPool.GetRandomStarterLevel();
+        starterLevel.transform.position = Vector2.zero;
+        starterLevel.gameObject.SetActive(true);
+        starterLevel.EnableLevel();
+        levelInUse.Add(starterLevel);
         GenerateLevel();
     }
 
@@ -125,16 +127,33 @@ public class LevelGenerator : MonoBehaviour
     {
         // 10/10 = 1,   25/10 = 2  difficulty 2 means 2/10 chance its a hard level
         int difficulty = TotalCompletedLevelCount / LevelCountToIncreaseDifficulty;
-        difficulty %= 9; //max difficulty is 9
+
+        if (difficulty > 90)
+            difficulty = 90;
 
         Level level;
 
-        int random = Random.Range(0, 10);
-        if(random < difficulty)
+        int random = Random.Range(0, 100);
+        if(random >= 98)
+        {
+            //HARDCORE LEVEL 2% CHANCE TO SPAWN
+            foreach (var item in levelPool.levels)
+            {
+                if (item.Type == LevelType.Hardcore)
+                    HardcoreLevelList.Add(item);
+            }
+
+            if (HardcoreLevelList.Count > 0)
+            {
+                level = HardcoreLevelList[Random.Range(0, HardcoreLevelList.Count)];
+                return level;
+            }
+        }
+        else if(random < difficulty)
         {
             //HARD LEVEl
             HardLevelList.Clear();
-            foreach (var item in levelPool)
+            foreach (var item in levelPool.levels)
             {
                 if(item.Type == LevelType.Hard)
                     HardLevelList.Add(item);
@@ -146,11 +165,11 @@ public class LevelGenerator : MonoBehaviour
                 return level;
             }
         }
-        else if(random >= 8)
+        else if(random >= 85)
         {
             //EASY LEVEL
             EasyLevelList.Clear();
-            foreach (var item in levelPool)
+            foreach (var item in levelPool.levels)
             {
                 if (item.Type == LevelType.Easy)
                     EasyLevelList.Add(item);
@@ -166,7 +185,7 @@ public class LevelGenerator : MonoBehaviour
         {
             //MEDIUM LEVEL
             MediumLevelList.Clear();
-            foreach (var item in levelPool)
+            foreach (var item in levelPool.levels)
             {
                 if (item.Type == LevelType.Medium)
                     MediumLevelList.Add(item);
@@ -180,7 +199,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //Unless nothing works we should return a random level
-        level = levelPool[Random.Range(0,levelPool.Count)];
+        level = levelPool.GetRandomLevel();
         return level;
     }
 

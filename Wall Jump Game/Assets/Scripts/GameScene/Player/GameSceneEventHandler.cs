@@ -63,10 +63,10 @@ public class GameSceneEventHandler
         OnPlayerDied += playerMovement.OnPlayerDie;
         OnPlayerDied += PlayerManager.instance.OnPlayerDied;
 
-        OnPlayerDiedFR += GameSceneUIManager.instance.DeathScreen;
         OnPlayerDiedFR += playerHealth.Die;
         OnPlayerDiedFR += PlayerManager.instance.OnPlayerDieFR;
         OnPlayerDiedFR += AdManager.instance.OnPLayerDiedFR;
+        OnPlayerDiedFR += GameSceneUIManager.instance.DeathScreen;
     }
 
     public void UnSubscribeAll()

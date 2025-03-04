@@ -1517,7 +1517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  SpawnOffset: {x: 0, y: 0}
+  SpawnOffset: {x: 0, y: 30}
   EndLine: {fileID: 777014245740214683}
   Enemies:
   - {fileID: 1106457866758193470}
@@ -1617,6 +1617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1915096517427980565}
+  - component: {fileID: 6384051828986401667}
   m_Layer: 0
   m_Name: LevelPool
   m_TagString: Untagged
@@ -1643,6 +1644,59 @@ Transform:
   - {fileID: 1497959644281867330}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6384051828986401667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364943918146478481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fdfc9662e709f4eadddcd9b7353016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Default Level Pool
+  levels:
+  - {fileID: 2907603399222217494}
+  - {fileID: 6816434302009063047}
+  - {fileID: 5087381355663150450}
+  - {fileID: 8582323254400242884}
+  - {fileID: 6718478901811303328}
+  - {fileID: 1683753886040506231}
+  - {fileID: 2467420255447911673}
+  - {fileID: 667972378965280824}
+  - {fileID: 6136866438920089475}
+  - {fileID: 7061781849415756926}
+  - {fileID: 838838733847931291}
+  - {fileID: 3176302021811879380}
+  - {fileID: 3870452576040217285}
+  - {fileID: 4673585923710582690}
+  - {fileID: 7187674855437452671}
+  - {fileID: 2082751244421336861}
+  - {fileID: 1183524950939479750}
+  - {fileID: 9030597623881979627}
+  - {fileID: 8859662018275258939}
+  - {fileID: 1854046086857827488}
+  - {fileID: 7557589009380290814}
+  - {fileID: 4328007827340990574}
+  - {fileID: 8798706717799465552}
+  - {fileID: 1828704013963703731}
+  - {fileID: 598906030972433194}
+  - {fileID: 4507883558912473256}
+  - {fileID: 3966980488176241504}
+  - {fileID: 4312919968268250682}
+  - {fileID: 7534668383077583864}
+  - {fileID: 3453594843438144100}
+  - {fileID: 708917813211384808}
+  - {fileID: 4900958268616563460}
+  - {fileID: 5269360131443696372}
+  - {fileID: 5319244648428531282}
+  StarterLevels:
+  - {fileID: 4397030867258681014}
+  - {fileID: 7784364016057979446}
+  - {fileID: 6402455854718632867}
+  - {fileID: 4931285196521122319}
 --- !u!1 &1471194052598197091
 GameObject:
   m_ObjectHideFlags: 0
@@ -5034,7 +5088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  SpawnOffset: {x: 0, y: 0}
+  SpawnOffset: {x: 0, y: 30}
   EndLine: {fileID: 3471449591472914849}
   Enemies:
   - {fileID: 300819523890262158}
@@ -5344,7 +5398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  SpawnOffset: {x: 0, y: 0}
+  SpawnOffset: {x: 0, y: 30}
   EndLine: {fileID: 2437799030976473205}
   Enemies:
   - {fileID: 8286124050777236527}
@@ -7163,7 +7217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  SpawnOffset: {x: 0, y: 0}
+  SpawnOffset: {x: 0, y: 30}
   EndLine: {fileID: 5638580602528551932}
   Enemies:
   - {fileID: 193642143319764650}

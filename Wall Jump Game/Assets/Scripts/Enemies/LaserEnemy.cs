@@ -11,7 +11,7 @@ public class LaserEnemy : EnemyBase
     private float currentShootTimer;
     private float currentLaserTimer;
 
-    [SerializeField] private GameObject LaserBeam;
+    [SerializeField] private EnemyBase LaserBeam;
     [SerializeField] private SpriteRenderer LaserLine;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private Color32 laserLineColor;
@@ -36,6 +36,8 @@ public class LaserEnemy : EnemyBase
         animTimer = currentShootTimer / currentAnimDivider;
         laserLineColor = LaserLine.color;
 
+        LaserBeam.Init();
+        LaserBeam.gameObject.SetActive(false);
         Inited = true;
     }
     private void Update()
@@ -63,12 +65,12 @@ public class LaserEnemy : EnemyBase
 
         if (currentShootTimer <= 0)
         {
-            LaserBeam.SetActive(true);
+            LaserBeam.gameObject.SetActive(true);
             currentLaserTimer -= Time.deltaTime;
             spriteRenderer.sprite = sprites[4];
             if (currentLaserTimer < 0)
             {
-                LaserBeam.SetActive(false);
+                LaserBeam.gameObject.SetActive(false);
                 currentShootTimer = ShootTimer;
                 currentLaserTimer = LaserTimer;
                 currentAnimDivider = animDivider;

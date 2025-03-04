@@ -41,6 +41,7 @@ public class GameSceneUIManager : MonoBehaviour
     [SerializeField] private Button DeathAdScreenWatchAdButton;
     [SerializeField] private Button DeathAdScreenPayDiamondButton;
     [SerializeField] private Button DeathAdScreenCloseButton;
+    [SerializeField] private Button DeathDoubleMoneyWatchAdButton;
 
 
     private Coroutine EnemyKilledTextCoroutine;
@@ -60,6 +61,7 @@ public class GameSceneUIManager : MonoBehaviour
         DeathAdScreenWatchAdButton.onClick.AddListener(() => { _WatchAdToRevive(); });
         DeathAdScreenPayDiamondButton.onClick.AddListener(() => { _PayDiamondsToRevive(); });
         DeathAdScreenCloseButton.onClick.AddListener(() => { ToggleDeathAdScreen(false); GameSceneEventHandler.instance.PlayerDiedFR(); });
+        DeathDoubleMoneyWatchAdButton.onClick.AddListener(() => { _DoubleMoneyWatchAd(); });
 
     }
 
@@ -176,6 +178,11 @@ public class GameSceneUIManager : MonoBehaviour
     {
         AdManager.ShowRewardedAdFailDelegate function = ReviveAdError;
         AdManager.instance.ShowRewardedAd("Respawn",new List<AdManager.ShowRewardedAdFailDelegate>() { function });
+    }
+
+    private void _DoubleMoneyWatchAd()
+    {
+        AdManager.instance.ShowRewardedAd("DoubleMoney", new List<AdManager.ShowRewardedAdFailDelegate>() {  });
     }
 
     private void ReviveAdError()

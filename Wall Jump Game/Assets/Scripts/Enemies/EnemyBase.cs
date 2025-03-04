@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-    public bool Inited;
+    [SerializeField] protected bool Inited;
     public virtual void Init()
     {
         Inited = true;

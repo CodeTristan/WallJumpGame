@@ -37,6 +37,7 @@ public class Level : MonoBehaviour
     public void EnableLevel()
     {
         EndLine.SetActive(true);
+        Debug.Log("Level Enabling: " + gameObject.name);
         foreach (var enemy in Enemies)
         {
             enemy.gameObject.SetActive(true);
@@ -75,5 +76,6 @@ public enum LevelType
     Start,
     Easy,
     Medium,
-    Hard
+    Hard,
+    Hardcore
 }

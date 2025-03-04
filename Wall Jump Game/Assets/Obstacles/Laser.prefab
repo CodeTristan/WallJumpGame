@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 857552377904818602}
   - component: {fileID: 857552377904818601}
+  - component: {fileID: 9059048389382302838}
   - component: {fileID: 857552377904818600}
   - component: {fileID: 3407584456161625714}
   m_Layer: 8
@@ -102,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &857552377904818602
 Transform:
   m_ObjectHideFlags: 0
@@ -170,6 +171,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9059048389382302838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857552377904818603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7561775b219df3546bf28b3d5dd5b69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inited: 0
 --- !u!61 &857552377904818600
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -359,9 +373,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8a1bbec852aeb43b366aec0423b6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Inited: 0
   ShootTimer: 3
   LaserTimer: 1
-  LaserBeam: {fileID: 857552377904818603}
+  LaserBeam: {fileID: 9059048389382302838}
   LaserLine: {fileID: 656213036093312840}
   spriteRenderer: {fileID: 857552378877462782}
   sprites:

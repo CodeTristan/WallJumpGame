@@ -164,7 +164,7 @@ public class AdManager : MonoBehaviour
 
     public void LoadRewardedAd()
     {
-        
+        IronSource.Agent.loadRewardedVideo();
     }
     public void ShowRewardedAd(string placementName,List<ShowRewardedAdFailDelegate> functionsWhenFail)
     {
@@ -208,6 +208,13 @@ public class AdManager : MonoBehaviour
             GameSceneUIManager.instance.ToggleDeathAdScreen(false);
             PlayerManager.instance.Respawn();
         }
+        if(PlacementName == "DoubleMoney")
+        {
+            InAdMenu = false;
+            GameSceneUIManager.instance.DeathScreen();
+        }
+
+        IronSource.Agent.loadRewardedVideo();
     }
 
     /************* RewardedVideo AdInfo Delegates *************/

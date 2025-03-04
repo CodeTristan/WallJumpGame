@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4819242766948329479
 Transform:
   m_ObjectHideFlags: 0
@@ -136,8 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7c67cfca227cb41b4b0a43f6b0fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  Type: 2
   SpawnOffset: {x: 0, y: 30}
+  EndLine: {fileID: 5451746130439619735}
   Enemies:
   - {fileID: 5457818100363637189}
   - {fileID: 7856199379457928928}
@@ -437,6 +438,11 @@ PrefabInstance:
 --- !u!4 &5451746130439619734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8491368341329042497, guid: 4c0e965340d52b040aa6f623e182f9e7, type: 3}
+  m_PrefabInstance: {fileID: 4503345352415156439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5451746130439619735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8491368341329042496, guid: 4c0e965340d52b040aa6f623e182f9e7, type: 3}
   m_PrefabInstance: {fileID: 4503345352415156439}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6278797215534585021

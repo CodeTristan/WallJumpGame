@@ -138,8 +138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7c67cfca227cb41b4b0a43f6b0fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  Type: 3
   SpawnOffset: {x: 0, y: 30}
+  EndLine: {fileID: 330416762416471447}
   Enemies:
   - {fileID: 4169410936460532954}
   - {fileID: 5775630209643431476}
@@ -879,5 +880,10 @@ PrefabInstance:
 --- !u!4 &330416762416471446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8491368341329042497, guid: 4c0e965340d52b040aa6f623e182f9e7, type: 3}
+  m_PrefabInstance: {fileID: 8161233698872705495}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &330416762416471447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8491368341329042496, guid: 4c0e965340d52b040aa6f623e182f9e7, type: 3}
   m_PrefabInstance: {fileID: 8161233698872705495}
   m_PrefabAsset: {fileID: 0}

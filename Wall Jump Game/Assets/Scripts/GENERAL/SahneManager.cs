@@ -45,6 +45,7 @@ public class SahneManager : MonoBehaviour
         {
             // Do something
             AdManager.instance.HideBannerAd();
+            AdManager.instance.LoadRewardedAd();
             FindObjectOfType<GameSceneManager>().Init();
         }
         else if (scene.name == "MainMenu")
