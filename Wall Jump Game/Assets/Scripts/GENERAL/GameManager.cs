@@ -33,8 +33,8 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        if (FirstSceneToLoad != sahneManager.currentSceneEnum || sahneManager.currentScene.name == "SplashScene")
-            sahneManager.LoadScene(FirstSceneToLoad);
+       /* if (FirstSceneToLoad != sahneManager.currentSceneEnum || sahneManager.currentScene.name == "SplashScene")
+            sahneManager.LoadScene(FirstSceneToLoad);*/
 
     }
 }
