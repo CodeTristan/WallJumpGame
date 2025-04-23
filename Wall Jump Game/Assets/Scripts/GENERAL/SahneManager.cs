@@ -41,11 +41,11 @@ public class SahneManager : MonoBehaviour
     public void OnSceneLoaded(Scene scene,LoadSceneMode loadSceneMode)
     {
         currentScene = scene;
+        AdManager.instance.LoadRewardedAd();
         if (scene.name == "GameScene" || scene.name == "Taha map")
         {
             // Do something
             AdManager.instance.HideBannerAd();
-            AdManager.instance.LoadRewardedAd();
             FindObjectOfType<GameSceneManager>().Init();
         }
         else if (scene.name == "MainMenu")

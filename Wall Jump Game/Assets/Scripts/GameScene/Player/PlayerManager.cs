@@ -116,6 +116,7 @@ public class PlayerManager : MonoBehaviour
 
         LevelGenerator.instance.Restart();
         GameSceneUIManager.instance.Restart();
+        playerSprite.Reset();
 
         playerMovement.ResetValues();
         AdManager.instance.HideBannerAd();
@@ -132,6 +133,5 @@ public class PlayerManager : MonoBehaviour
 
         playerPowerUps.AddPowerUp(PowerUpType.DoublePoint);
         playerPowerUps.AddPowerUp(PowerUpType.SlingShot);
-
     }
 }

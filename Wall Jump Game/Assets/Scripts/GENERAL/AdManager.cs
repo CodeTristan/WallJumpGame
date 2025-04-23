@@ -17,6 +17,7 @@ public class AdManager : MonoBehaviour
 #endif
 
     [SerializeField] private TextMeshProUGUI debugText;
+    [SerializeField] private Canvas debugCanvas;
 
     public const string BANNER_AD_ID = "dwrrnzaju0z9gy4f";
     public const string INSERSTITIAL_AD_ID = "ur2jrunhpqnqt7tn";
@@ -38,6 +39,7 @@ public class AdManager : MonoBehaviour
     {
         instance = this;
         debugText.gameObject.SetActive(DEBUG_MODE);
+        debugCanvas.enabled = DEBUG_MODE;
 
         //IronSourceEvents.onSdkInitializationCompletedEvent += SDKInitialized;
 
@@ -151,8 +153,10 @@ public class AdManager : MonoBehaviour
         inited = true;
         CreateBannerAd();
         CreateInterstitialAd();
-        LoadBannerAd();
         LoadInterstitialAd();
+        LoadBannerAd();
+        if (SahneManager.instance.currentSceneEnum == SceneEnum.GameScene)
+            HideBannerAd();
     }
 
     private string GetUserId()

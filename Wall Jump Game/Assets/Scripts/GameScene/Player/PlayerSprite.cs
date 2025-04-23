@@ -30,7 +30,12 @@ public class PlayerSprite : MonoBehaviour
         ChangeShape(currentShape);
     }
 
-    
+    public void Reset()
+    {
+        ChangeShape(PlayerShape.Sphere);
+    }
+
+
     public void AdjustSphereStart() //This script is made for using in Restart function. To make player sphere in the beginning.
     {
         spriteRenderer.sprite = sphereSprite;
