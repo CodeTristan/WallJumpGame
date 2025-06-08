@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum UpgradeType { Jump, Combo, Speed, SlowTime, SlingShot, DoublePoint, Bomber }
+public enum UpgradeType { Jump, Combo, Speed, SlowTime, SlowRate, SlowCount, SlingShot, DoublePoint, Bomber }
 
 public class Shop : MonoBehaviour
 {
@@ -39,17 +39,16 @@ public class Shop : MonoBehaviour
         if (upgradeable.upgradeIndex >= upgradeable.Coins.Length)
         {
             //DO SOMETHING IN UI
-            Debug.Log("UPGRADE IS FULL LAH");
+            Debug.Log("UPGRADE IS FULL");
             return;
         }
         if (upgradeable.Coins[upgradeable.upgradeIndex] > playerData.Coins)
         {
             //DO SOMETHING IN UI
-            Debug.Log("NOT ENOUGH COIN LAH");
+            Debug.Log("NOT ENOUGH COIN");
             return;
         }
 
-        SetData();
         playerData.Coins -= upgradeable.Coins[upgradeable.upgradeIndex];
         coinText.text = playerData.Coins.ToString();
 
@@ -68,6 +67,7 @@ public class Shop : MonoBehaviour
         upgradeable.upgradeIndex++;
         upgradeable.moneyText.text = upgradeable.Coins[upgradeable.upgradeIndex].ToString();
 
+        SetData();
         SaveSystem.instance.GameData.shopUpgradableData[(int)upgradeType].UpgradeIndex = upgradeable.upgradeIndex;
         SaveSystem.instance.SaveData();
     }

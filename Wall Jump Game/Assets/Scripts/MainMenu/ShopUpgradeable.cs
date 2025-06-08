@@ -31,6 +31,8 @@ public class ShopUpgradeable : MonoBehaviour
             }
         }
 
+        button.onClick.RemoveAllListeners();
+
         button.onClick.AddListener(() =>
         {
             Shop.instance.Upgrade(UpgradeType);
