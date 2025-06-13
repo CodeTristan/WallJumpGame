@@ -113,13 +113,9 @@ public class PlayerManager : MonoBehaviour
         playerHealth.Init();
         playerMovement.Init();
         playerSprite.Init();  //Also enables the collider
-
-        LevelGenerator.instance.Restart();
-        GameSceneUIManager.instance.Restart();
         playerSprite.Reset();
 
         playerMovement.ResetValues();
-        AdManager.instance.HideBannerAd();
     }
 
     public void Respawn()

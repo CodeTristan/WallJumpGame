@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ec91e919a6e98544f83b65d2a6c6a134
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 303181
+  packageName: "Wingman - Your Inspector\u2019s Best Friend"
+  packageVersion: 1.1.0
+  assetPath: Assets/Wingman/WingmanPersistentData.asset
+  uploadId: 727088

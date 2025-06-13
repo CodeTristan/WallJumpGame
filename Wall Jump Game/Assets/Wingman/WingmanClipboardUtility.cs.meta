@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e32c31beff9b7e1449f2479f989d5776
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 303181
+  packageName: "Wingman - Your Inspector\u2019s Best Friend"
+  packageVersion: 1.1.0
+  assetPath: Assets/Wingman/WingmanClipboardUtility.cs
+  uploadId: 727088

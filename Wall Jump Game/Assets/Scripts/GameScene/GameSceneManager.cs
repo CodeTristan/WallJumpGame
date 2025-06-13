@@ -31,4 +31,13 @@ public class GameSceneManager : MonoBehaviour
     {
         eventHandler.UnSubscribeAll();
     }
+
+    public void _Restart()
+    {
+        player.Restart();
+        UI_Manager.Restart();
+        levelGenerator.Restart();
+        AdManager.instance.HideBannerAd();
+
+    }
 }

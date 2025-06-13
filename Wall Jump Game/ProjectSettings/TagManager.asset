@@ -27,7 +27,7 @@ TagManager:
   - Wall
   - Enemy
   - PowerUp
-  - 
+  - PostProcessing
   - 
   - 
   - 
