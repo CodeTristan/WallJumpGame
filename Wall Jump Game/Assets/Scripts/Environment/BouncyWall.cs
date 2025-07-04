@@ -16,6 +16,7 @@ public class BouncyWall : MonoBehaviour
         if(collision.collider.tag == "Player")
         {
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(dir, ForceMode2D.Force);
+            ParticleManager.instance.PlayParticle(ParticleManager.ParticleType.BouncyWall,collision.transform.position);
         }
     }
 }

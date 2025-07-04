@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SahneManager sahneManager;
     [SerializeField] private AdManager adManager;
 
-    public int Number_Of_Game_Before_Ad = 4;
+    public int Number_Of_Game_Before_Ad = 5;
     public int current_Game_Before_Ad = 0;
     void Awake()
     {

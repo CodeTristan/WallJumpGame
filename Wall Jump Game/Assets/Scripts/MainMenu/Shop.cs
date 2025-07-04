@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour
     public static Shop instance;
 
     [Header("UI")]
+    [SerializeField] private Canvas shopCanvas;
     [SerializeField] private TextMeshProUGUI coinText;
 
     [Header("Upgrades")]
@@ -23,15 +24,22 @@ public class Shop : MonoBehaviour
     {
         instance = this;
 
-        playerData = SaveSystem.instance.GameData.playerData;
-        coinText.text = playerData.Coins.ToString();
+        //playerData = SaveSystem.instance.GameData.playerData;
+        //coinText.text = playerData.Coins.ToString();
 
-        for (int i = 0; i < upgrades.Length; i++)
-        {
-            upgrades[i].Init();
-        }
+        //for (int i = 0; i < upgrades.Length; i++)
+        //{
+        //    upgrades[i].Init();
+        //}
     }
 
+    public void _ToggleShopCanvas(bool toggle)
+    {
+        shopCanvas.enabled = toggle;
+
+        if(toggle) AdManager.instance.HideBannerAd();
+        else AdManager.instance.ShowBannerAd();
+    }
     public void Upgrade(UpgradeType upgradeType)
     {
         ShopUpgradeable upgradeable = GetUpgradeable(upgradeType);

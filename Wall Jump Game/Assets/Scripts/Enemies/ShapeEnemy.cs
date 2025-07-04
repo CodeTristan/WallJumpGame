@@ -55,6 +55,12 @@ public class ShapeEnemy : EnemyBase
         GameSceneEventHandler.instance.PlayerDamaged();
     }
 
+    public override void Die()
+    {
+        ParticleManager.instance.PlayParticle(ParticleManager.ParticleType.EnemyDie, transform.position);
+        base.Die();
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

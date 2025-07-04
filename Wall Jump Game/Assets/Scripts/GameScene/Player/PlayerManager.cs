@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerData playerData;
     public bool OnWall;
     public bool OnInvisWall;
-    public bool isDead;
+    public bool isDead = true;
 
     private float yPos;
     private int currentPlayerRespawnCount;
@@ -102,9 +102,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Restart()
     {
-        transform.position = startPos;
 
-        isDead = false;
         Point = 0;
         currentPlayerRespawnCount = 0;
         yPos = 0;
@@ -115,7 +113,9 @@ public class PlayerManager : MonoBehaviour
         playerSprite.Init();  //Also enables the collider
         playerSprite.Reset();
 
+        transform.position = startPos;
         playerMovement.ResetValues();
+        playerMovement.currentJumpCount++;
     }
 
     public void Respawn()

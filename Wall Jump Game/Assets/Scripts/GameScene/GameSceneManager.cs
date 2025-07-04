@@ -9,6 +9,8 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private PlayerManager player;
     [SerializeField] private GameSceneUIManager UI_Manager;
     [SerializeField] private LevelGenerator levelGenerator;
+    [SerializeField] private Shop shop;
+    [SerializeField] private ParticleManager particleManager;
 
     private GameSceneEventHandler eventHandler;
     public void Init()
@@ -23,6 +25,8 @@ public class GameSceneManager : MonoBehaviour
         player.Init();
         UI_Manager.Init();
         levelGenerator.Init();
+        shop.Init();
+        particleManager.Init();
 
         eventHandler = new GameSceneEventHandler();
     }
@@ -32,12 +36,17 @@ public class GameSceneManager : MonoBehaviour
         eventHandler.UnSubscribeAll();
     }
 
-    public void _Restart()
+    public void Restart()
     {
-        player.Restart();
-        UI_Manager.Restart();
         levelGenerator.Restart();
+        player.Restart();
+    }
+
+    public void StartGame()
+    {
+        UI_Manager.Restart();
         AdManager.instance.HideBannerAd();
+        player.isDead = false;
 
     }
 }

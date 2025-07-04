@@ -69,6 +69,16 @@ public class Level : MonoBehaviour
 
         gameObject.SetActive(false);
     }
+
+    [ContextMenu("Get Enemies")]
+    public void _GetEnemies()
+    {
+        Enemies.Clear();
+        foreach (var enemy in GetComponentsInChildren<EnemyBase>())
+        {
+            Enemies.Add(enemy);
+        }
+    }
 }
 
 public enum LevelType

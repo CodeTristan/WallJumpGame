@@ -196,6 +196,11 @@ public class AdManager : MonoBehaviour
         }
     }
 
+    public bool IsRewardedAdReady()
+    {
+        return IronSource.Agent.isRewardedVideoAvailable() || RewardAdReady;
+    }
+
     //REWARD THE PLAYER
     void RewardedVideoOnAdRewardedEvent(IronSourcePlacement placement, IronSourceAdInfo adInfo)
     {
@@ -296,6 +301,12 @@ public class AdManager : MonoBehaviour
 
     public void ShowInterstitialAd(string placementName)
     {
+        if(interstitialAd == null)
+        {
+            LoadInterstitialAd();
+            return;
+        }
+        
         if (interstitialAd.IsAdReady() && !LevelPlayInterstitialAd.IsPlacementCapped(placementName))
             interstitialAd.ShowAd(placementName);
     }

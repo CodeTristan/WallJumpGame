@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         //Touch movement Drag and jump
-        if (Input.touchCount > 0 &&  currentJumpCount > 0 && !PlayerManager.instance.isDead)
+        if (Input.touchCount > 0 &&  currentJumpCount > 0)
         {
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
@@ -79,11 +79,12 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (Vector2.Distance(touchStartPos,touch.position) > 50 &&(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary))
             {
+                Line.gameObject.SetActive(true);
                 touchDirection = touchStartPos - touch.position;
 
                 float angle = Mathf.Atan2(touchDirection.y, touchDirection.x) * Mathf.Rad2Deg;
                 if (!PlayerManager.instance.OnInvisWall) //If not on invis wall. Added this because rotating triangles cause disconnection between wall
-                    transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+                    playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
 
                 Line.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); //Rotation
 
@@ -103,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
                 }
 
             }
-            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            else if (!PlayerManager.instance.isDead && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled))
             {
                 if (Vector2.Distance(touchStartPos, touch.position) > 50)
                 {
@@ -182,6 +183,7 @@ public class PlayerMovement : MonoBehaviour
         StopSlow();
         currentJumpCount = playerData.MaxJumpCount;
         currentSlowUsage = playerData.MaxSlowUsage;
+        touchDirection = Vector2.zero;
         GameSceneUIManager.instance.UpdateJumpCountText();
     }
 

@@ -49,4 +49,5 @@ public class PlayerSprite : MonoBehaviour
 
         PlayerManager.instance.playerCollisionHandler.ChangeCollider(shape);
     }
+
 }

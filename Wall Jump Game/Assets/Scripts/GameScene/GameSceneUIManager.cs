@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class GameSceneUIManager : MonoBehaviour
@@ -16,6 +17,7 @@ public class GameSceneUIManager : MonoBehaviour
     [SerializeField] private Animator gainedCoinTextAnimator;
     [SerializeField] private RectTransform coinTextAnimatorPosition;
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private Volume volume;
 
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI pointText;
@@ -43,9 +45,15 @@ public class GameSceneUIManager : MonoBehaviour
     [SerializeField] private Button DeathAdScreenCloseButton;
     [SerializeField] private Button DeathDoubleMoneyWatchAdButton;
 
+    [Header("StartScreen")]
+    [SerializeField] private Canvas StartCanvas;
+
 
     private Coroutine EnemyKilledTextCoroutine;
     private Coroutine BarePassTextCoroutine;
+
+    private bool inDeathScreen = true;
+    private Vector2 startTouchPosition;
     public void Init()
     {
         instance = this;
@@ -63,31 +71,56 @@ public class GameSceneUIManager : MonoBehaviour
         DeathAdScreenCloseButton.onClick.AddListener(() => { ToggleDeathAdScreen(false); GameSceneEventHandler.instance.PlayerDiedFR(); });
         DeathDoubleMoneyWatchAdButton.onClick.AddListener(() => { _DoubleMoneyWatchAd(); });
 
+        StartCanvas.enabled = true;
+        canvas.enabled = false;
+        volume.enabled = true;
     }
 
     private void Update()
     {
         UpdatePointText();
+
+        if(inDeathScreen && Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                startTouchPosition = touch.position;
+            }
+            else if (Vector2.Distance(touch.position,startTouchPosition) > 60 && (touch.phase == TouchPhase.Moved ||touch.phase == TouchPhase.Stationary))
+            {
+                GameSceneManager.instance.StartGame();
+            }
+        }
     }
 
-    public void _MainMenu()
-    {
-        SaveSystem.instance.SaveData();
-        SahneManager.instance.LoadScene(SceneEnum.MainMenu);
-    }
 
     public void Restart()
     {
+        inDeathScreen = false;
+        volume.enabled = false;
+        StartCanvas.enabled = false;
+        canvas.enabled = true;
         deathScreen.SetActive(false);
     }
     public void DeathScreen()
     {
         AdManager.instance.LoadBannerAd();
         AdManager.instance.ShowBannerAd();
+
+        volume.enabled = true;
+        inDeathScreen = true;
+        PlayerManager.instance.isDead = true;
+
         int gainedCoin = PlayerManager.instance.Point / 5;
         deathScreen.SetActive(true);
         DeathMaxPointText.text = PlayerManager.instance.playerData.MaxPoint.ToString();
         DeathPointText.text = PlayerManager.instance.Point.ToString();
+        DeathDoubleMoneyWatchAdButton.interactable = AdManager.instance.IsRewardedAdReady();
+
+        SaveSystem.instance.SaveData();
+        GameSceneManager.instance.Restart();
+
         StartCoroutine(AnimateGoldGainOnEnd(gainedCoin));
     }
 
@@ -154,6 +187,7 @@ public class GameSceneUIManager : MonoBehaviour
             DeathAdScreen.SetActive(true);
             DeathAd_NotEnoughDiamonds.SetActive(false);
             DeathAd_AdNotReady.SetActive(false);
+            DeathAdScreenWatchAdButton.interactable = AdManager.instance.IsRewardedAdReady();
 
             CircularImageTimer.OnTimerEndDelegate func = CloseDeathAdScreen;
             CircularImageTimer.OnTimerEndDelegate func2 = GameSceneEventHandler.instance.PlayerDiedFR;
