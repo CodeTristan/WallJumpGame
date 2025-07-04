@@ -53,5 +53,6 @@ public class ParticleManager : MonoBehaviour
             particle.transform.position = position;
             particle.Play();
         }
+
     }
 }
