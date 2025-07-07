@@ -6,11 +6,12 @@ public class SawEnemy : EnemyBase
 {
     public float RotateSpeed = 100f;
 
+    [SerializeField] private Transform SawBlades;
 
     private void Update()
     {
         if(!Inited) return;
 
-        transform.Rotate(Vector3.forward * RotateSpeed * Time.deltaTime);
+        SawBlades.Rotate(Vector3.forward * RotateSpeed * Time.deltaTime);
     }
 }

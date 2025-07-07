@@ -41,14 +41,15 @@ public class AdManager : MonoBehaviour
         debugText.gameObject.SetActive(DEBUG_MODE);
         debugCanvas.enabled = DEBUG_MODE;
 
-        //IronSourceEvents.onSdkInitializationCompletedEvent += SDKInitialized;
+        IronSourceEvents.onSdkInitializationCompletedEvent += SdkInitializationCompletedEvent;
 
-        //IronSource.Agent.init(appKey);
-        //LevelPlay.Init(appKey);
 
-        #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                IronSource.Agent.validateIntegration();
-        #endif
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        IronSource.Agent.validateIntegration();
+
+#endif
+        IronSource.Agent.validateIntegration();
 
         LevelPlay.OnInitSuccess += SDKInitialized;
         LevelPlay.OnInitFailed += LevelPlay_OnInitFailed;
@@ -67,7 +68,7 @@ public class AdManager : MonoBehaviour
         IronSourceRewardedVideoEvents.onAdReadyEvent += RewardedVideoOnAdAvailable;
         IronSourceRewardedVideoEvents.onAdLoadFailedEvent += RewardedVideoFailedToLoad;
 
-        //IronSource.Agent.shouldTrackNetworkState(true);
+        IronSource.Agent.shouldTrackNetworkState(true);
 
     }
 
@@ -146,10 +147,9 @@ public class AdManager : MonoBehaviour
         IronSource.Agent.onApplicationPause(pause);
     }
 
-    private void SDKInitialized(LevelPlayConfiguration levelPlayConfiguration)
+    private void SdkInitializationCompletedEvent()
     {
-        Debug.Log("SDKInitialized");
-        debugText.text += " SDK Initialized... ";
+        if(DEBUG_MODE) IronSource.Agent.launchTestSuite();
         inited = true;
         CreateBannerAd();
         CreateInterstitialAd();
@@ -157,6 +157,13 @@ public class AdManager : MonoBehaviour
         LoadBannerAd();
         if (SahneManager.instance.currentSceneEnum == SceneEnum.GameScene)
             HideBannerAd();
+    }
+
+    private void SDKInitialized(LevelPlayConfiguration levelPlayConfiguration)
+    {
+        Debug.Log("SDKInitialized");
+        debugText.text += " SDK Initialized... ";
+        SdkInitializationCompletedEvent();
     }
 
     private string GetUserId()

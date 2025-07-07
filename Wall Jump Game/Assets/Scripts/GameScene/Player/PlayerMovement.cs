@@ -19,11 +19,14 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public Vector2 sameWallJumpSpeed;
+    public int MaxSpeedLimitBreaker = 5;
     public float wallTime;
     [SerializeField] private float SlowTimePlayerShrinkSpeed = 5f;
 
+    public Vector2 velocity;
     public int currentJumpCount;
     private int currentSlowUsage;
+    private int SpeedLimitBreaker = 0;
 
     private bool inSlowMode;
     private Vector2 touchDirection;
@@ -130,13 +133,23 @@ public class PlayerMovement : MonoBehaviour
     public void EnemyKilled()
     {
         currentJumpCount++;
-        rb.velocity = Vector2.up * 5;
+        GameSceneUIManager.instance.UpdateJumpCountText();
+        rb.velocity += Vector2.up * 5;
+    }
+
+    public void BarePass()
+    {
+        currentJumpCount ++;
+        if (currentJumpCount > playerData.MaxJumpCount)
+            currentJumpCount = playerData.MaxJumpCount;
+        GameSceneUIManager.instance.UpdateJumpCountText();
     }
 
     public void OnEnterWall()
     {
         rb.gravityScale = 0;
         ResetValues();
+        ResetVelocity();
 
         if (fallFromWallCoroutine != null)
             StopCoroutine(fallFromWallCoroutine);
@@ -151,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnEnterInvisibleWall()
     {
-
+        velocity = rb.velocity;
     }
 
     public void OnExitInvisibleWall()
@@ -179,16 +192,17 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ResetValues()
     {
-        ResetVelocity();
         StopSlow();
         currentJumpCount = playerData.MaxJumpCount;
         currentSlowUsage = playerData.MaxSlowUsage;
         touchDirection = Vector2.zero;
+        SpeedLimitBreaker = 0;
         GameSceneUIManager.instance.UpdateJumpCountText();
     }
 
     public void OnPlayerDie()
     {
+        ResetVelocity();
         ResetValues();
         StopAllCoroutines();
         rb.gravityScale = 0;
@@ -201,6 +215,7 @@ public class PlayerMovement : MonoBehaviour
         Move(touchDirection);
         StopSlow();
         Line.gameObject.SetActive(false);
+        SpeedLimitBreaker++;
     }
 
     private IEnumerator PlayerScaleEnumerator(float scale)
@@ -248,6 +263,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetVelocity()
     {
+        Debug.Log("Resetting Velocity");
         rb.velocity = new Vector3(0, 0, 0);
         rb.angularVelocity = 0;
         transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -263,6 +279,14 @@ public class PlayerMovement : MonoBehaviour
             mult = 6;
         if (mult > playerData.MaxSpeed)
             mult = playerData.MaxSpeed;
+
+        mult += SpeedLimitBreaker;
+        if (mult > playerData.MaxSpeed + MaxSpeedLimitBreaker)
+            mult = playerData.MaxSpeed + MaxSpeedLimitBreaker;
+
+        if(mult > PlayerManager.MAX_SPEED)
+            mult = PlayerManager.MAX_SPEED;
+
 
         rb.AddForce(dir.normalized * mult, ForceMode2D.Impulse);
     }

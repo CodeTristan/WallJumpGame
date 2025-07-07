@@ -10,7 +10,7 @@ public class Level : MonoBehaviour
     public GameObject EndLine;
     public List<EnemyBase> Enemies;
     public List<ShapeChanger> ShapeChangers;
-    public List<GameObject> Obstacles;
+    public List<CoinObject> CoinObjects;
 
     private Dictionary<int,Vector2> StartPositions;
 
@@ -28,7 +28,7 @@ public class Level : MonoBehaviour
             StartPositions.Add(shapeChanger.transform.GetInstanceID(), shapeChanger.transform.localPosition);
         }
 
-        foreach (var obstacle in Obstacles)
+        foreach (var obstacle in CoinObjects)
         {
             StartPositions.Add(obstacle.transform.GetInstanceID(), obstacle.transform.localPosition);
         }
@@ -52,9 +52,9 @@ public class Level : MonoBehaviour
 
         }
 
-        foreach (var obstacle in Obstacles)
+        foreach (var obstacle in CoinObjects)
         {
-            obstacle.SetActive(true);
+            obstacle.gameObject.SetActive(true);
             obstacle.transform.localPosition = StartPositions.GetValueOrDefault(obstacle.transform.GetInstanceID(), Vector2.zero);
 
         }
@@ -70,13 +70,24 @@ public class Level : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    [ContextMenu("Get Enemies")]
-    public void _GetEnemies()
+    [ContextMenu("Set Properties")]
+    public void SetProperties()
     {
         Enemies.Clear();
         foreach (var enemy in GetComponentsInChildren<EnemyBase>())
         {
+            if(enemy.gameObject.name != "LaserBeam")
             Enemies.Add(enemy);
+        }
+        ShapeChangers.Clear();
+        foreach (var shapeChanger in GetComponentsInChildren<ShapeChanger>())
+        {
+            ShapeChangers.Add(shapeChanger);
+        }
+        CoinObjects.Clear();
+        foreach (var obstacle in GetComponentsInChildren<CoinObject>())
+        {
+            CoinObjects.Add(obstacle);
         }
     }
 }

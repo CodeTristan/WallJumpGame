@@ -6,6 +6,7 @@ public class LaserEnemy : EnemyBase
 {
     public float ShootTimer;
     public float LaserTimer;
+    [SerializeField] private float burstImageRotationSpeed = 100f; // Rotation speed for the burst image
 
 
     private float currentShootTimer;
@@ -14,18 +15,20 @@ public class LaserEnemy : EnemyBase
     [SerializeField] private EnemyBase LaserBeam;
     [SerializeField] private SpriteRenderer LaserLine;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    private Color32 laserLineColor;
+    [SerializeField] private Transform BurstImage;
+    private Color laserLineColor;
 
     [SerializeField] private Sprite[] sprites;
     private float animTimer;
     private int animIndex = 0;
     private int animDivider = 6;
-    private byte colorInc;
+    private float colorInc = 0.16f;
 
     private int currentAnimDivider;
     private int currentAnimIndex;
-    private byte colorStart = 0;
+    private float colorStart = 0;
 
+    private Quaternion BurstTargetRotation = Quaternion.identity;
     public override void Init()
     {
         currentShootTimer = ShootTimer;
@@ -38,6 +41,7 @@ public class LaserEnemy : EnemyBase
 
         LaserBeam.Init();
         LaserBeam.gameObject.SetActive(false);
+        BurstImage.gameObject.SetActive(false);
         Inited = true;
     }
     private void Update()
@@ -57,20 +61,24 @@ public class LaserEnemy : EnemyBase
             currentAnimIndex++;
             currentAnimDivider--;
             animTimer = currentShootTimer / currentAnimDivider;
-            if (colorStart + colorInc <= 255)
+            if (colorStart + colorInc <= 1)
                 colorStart += colorInc;
-            LaserLine.color = new Color32(laserLineColor.r, laserLineColor.g, laserLineColor.b,colorStart);
+            LaserLine.color = new Color(laserLineColor.r, laserLineColor.g, laserLineColor.b,colorStart);
         }
 
 
         if (currentShootTimer <= 0)
         {
             LaserBeam.gameObject.SetActive(true);
+            BurstImage.gameObject.SetActive(true);
             currentLaserTimer -= Time.deltaTime;
+            RotateBurstImage();
             spriteRenderer.sprite = sprites[4];
+            
             if (currentLaserTimer < 0)
             {
                 LaserBeam.gameObject.SetActive(false);
+                BurstImage.gameObject.SetActive(false);
                 currentShootTimer = ShootTimer;
                 currentLaserTimer = LaserTimer;
                 currentAnimDivider = animDivider;
@@ -80,6 +88,19 @@ public class LaserEnemy : EnemyBase
 
             }
 
+        }
+    }
+
+
+    private void RotateBurstImage()
+    {
+        if(BurstTargetRotation != BurstImage.rotation)
+        {
+            BurstImage.rotation = Quaternion.RotateTowards(BurstImage.rotation, BurstTargetRotation, burstImageRotationSpeed * Time.deltaTime);
+        }
+        else
+        {
+            BurstTargetRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         }
     }
 }

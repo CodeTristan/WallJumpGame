@@ -86,6 +86,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         PlayerManager.instance.Point += 15 * BarePassExponent * PlayerManager.instance.playerPowerUps.PointExponent;
 
         GameSceneUIManager.instance.BarePassToText(BarePassExponent, PlayerManager.instance.playerPowerUps.PointExponent);
+        PlayerManager.instance.playerMovement.BarePass();
     }
 
     public void EnemyKilled()
@@ -108,10 +109,10 @@ public class PlayerCollisionHandler : MonoBehaviour
                 currentCollider = CircleCollider;
                 break;
             case PlayerShape.Cube:
-                currentCollider = CubeCollider;
+                currentCollider = CircleCollider;
                 break;
             case PlayerShape.Triangle:
-                currentCollider = TriangleCollider;
+                currentCollider = CircleCollider;
                 break;
         }
 

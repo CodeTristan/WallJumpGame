@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerSprite playerSprite;
 
     public const int MAX_PLAYER_RESPAWN_COUNT = 3;
+    public const int MAX_SPEED = 18;
     public int Point;
     public float DieFromHeightTreshHold;
     public float EnemyKillCounterTimer;
@@ -115,6 +116,7 @@ public class PlayerManager : MonoBehaviour
 
         transform.position = startPos;
         playerMovement.ResetValues();
+        playerMovement.ResetVelocity();
         playerMovement.currentJumpCount++;
     }
 

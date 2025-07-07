@@ -36,7 +36,7 @@ public class SaveSystem : MonoBehaviour
         Debug.Log("Save File Found. Loading...");
         var binaryFormatter = new BinaryFormatter();
         var fileStream = File.Open(savePath + "/" + FILE_NAME, FileMode.Open);
-        GameData = (GameData)binaryFormatter.Deserialize(fileStream);
+        GameData = (GameData    )binaryFormatter.Deserialize(fileStream);
         fileStream.Close();
         Debug.Log("Data Loaded");
     }

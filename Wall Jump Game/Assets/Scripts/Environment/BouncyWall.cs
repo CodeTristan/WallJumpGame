@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BouncyWall : MonoBehaviour
 {
-    public Vector3 dir;
+    public Vector2 dir;
     public float power;
 
     private void Start()
@@ -15,8 +15,25 @@ public class BouncyWall : MonoBehaviour
     {
         if(collision.collider.tag == "Player")
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(dir, ForceMode2D.Force);
-            ParticleManager.instance.PlayParticle(ParticleManager.ParticleType.BouncyWall,collision.transform.position);
+            Bounce(collision);
         }
+    }
+
+
+    private void Bounce(Collision2D collision)
+    {
+
+        PlayerManager.instance.playerMovement.rb.AddForce(dir, ForceMode2D.Force);
+        ParticleManager.instance.PlayParticle(ParticleManager.ParticleType.BouncyWall, collision.transform.position);
+    }
+
+    private void HoneyWall(Collision2D collision)
+    {
+        PlayerManager.instance.playerMovement.ResetValues();
+
+        Rigidbody2D rb = PlayerManager.instance.playerMovement.rb;
+        rb.velocity = new Vector2(PlayerManager.instance.playerMovement.velocity.x * Mathf.Sign(dir.x), rb.velocity.y + dir.y);
+
+        ParticleManager.instance.PlayParticle(ParticleManager.ParticleType.BouncyWall, collision.transform.position);
     }
 }

@@ -67,6 +67,9 @@ public class LevelGenerator : MonoBehaviour
 
     public void Restart()
     {
+        if (TEST_MODE)
+            return;
+
         levelSpawnYPosition = 0;
         completedLevelCount = 0;
         TotalCompletedLevelCount = 0;

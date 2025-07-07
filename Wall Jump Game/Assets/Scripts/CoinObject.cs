@@ -12,7 +12,7 @@ public class CoinObject : MonoBehaviour
         {
             PlayerManager.instance.playerData.Coins += amount;
             GameSceneUIManager.instance.CoinGainText();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

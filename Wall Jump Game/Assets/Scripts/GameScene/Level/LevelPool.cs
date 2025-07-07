@@ -42,4 +42,21 @@ public class LevelPool : MonoBehaviour
     {
         return StarterLevels[Random.Range(0, StarterLevels.Count)];
     }
+
+    [ContextMenu("Set Level Properties")]
+    public void SetLevelProperties()
+    {
+        foreach (Level level in levels)
+        {
+            level.SetProperties();
+        }
+
+        foreach (Level level in StarterLevels)
+        {
+            level.SetProperties();
+        }
+
+        Debug.Log("Level Properties Set for Pool: " + Name);
+    }
 }
+

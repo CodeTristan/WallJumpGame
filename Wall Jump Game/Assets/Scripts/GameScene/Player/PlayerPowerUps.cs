@@ -96,6 +96,7 @@ public class PlayerPowerUps : MonoBehaviour
     private IEnumerator SlingShot()
     {
         PlayerMovement.ResetValues();
+        PlayerMovement.ResetVelocity();
 
         PlayerCollisionHandler playerCollisionHandler = PlayerManager.instance.playerCollisionHandler;
         playerCollisionHandler.PlayerIgnoreCollisionEnemy(true);
