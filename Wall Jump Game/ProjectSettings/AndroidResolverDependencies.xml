@@ -1,10 +1,9 @@
 <dependencies>
   <packages>
     <package>com.google.android.gms:play-services-ads-identifier:18.1.0</package>
-    <package>com.unity3d.ads:unity-ads:4.13.2</package>
-    <package>com.unity3d.ads-mediation:adquality-sdk:7.23.0</package>
-    <package>com.unity3d.ads-mediation:mediation-sdk:8.7.0</package>
-    <package>com.unity3d.ads-mediation:unityads-adapter:4.3.50</package>
+    <package>com.unity3d.ads:unity-ads:4.15.1</package>
+    <package>com.unity3d.ads-mediation:mediation-sdk:8.10.0</package>
+    <package>com.unity3d.ads-mediation:unityads-adapter:4.3.57</package>
   </packages>
   <files />
   <settings>

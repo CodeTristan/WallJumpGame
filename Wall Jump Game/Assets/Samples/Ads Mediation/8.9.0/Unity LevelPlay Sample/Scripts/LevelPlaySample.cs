@@ -1,75 +1,32 @@
-using System.Collections.Generic;
-using TMPro;
 using Unity.Services.LevelPlay;
 using UnityEngine;
 
-
-public class AdManager : MonoBehaviour
+// This sample demonstrates how to use the LevelPlay SDK to load and show ads in a Unity game.
+public class LevelPlaySample : MonoBehaviour
 {
-    public static AdManager instance;
-
-#if UNITY_ANDROID
-    string appKey = "212556f5d";
-#elif UNITY_IOS
-    string appKey = "";
-#else
-    string appKey = "unexpected_platform";
-#endif
-
-    [SerializeField] private TextMeshProUGUI debugText;
-    [SerializeField] private Canvas debugCanvas;
-
-    public const string BANNER_AD_ID = "dwrrnzaju0z9gy4f";
-    public const string INTERSTITIAL_AD_ID = "ur2jrunhpqnqt7tn";
-    public const string REWARDED_AD_ID = "rnkq0zu8ryjzylzb";
-    public const string NATIVE_AD_ID = "kt4l55oylbdqwqw6";
-
-    public delegate void ShowRewardedAdFailDelegate();
-
-
-
-    private bool inited = false;
-    public bool DEBUG_MODE = false;
-    public bool InAdMenu;
-
-
-    private bool RewardAdReady;
+    [SerializeField]
+    private Texture2D lpLogo;
 
     private LevelPlayBannerAd bannerAd;
     private LevelPlayInterstitialAd interstitialAd;
     private LevelPlayRewardedAd rewardedVideoAd;
 
-    public void Init()
+    bool isAdsEnabled = false;
+
+    public void Start()
     {
-        instance = this;
-        debugText.gameObject.SetActive(DEBUG_MODE);
-        debugCanvas.enabled = DEBUG_MODE;
-
-
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Log("[LevelPlaySample] LevelPlay.ValidateIntegration");
         LevelPlay.ValidateIntegration();
 
-#endif
+        Debug.Log($"[LevelPlaySample] Unity version {LevelPlay.UnityVersion}");
 
+        Debug.Log("[LevelPlaySample] Register initialization callbacks");
+        LevelPlay.OnInitSuccess += SdkInitializationCompletedEvent;
+        LevelPlay.OnInitFailed += SdkInitializationFailedEvent;
 
-        LevelPlay.OnInitSuccess += SDKInitialized;
-        LevelPlay.OnInitFailed += LevelPlay_OnInitFailed;
-
-        LevelPlay.Init(appKey, GetUserId());
-
-    }
-
-    public void OnPLayerDiedFR()
-    {
-        if(GameManager.instance.current_Game_Before_Ad == 0)
-        {
-            GameManager.instance.current_Game_Before_Ad = GameManager.instance.Number_Of_Game_Before_Ad;
-            interstitialAd.ShowAd("Game_Over");
-        }
-        else
-        {
-            GameManager.instance.current_Game_Before_Ad--;
-        }
+        // SDK init
+        Debug.Log("[LevelPlaySample] LevelPlay SDK initialization");
+        LevelPlay.Init(AdConfig.AppKey);
     }
 
     void EnableAds()
@@ -78,7 +35,7 @@ public class AdManager : MonoBehaviour
         LevelPlay.OnImpressionDataReady += ImpressionDataReadyEvent;
 
         // Create Rewarded Video object
-        rewardedVideoAd = new LevelPlayRewardedAd(REWARDED_AD_ID);
+        rewardedVideoAd = new LevelPlayRewardedAd(AdConfig.RewardedVideoAdUnitId);
 
         // Register to Rewarded Video events
         rewardedVideoAd.OnAdLoaded += RewardedVideoOnLoadedEvent;
@@ -91,7 +48,7 @@ public class AdManager : MonoBehaviour
         rewardedVideoAd.OnAdInfoChanged += RewardedVideoOnAdInfoChangedEvent;
 
         // Create Banner object
-        bannerAd = new LevelPlayBannerAd(BANNER_AD_ID);
+        bannerAd = new LevelPlayBannerAd(AdConfig.BannerAdUnitId);
 
         // Register to Banner events
         bannerAd.OnAdLoaded += BannerOnAdLoadedEvent;
@@ -104,7 +61,7 @@ public class AdManager : MonoBehaviour
         bannerAd.OnAdExpanded += BannerOnAdExpandedEvent;
 
         // Create Interstitial object
-        interstitialAd = new LevelPlayInterstitialAd(INTERSTITIAL_AD_ID);
+        interstitialAd = new LevelPlayInterstitialAd(AdConfig.InterstitalAdUnitId);
 
         // Register to Interstitial events
         interstitialAd.OnAdLoaded += InterstitialOnAdLoadedEvent;
@@ -114,132 +71,149 @@ public class AdManager : MonoBehaviour
         interstitialAd.OnAdClicked += InterstitialOnAdClickedEvent;
         interstitialAd.OnAdClosed += InterstitialOnAdClosedEvent;
         interstitialAd.OnAdInfoChanged += InterstitialOnAdInfoChangedEvent;
-
-        // Load the first ads
-        rewardedVideoAd.LoadAd();
-        bannerAd.LoadAd();
-        interstitialAd.LoadAd();
-
     }
 
-    private void LevelPlay_OnInitFailed(LevelPlayInitError error)
+    #region GUI
+    public void OnGUI()
     {
-        Debug.LogError("LevelPlay Initialization Failed: " + error.ToString());
-        debugText.text += "Init Failed: " + error.ToString();
-    }
+        GUI.enabled = isAdsEnabled;
 
-    private void OnApplicationPause(bool pause)
-    {
-        LevelPlay.SetPauseGame(pause);
-    }
+        var safeArea = new Rect(
+            Screen.safeArea.x,
+            Screen.height - Screen.safeArea.yMax,
+            Screen.safeArea.width,
+            Screen.safeArea.height
+        );
 
-    private void SdkInitializationCompletedEvent()
-    {
-        if(DEBUG_MODE) LevelPlay.LaunchTestSuite();
+        var buttonXLeft = 0.05f * safeArea.width;
+        var buttonXRight = 0.55f * safeArea.width;
+        var buttonWidth = 0.4f * safeArea.width;
+        var buttonHeight = 0.08f * safeArea.height;
 
-        inited = true;
-        EnableAds();
+        GUI.backgroundColor = Color.blue;
+        GUI.skin.button.fontSize = 40;
 
-        if (SahneManager.instance.currentSceneEnum == SceneEnum.GameScene)
-            bannerAd.HideAd();
-    }
+        GUI.BeginGroup(safeArea);
 
-    private void SDKInitialized(LevelPlayConfiguration levelPlayConfiguration)
-    {
-        Debug.Log("SDKInitialized");
-        debugText.text += " SDK Initialized... ";
-        SdkInitializationCompletedEvent();
-    }
-
-    private string GetUserId()
-    {
-        return SystemInfo.deviceUniqueIdentifier;
-    }
-
-    #region RewardedAd
-
-    public void ShowRewardedAd(string placementName,List<ShowRewardedAdFailDelegate> functionsWhenFail)
-    {
-        debugText.text += " " + rewardedVideoAd.IsAdReady() + " " + LevelPlayRewardedAd.IsPlacementCapped(placementName) + " ";
-            
-        if(rewardedVideoAd.IsAdReady() || RewardAdReady)
+        if (lpLogo != null)
         {
-            rewardedVideoAd.ShowAd(placementName);
+            const float lpLogoWidth = 500;
+            const float lpLogoHeight = 100;
+            var displayRect = new Rect((safeArea.width - lpLogoWidth) / 2.0f, 20, lpLogoWidth, lpLogoHeight);
+            GUI.DrawTexture(displayRect, lpLogo, ScaleMode.ScaleToFit);
         }
-        else
+
+        var loadRewardedVideoButton = new Rect(buttonXLeft, 0.15f * safeArea.height, buttonWidth, buttonHeight);
+        if (GUI.Button(loadRewardedVideoButton, "Load Rewarded Video"))
         {
-            debugText.text += " AD CANT SHOW ";
-            foreach (var item in functionsWhenFail)
+            Debug.Log("[LevelPlaySample] LoadRewardedVideoButtonClicked");
+            rewardedVideoAd.LoadAd();
+        }
+
+        var showRewardedVideoButton = new Rect(buttonXRight, 0.15f * safeArea.height, buttonWidth, buttonHeight);
+        if (GUI.Button(showRewardedVideoButton, "Show Rewarded Video"))
+        {
+            Debug.Log("[LevelPlaySample] ShowRewardedVideoButtonClicked");
+            if (rewardedVideoAd.IsAdReady())
             {
-                item.Invoke();
+                Debug.Log("[LevelPlaySample] Showing Rewarded Video Ad");
+                rewardedVideoAd.ShowAd();
+            }
+            else
+            {
+                Debug.Log("[LevelPlaySample] LevelPlay Rewarded Video Ad is not ready");
             }
         }
-    }
 
-    public bool IsRewardedAdReady()
+        var loadInterstitialButton = new Rect(buttonXLeft, 0.25f * safeArea.height, buttonWidth, buttonHeight);
+        if (GUI.Button(loadInterstitialButton, "Load Interstitial"))
+        {
+            Debug.Log("[LevelPlaySample] LoadInterstitialButtonClicked");
+            interstitialAd.LoadAd();
+        }
+
+        var showInterstitialButton = new Rect(buttonXRight, 0.25f * safeArea.height, buttonWidth, buttonHeight);
+        if (GUI.Button(showInterstitialButton, "Show Interstitial"))
+        {
+            Debug.Log("[LevelPlaySample] ShowInterstitialButtonClicked");
+            if (interstitialAd.IsAdReady())
+            {
+                Debug.Log("[LevelPlaySample] Showing Interstitial Ad");
+                interstitialAd.ShowAd();
+            }
+            else
+            {
+                Debug.Log("[LevelPlaySample] LevelPlay Interstital Ad is not ready");
+            }
+        }
+
+        var loadBannerButton = new Rect(buttonXLeft, 0.35f * safeArea.height, buttonWidth, buttonHeight);
+        if (GUI.Button(loadBannerButton, "Load Banner"))
+        {
+            Debug.Log("[LevelPlaySample] LoadBannerButtonClicked");
+            bannerAd.LoadAd();
+        }
+
+        var hideBannerButton = new Rect(buttonXRight, 0.35f * safeArea.height, buttonWidth, buttonHeight);
+        if (GUI.Button(hideBannerButton, "Hide Banner"))
+        {
+            Debug.Log("[LevelPlaySample] HideBannerButtonClicked");
+            bannerAd.HideAd();
+        }
+
+        GUI.EndGroup();
+    }
+    #endregion
+
+    #region Init callback handlers
+
+    void SdkInitializationCompletedEvent(LevelPlayConfiguration config)
     {
-        return rewardedVideoAd.IsAdReady() || RewardAdReady;
+        Debug.Log($"[LevelPlaySample] Received SdkInitializationCompletedEvent with Config: {config}");
+        EnableAds();
+        isAdsEnabled = true;
     }
 
+    void SdkInitializationFailedEvent(LevelPlayInitError error)
+    {
+        Debug.Log($"[LevelPlaySample] Received SdkInitializationFailedEvent with Error: {error}");
+    }
+
+    #endregion
+
+    #region AdInfo Rewarded Video
     void RewardedVideoOnLoadedEvent(LevelPlayAdInfo adInfo)
     {
-        debugText.text += " " + $"[LevelPlaySample] Received RewardedVideoOnLoadedEvent With AdInfo: {adInfo}";
         Debug.Log($"[LevelPlaySample] Received RewardedVideoOnLoadedEvent With AdInfo: {adInfo}");
-        RewardAdReady = true;
     }
 
     void RewardedVideoOnAdLoadFailedEvent(LevelPlayAdError error)
     {
         Debug.Log($"[LevelPlaySample] Received RewardedVideoOnAdLoadFailedEvent With Error: {error}");
-        debugText.text += " " + $"[LevelPlaySample] Received RewardedVideoOnAdLoadFailedEvent With Error: {error}";
-        RewardAdReady = false;
     }
 
     void RewardedVideoOnAdDisplayedEvent(LevelPlayAdInfo adInfo)
     {
-        debugText.text += " " + $"[LevelPlaySample] Received RewardedVideoOnAdDisplayedEvent With AdInfo: {adInfo}";
         Debug.Log($"[LevelPlaySample] Received RewardedVideoOnAdDisplayedEvent With AdInfo: {adInfo}");
     }
 #pragma warning disable 0618
     void RewardedVideoOnAdDisplayedFailedEvent(LevelPlayAdDisplayInfoError error)
     {
-        debugText.text += " " + $"[LevelPlaySample] Received RewardedVideoOnAdDisplayedFailedEvent With Error: {error}";
         Debug.Log($"[LevelPlaySample] Received RewardedVideoOnAdDisplayedFailedEvent With Error: {error}");
     }
 #pragma warning restore 0618
-
-    //REWARD
     void RewardedVideoOnAdRewardedEvent(LevelPlayAdInfo adInfo, LevelPlayReward reward)
     {
-        //TODO - here you can reward the user according to the reward name and amount
-
-        debugText.text = "Reward: " + reward.Name + "\nAmount: " + reward.Amount;
-
-        if (adInfo.PlacementName == "Respawn")
-        {
-            InAdMenu = false;
-            GameSceneUIManager.instance.ToggleDeathAdScreen(false);
-            PlayerManager.instance.Respawn();
-        }
-        if (adInfo.PlacementName == "DoubleMoney")
-        {
-            InAdMenu = false;
-            GameSceneUIManager.instance.DeathScreen();
-        }
-
+        Debug.Log($"[LevelPlaySample] Received RewardedVideoOnAdRewardedEvent With AdInfo: {adInfo} and Reward: {reward}");
     }
 
     void RewardedVideoOnAdClickedEvent(LevelPlayAdInfo adInfo)
     {
-        InAdMenu = true;
         Debug.Log($"[LevelPlaySample] Received RewardedVideoOnAdClickedEvent With AdInfo: {adInfo}");
     }
 
     void RewardedVideoOnAdClosedEvent(LevelPlayAdInfo adInfo)
     {
-        InAdMenu = false;
-        rewardedVideoAd.LoadAd(); // Load the next ad after rewarding
-        debugText.text += " " + $"[LevelPlaySample] Received RewardedVideoOnAdClosedEvent With AdInfo: {adInfo}";
         Debug.Log($"[LevelPlaySample] Received RewardedVideoOnAdClosedEvent With AdInfo: {adInfo}");
     }
 
@@ -248,11 +222,8 @@ public class AdManager : MonoBehaviour
         Debug.Log($"[LevelPlaySample] Received RewardedVideoOnAdInfoChangedEvent With AdInfo {adInfo}");
     }
 
-
     #endregion
-
     #region AdInfo Interstitial
-
 
     void InterstitialOnAdLoadedEvent(LevelPlayAdInfo adInfo)
     {
@@ -292,32 +263,6 @@ public class AdManager : MonoBehaviour
     #endregion
 
     #region Banner AdInfo
-
-    public void ShowBannerAd()
-    {
-        if (bannerAd != null && inited)
-        {
-            bannerAd.ShowAd();
-            Debug.Log("[LevelPlaySample] Banner Ad Shown");
-        }
-        else
-        {
-            Debug.LogWarning("[LevelPlaySample] Banner Ad not ready or SDK not initialized.");
-        }
-    }
-
-    public void HideBannerAd()
-    {
-        if (bannerAd != null && inited)
-        {
-            bannerAd.HideAd();
-            Debug.Log("[LevelPlaySample] Banner Ad Hidden");
-        }
-        else
-        {
-            Debug.LogWarning("[LevelPlaySample] Banner Ad not ready or SDK not initialized.");
-        }
-    }
 
     void BannerOnAdLoadedEvent(LevelPlayAdInfo adInfo)
     {
@@ -361,12 +306,15 @@ public class AdManager : MonoBehaviour
 
     #endregion
 
+    #region ImpressionSuccess callback handler
 
     void ImpressionDataReadyEvent(LevelPlayImpressionData impressionData)
     {
         Debug.Log($"[LevelPlaySample] Received ImpressionDataReadyEvent ToString(): {impressionData}");
         Debug.Log($"[LevelPlaySample] Received ImpressionDataReadyEvent allData: {impressionData.AllData}");
     }
+
+    #endregion
 
     private void OnDisable()
     {

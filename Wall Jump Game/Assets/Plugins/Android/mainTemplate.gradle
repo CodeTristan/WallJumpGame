@@ -12,7 +12,7 @@
             url "https://maven.google.com"
         }
         maven {
-            url "https://maven.google.com/" // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:12
+            url "https://maven.google.com/" // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:12, Assets/LevelPlay/Editor/ISUnityAdsAdapterDependencies.xml:12
         }
         mavenLocal()
         jcenter()
@@ -27,10 +27,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
     implementation 'com.google.android.gms:play-services-ads-identifier:18.1.0' // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:12
-    implementation 'com.unity3d.ads:unity-ads:4.13.2' // Assets/LevelPlay/Editor/ISUnityAdsAdapterDependencies.xml:9
-    implementation 'com.unity3d.ads-mediation:adquality-sdk:7.23.0' // Assets/LevelPlay/Editor/IronSourceAdQualityDependencies.xml:6
-    implementation 'com.unity3d.ads-mediation:mediation-sdk:8.7.0' // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:5
-    implementation 'com.unity3d.ads-mediation:unityads-adapter:4.3.50' // Assets/LevelPlay/Editor/ISUnityAdsAdapterDependencies.xml:5
+    implementation 'com.unity3d.ads:unity-ads:4.15.1' // Assets/LevelPlay/Editor/ISUnityAdsAdapterDependencies.xml:12
+    implementation 'com.unity3d.ads-mediation:mediation-sdk:8.10.0' // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:5
+    implementation 'com.unity3d.ads-mediation:unityads-adapter:4.3.57' // Assets/LevelPlay/Editor/ISUnityAdsAdapterDependencies.xml:5
 // Android Resolver Dependencies End
 **DEPS**}
 

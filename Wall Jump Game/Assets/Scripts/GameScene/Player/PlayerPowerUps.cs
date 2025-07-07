@@ -95,6 +95,7 @@ public class PlayerPowerUps : MonoBehaviour
 
     private IEnumerator SlingShot()
     {
+        currentPowerUps.Remove(PowerUpType.SlingShot);
         PlayerMovement.ResetValues();
         PlayerMovement.ResetVelocity();
 
@@ -108,11 +109,12 @@ public class PlayerPowerUps : MonoBehaviour
         {
             yield return null;
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
 
         playerCollisionHandler.PlayerIgnoreCollisionEnemy(false);
 
         animator.SetBool("isInvis", false);
+
 
     }
 }

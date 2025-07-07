@@ -105,7 +105,6 @@ public class GameSceneUIManager : MonoBehaviour
     }
     public void DeathScreen()
     {
-        AdManager.instance.LoadBannerAd();
         AdManager.instance.ShowBannerAd();
 
         volume.enabled = true;
@@ -182,7 +181,6 @@ public class GameSceneUIManager : MonoBehaviour
         if(toggle)
         {
             StopCoroutines();
-            AdManager.instance.LoadRewardedAd();
             AdManager.instance.InAdMenu = true;
             DeathAdScreen.SetActive(true);
             DeathAd_NotEnoughDiamonds.SetActive(false);

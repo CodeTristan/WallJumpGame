@@ -1,7 +1,7 @@
 <dependencies>
-  <unityversion>8.7.0</unityversion>
+  <unityversion>8.10.0</unityversion>
   <androidPackages>
-    <androidPackage spec="com.unity3d.ads-mediation:mediation-sdk:8.7.0">
+    <androidPackage spec="com.unity3d.ads-mediation:mediation-sdk:8.10.0">
     </androidPackage>
   </androidPackages>
   <androidPackages>
@@ -12,7 +12,7 @@
     </androidPackage>
   </androidPackages>
   <iosPods>
-    <iosPod name="IronSourceSDK" version="8.7.0.0">
+    <iosPod name="IronSourceSDK" version="8.10.0.0">
       <sources>
         <source>https://github.com/CocoaPods/Specs</source>
       </sources>

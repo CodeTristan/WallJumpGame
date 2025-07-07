@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SplashScene.unity
     guid: eca3a57fd3dccf045872b96134ba4131
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 890933d4a80d1bf4085b4df05dc48fdc
   - enabled: 1

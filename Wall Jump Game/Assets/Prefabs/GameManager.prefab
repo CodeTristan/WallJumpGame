@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b41c5f399d13154c8f06e8ce417adca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstSceneToLoad: 0
+  FirstSceneToLoad: 1
   saveSystem: {fileID: 348364784672961172}
   musicManager: {fileID: 3070894698183998085}
   sahneManager: {fileID: 5483410774962485060}
@@ -448,7 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugText: {fileID: 1183323194626470373}
   debugCanvas: {fileID: 3393152798328280864}
-  DEBUG_MODE: 0
+  DEBUG_MODE: 1
   InAdMenu: 0
 --- !u!1 &5479833136630751877
 GameObject:
@@ -735,7 +735,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3789484854890931841
 RectTransform:
   m_ObjectHideFlags: 0
@@ -902,7 +902,12 @@ MonoBehaviour:
   SoundVolume: 100
   CurrentMusic: 
   musics: []
-  sounds: []
+  sounds:
+  - name: Laser
+    clip: {fileID: 8300000, guid: c4093df13f51b39459c2b879032caf22, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
   SoundEffects: []
 --- !u!82 &2008079661859852761
 AudioSource:
