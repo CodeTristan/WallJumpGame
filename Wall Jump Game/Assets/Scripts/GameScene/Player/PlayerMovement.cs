@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 sameWallJumpSpeed;
     public int MaxSpeedLimitBreaker = 5;
     public float wallTime;
-    [SerializeField] private float SlowTimePlayerShrinkSpeed = 5f;
 
     public Vector2 velocity;
     public int currentJumpCount;
@@ -134,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentJumpCount++;
         GameSceneUIManager.instance.UpdateJumpCountText();
-        rb.velocity += Vector2.up * 5;
+        rb.velocity = Vector2.up * 5;
     }
 
     public void BarePass()

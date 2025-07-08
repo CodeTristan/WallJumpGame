@@ -17,7 +17,7 @@ public class PowerUp : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             PlayerManager.instance.playerPowerUps.AddPowerUp(powerUpType);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -62,9 +62,9 @@ public class PlayerPowerUpData
 
     public PlayerPowerUpData()
     {
-        SlingShotPower = 50;
-        DoublePointTimer = 10;
-        BomberTimer = 10;
+        SlingShotPower = 20;
+        DoublePointTimer = 8;
+        BomberTimer = 8;
     }
 
     public PlayerPowerUpData(PlayerPowerUpData data)

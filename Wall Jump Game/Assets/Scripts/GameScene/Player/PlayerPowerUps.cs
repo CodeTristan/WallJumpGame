@@ -69,6 +69,10 @@ public class PlayerPowerUps : MonoBehaviour
                 case PowerUpType.Bomber:
                     currentBomberTimer = PlayerData.PowerUpData.BomberTimer;
                     break;
+                case PowerUpType.SlingShot:
+                    StopAllCoroutines();
+                    StartCoroutine(SlingShot());
+                    break;
             }
         }
         else
@@ -95,26 +99,31 @@ public class PlayerPowerUps : MonoBehaviour
 
     private IEnumerator SlingShot()
     {
-        currentPowerUps.Remove(PowerUpType.SlingShot);
         PlayerMovement.ResetValues();
         PlayerMovement.ResetVelocity();
 
         PlayerCollisionHandler playerCollisionHandler = PlayerManager.instance.playerCollisionHandler;
-        playerCollisionHandler.PlayerIgnoreCollisionEnemy(true);
+        playerCollisionHandler.PlayerTotalIgnoreCollision(true);
         animator.SetBool("isInvis", true);
 
-        PlayerMovement.rb.AddForce(Vector2.up * PlayerData.PowerUpData.SlingShotPower, ForceMode2D.Impulse);
+        PlayerMovement.rb.AddForce(Vector2.up * PlayerData.PowerUpData.SlingShotPower * 100, ForceMode2D.Force);
 
-        while (PlayerMovement.rb.velocity.y > 1)
+        yield return new WaitForSeconds(0.1f);
+
+        while (PlayerMovement.rb.velocity.y > 20)
         {
             yield return null;
         }
+
+        playerCollisionHandler.PlayerTotalIgnoreCollision(false);
+        playerCollisionHandler.PlayerIgnoreCollisionEnemy(true);
         yield return new WaitForSeconds(2.5f);
 
         playerCollisionHandler.PlayerIgnoreCollisionEnemy(false);
 
         animator.SetBool("isInvis", false);
 
+        currentPowerUps.Remove(PowerUpType.SlingShot);
 
     }
 }

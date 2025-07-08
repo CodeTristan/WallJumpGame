@@ -71,6 +71,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     public void PlayerTotalIgnoreCollision(bool ignore)
     {
+        Physics2D.IgnoreLayerCollision(6, 7, ignore);
         Physics2D.IgnoreLayerCollision(6, 8, ignore);
         Physics2D.IgnoreLayerCollision(6, 9, ignore);
     }

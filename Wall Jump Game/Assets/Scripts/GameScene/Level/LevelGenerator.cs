@@ -18,6 +18,9 @@ public class LevelGenerator : MonoBehaviour
     public Level currentLevel;
 
     [SerializeField] private LevelPool levelPool;
+    [SerializeField] private PowerUp SlingShot;
+    [SerializeField] private PowerUp Bomber;
+    [SerializeField] private PowerUp DoublePoint;
 
     private List<Level> EasyLevelList;
     private List<Level> MediumLevelList;
@@ -56,6 +59,15 @@ public class LevelGenerator : MonoBehaviour
             TestModeLevelSpawn();
             return;
         }
+
+        SlingShot = Instantiate(SlingShot);
+        Bomber = Instantiate(Bomber);
+        DoublePoint = Instantiate(DoublePoint);
+
+        SlingShot.gameObject.SetActive(false);
+        Bomber.gameObject.SetActive(false);
+        DoublePoint.gameObject.SetActive(false);
+
 
         Restart();
     }
@@ -121,6 +133,24 @@ public class LevelGenerator : MonoBehaviour
             levelInUse.Add(level);
             levelPool.Remove(level);
             levelSpawnYPosition += level.SpawnOffset.y;
+
+            //Spawn PowerUps
+            if(Random.Range(0,1000) < BomberSpawnChanceIn1000)
+            {
+                Bomber.transform.position = level.transform.position - new Vector3(0, 12, 0);
+                Bomber.gameObject.SetActive(true);
+            }
+            if (Random.Range(0, 1000) < DoublePointSpawnChanceIn1000)
+            {
+                DoublePoint.transform.position = level.transform.position - new Vector3(0, 12, 0);
+                DoublePoint.gameObject.SetActive(true);
+            }
+            if (Random.Range(0, 1000) < SlingShotSpawnChanceIn1000)
+            {
+                SlingShot.transform.position = level.transform.position - new Vector3(0, 12, 0);
+                SlingShot.gameObject.SetActive(true);
+            }
+
         }
 
         currentLevel = levelInUse[completedLevelCount];
