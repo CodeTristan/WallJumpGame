@@ -6985,7 +6985,6 @@ MonoBehaviour:
   sameWallJumpSpeed: {x: 8, y: 15}
   MaxSpeedLimitBreaker: 5
   wallTime: 3.5
-  SlowTimePlayerShrinkSpeed: 50
   velocity: {x: 0, y: 0}
   currentJumpCount: 0
 --- !u!114 &175513390
@@ -16165,6 +16164,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203258462}
   m_CullTransparentMesh: 1
+--- !u!114 &1203930243 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6718478901811303328, guid: 5e4d2394dc605ce449fe46aed1833ce0, type: 3}
+  m_PrefabInstance: {fileID: 3927408949197855966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7c67cfca227cb41b4b0a43f6b0fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1207752120
 GameObject:
   m_ObjectHideFlags: 0
@@ -18746,17 +18756,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388953764}
   m_CullTransparentMesh: 1
---- !u!114 &1392547089 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 708917813211384808, guid: 5e4d2394dc605ce449fe46aed1833ce0, type: 3}
-  m_PrefabInstance: {fileID: 3927408949197855966}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec7c67cfca227cb41b4b0a43f6b0fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1407348695
 GameObject:
   m_ObjectHideFlags: 0
@@ -31343,7 +31342,7 @@ PrefabInstance:
     - target: {fileID: 4150691244845902706, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
       propertyPath: currentLevel
       value: 
-      objectReference: {fileID: 1392547089}
+      objectReference: {fileID: 1203930243}
     - target: {fileID: 4647431325654808150, guid: 70e70cf40de94724e828c0ebe055967f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 22.981

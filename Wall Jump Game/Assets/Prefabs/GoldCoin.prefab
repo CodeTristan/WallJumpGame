@@ -86,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6387816107592413195, guid: 07a2544f4696a484f8bcc100fce262ed, type: 3}
       propertyPath: m_Name
-      value: Gold
+      value: GoldCoin
       objectReference: {fileID: 0}
     - target: {fileID: 8609915543071216528, guid: 07a2544f4696a484f8bcc100fce262ed, type: 3}
       propertyPath: m_Size.x
@@ -120,6 +120,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6387816107592413195, guid: 07a2544f4696a484f8bcc100fce262ed, type: 3}
       insertIndex: 2
       addedObject: {fileID: -2010404839897689479}
+    - targetCorrespondingSourceObject: {fileID: 6387816107592413195, guid: 07a2544f4696a484f8bcc100fce262ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6881553669794708294}
   m_SourcePrefab: {fileID: 100100000, guid: 07a2544f4696a484f8bcc100fce262ed, type: 3}
 --- !u!1 &7834251783526723593 stripped
 GameObject:
@@ -138,3 +141,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b9f8f8ff3a4a44e806465039329560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amount: 1
+--- !u!95 &6881553669794708294
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834251783526723593}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 87cfad41d7914064abf7f8e7e26fa11f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
