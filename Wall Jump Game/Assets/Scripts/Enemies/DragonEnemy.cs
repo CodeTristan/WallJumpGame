@@ -16,8 +16,8 @@ public class DragonEnemy : EnemyBase
 
     public override void Init()
     {
+        base.Init();
         currentAttackTimer = attackTimer;
-        Inited = true;
     }
 
     private void Update()

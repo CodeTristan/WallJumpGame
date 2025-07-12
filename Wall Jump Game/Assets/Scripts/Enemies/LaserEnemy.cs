@@ -6,6 +6,7 @@ public class LaserEnemy : EnemyBase
 {
     public float ShootTimer;
     public float LaserTimer;
+    public float colorInc = 0.1f;
     [SerializeField] private float burstImageRotationSpeed = 100f; // Rotation speed for the burst image
 
 
@@ -22,7 +23,6 @@ public class LaserEnemy : EnemyBase
     private float animTimer;
     private int animIndex = 0;
     private int animDivider = 6;
-    private float colorInc = 0.16f;
 
     private int currentAnimDivider;
     private int currentAnimIndex;
@@ -31,6 +31,7 @@ public class LaserEnemy : EnemyBase
     private Quaternion BurstTargetRotation = Quaternion.identity;
     public override void Init()
     {
+        base.Init();
         currentShootTimer = ShootTimer;
         currentLaserTimer = LaserTimer;
         currentAnimDivider = animDivider;

@@ -15,8 +15,8 @@ public class WhipEnemy : EnemyBase
 
     public override void Init()
     {
+        base.Init();
         currentSeconds = slowTurnTime;
-        Inited = true;
     }
     private void Update()
     {

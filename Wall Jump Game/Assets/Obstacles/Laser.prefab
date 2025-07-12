@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Inited: 0
+  barePassActivated: 0
 --- !u!68 &3407584456161625714
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -378,8 +379,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Inited: 0
-  ShootTimer: 3
-  LaserTimer: 1
+  barePassActivated: 0
+  ShootTimer: 6
+  LaserTimer: 0.3
   burstImageRotationSpeed: 500
   LaserBeam: {fileID: 9059048389382302838}
   LaserLine: {fileID: 656213036093312840}
@@ -426,17 +428,17 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 1.3525889, y: 0.8863425}
-  - {x: 0.8821632, y: 1.5056039}
-  - {x: 0.004279524, y: 1.4100631}
+  - {x: 1.7346152, y: 1.1521002}
+  - {x: 0.9984323, y: 1.8876302}
+  - {x: -0.24486846, y: 1.858529}
   - {x: -0.607546, y: 0.8088307}
   - {x: -0.7788022, y: 0.4000373}
   - {x: -0.72092533, y: -0.5683471}
   - {x: -0.69289386, y: -1.2448745}
-  - {x: 0.09239748, y: -1.418399}
-  - {x: 1.0255446, y: -1.0486984}
-  - {x: 1.3492457, y: -0.2543566}
-  - {x: 1.3555948, y: 0.8704674}
+  - {x: 0.29171556, y: -1.7672057}
+  - {x: 1.2746925, y: -1.281236}
+  - {x: 1.7811018, y: -0.3207959}
+  - {x: 1.7376212, y: 1.1694444}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0

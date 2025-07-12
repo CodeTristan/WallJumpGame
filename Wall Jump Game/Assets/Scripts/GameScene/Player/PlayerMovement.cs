@@ -68,6 +68,9 @@ public class PlayerMovement : MonoBehaviour
         if (AdManager.instance.InAdMenu) //NO MOVEMENT IN AD
             return;
 
+        if(PlayerManager.instance.OnInvisWall)
+            currentJumpCount = playerData.MaxJumpCount;
+
         //Touch movement Drag and jump
         if (Input.touchCount > 0 &&  currentJumpCount > 0)
         {
@@ -90,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
                 Line.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); //Rotation
 
-                Line.transform.localScale = new Vector3(1f, touchDirection.magnitude / 70, 1);
+                Line.transform.localScale = new Vector3(1f, touchDirection.magnitude / 50, 1);
                 if (Line.transform.localScale.y > 4f)
                     Line.transform.localScale = new Vector3(1f, 4f, 1);
                 if (Line.transform.localScale.y < 1f)
@@ -138,7 +141,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void BarePass()
     {
-        currentJumpCount ++;
+        currentJumpCount+=2;
+        currentSlowUsage+=2;
+        if (currentSlowUsage > playerData.MaxSlowUsage)
+            currentSlowUsage = playerData.MaxSlowUsage;
         if (currentJumpCount > playerData.MaxJumpCount)
             currentJumpCount = playerData.MaxJumpCount;
         GameSceneUIManager.instance.UpdateJumpCountText();
@@ -271,7 +277,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move(Vector2 dir)
     {
         ResetVelocity();
-        int multDivider = 15;
+        int multDivider = 10;
         int mult = System.Convert.ToInt32(dir.magnitude / multDivider);
 
         if (mult < 6)

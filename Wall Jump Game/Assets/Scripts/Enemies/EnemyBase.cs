@@ -5,9 +5,11 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     [SerializeField] protected bool Inited;
+    public bool barePassActivated = false;
     public virtual void Init()
     {
         Inited = true;
+        barePassActivated = false;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -27,8 +29,10 @@ public class EnemyBase : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") 
             && !PlayerManager.instance.playerPowerUps.HasPowerUp(PowerUpType.Bomber)
-            && !PlayerManager.instance.isDead)
+            && !PlayerManager.instance.isDead
+            && !barePassActivated)
         {
+            barePassActivated = true;
             PlayerManager.instance.playerCollisionHandler.BarePass();
         }
     }
