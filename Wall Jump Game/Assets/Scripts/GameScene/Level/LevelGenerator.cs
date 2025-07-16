@@ -13,6 +13,7 @@ public class LevelGenerator : MonoBehaviour
     public float BomberSpawnChanceIn1000;
     public float DoublePointSpawnChanceIn1000;
     public float SlingShotSpawnChanceIn1000;
+    public float GemSpawnChanceIn1000;
     public int LevelCountToIncreaseDifficulty = 10;
 
     public Level currentLevel;
@@ -21,6 +22,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private PowerUp SlingShot;
     [SerializeField] private PowerUp Bomber;
     [SerializeField] private PowerUp DoublePoint;
+    [SerializeField] private GemObject gemObject;
 
     private List<Level> EasyLevelList;
     private List<Level> MediumLevelList;
@@ -150,6 +152,13 @@ public class LevelGenerator : MonoBehaviour
                 SlingShot.transform.position = level.transform.position - new Vector3(0, 12, 0);
                 SlingShot.gameObject.SetActive(true);
             }
+            if (Random.Range(0, 1000) < GemSpawnChanceIn1000)
+            {
+                GemObject gemObject = Instantiate(this.gemObject);
+                gemObject.transform.position = level.transform.position - new Vector3(0, 12, 0);
+                gemObject.gameObject.SetActive(true);
+            }
+
 
         }
 

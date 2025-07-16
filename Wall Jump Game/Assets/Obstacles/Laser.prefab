@@ -382,6 +382,7 @@ MonoBehaviour:
   barePassActivated: 0
   ShootTimer: 6
   LaserTimer: 0.3
+  colorInc: 0.075
   burstImageRotationSpeed: 500
   LaserBeam: {fileID: 9059048389382302838}
   LaserLine: {fileID: 656213036093312840}

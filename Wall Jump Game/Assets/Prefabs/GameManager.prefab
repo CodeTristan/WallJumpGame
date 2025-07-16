@@ -182,7 +182,7 @@ MonoBehaviour:
     playerData:
       MaxHealth: 1
       Coins: 0
-      Diamonds: 0
+      Gems: 0
       MaxJumpCount: 2
       MaxCombo: 2
       MaxSpeed: 11
@@ -448,7 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugText: {fileID: 1183323194626470373}
   debugCanvas: {fileID: 3393152798328280864}
-  DEBUG_MODE: 1
+  DEBUG_MODE: 0
   InAdMenu: 0
 --- !u!1 &5479833136630751877
 GameObject:

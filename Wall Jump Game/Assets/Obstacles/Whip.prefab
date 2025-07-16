@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Inited: 0
-  turnSpeed: 40
+  barePassActivated: 0
+  turnSpeed: 55
   fastTurnSpeed: 80
   slowTurnTime: 5
   fastTurnTime: 5

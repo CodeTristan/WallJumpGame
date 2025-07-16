@@ -7,7 +7,7 @@ public class PlayerData
 {
     public int MaxHealth;
     public int Coins;
-    public int Diamonds;
+    public int Gems;
     public int MaxJumpCount;
     public int MaxCombo;
     public int MaxSpeed;

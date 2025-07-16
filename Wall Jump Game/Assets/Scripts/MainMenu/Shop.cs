@@ -12,7 +12,11 @@ public class Shop : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private Canvas shopCanvas;
+    [SerializeField] private ScrollRect RegularShop;
+    [SerializeField] private ScrollRect UpgradeShop;
+    [SerializeField] private ScrollRect CosmeticShop;
     [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI gemText;
 
     [Header("Upgrades")]
     [SerializeField] private ShopUpgradeable[] upgrades;
@@ -23,7 +27,7 @@ public class Shop : MonoBehaviour
     public void Init()
     {
         instance = this;
-
+        _ToggleShopCanvas(false);
         //playerData = SaveSystem.instance.GameData.playerData;
         //coinText.text = playerData.Coins.ToString();
 
@@ -36,9 +40,25 @@ public class Shop : MonoBehaviour
     public void _ToggleShopCanvas(bool toggle)
     {
         shopCanvas.enabled = toggle;
+        GameSceneUIManager.instance.ToggleStartCanvas(!toggle);
+        GameSceneUIManager.instance.ToggleVolume(!toggle);
+        AdManager.instance.InAdMenu = toggle;
 
-        if(toggle) AdManager.instance.HideBannerAd();
-        else AdManager.instance.ShowBannerAd();
+        UpgradeShop.gameObject.SetActive(false);
+        CosmeticShop.gameObject.SetActive(false);
+        RegularShop.gameObject.SetActive(true);
+
+        coinText.text = PlayerManager.instance.playerData.Coins.ToString();
+        gemText.text = PlayerManager.instance.playerData.Gems.ToString();
+
+        if (toggle)
+        {
+            AdManager.instance.HideBannerAd();
+        }
+        else
+        {
+            AdManager.instance.ShowBannerAd();
+        }
     }
     public void Upgrade(UpgradeType upgradeType)
     {

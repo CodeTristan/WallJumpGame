@@ -13,11 +13,14 @@ public class GameSceneUIManager : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject EnemyKilledTextParentObject;
     [SerializeField] private GameObject BarePassTextParentObject;
-    [SerializeField] private Animator coinTextAnimator;
     [SerializeField] private Animator gainedCoinTextAnimator;
-    [SerializeField] private RectTransform coinTextAnimatorPosition;
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private Volume volume;
+
+    [Header("Gem and Coin Gain")]
+    [SerializeField] private Animator coinTextAnimator;
+    [SerializeField] private Animator gemTextAnimator;
+    [SerializeField] private RectTransform coinTextAnimatorPosition;
 
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI pointText;
@@ -78,6 +81,9 @@ public class GameSceneUIManager : MonoBehaviour
 
     private void Update()
     {
+        if (AdManager.instance.InAdMenu)
+            return;
+
         UpdatePointText();
 
         if(inDeathScreen && Input.touchCount > 0)
@@ -94,6 +100,22 @@ public class GameSceneUIManager : MonoBehaviour
         }
     }
 
+    public void ToggleCanvas(bool toggle)
+    {
+        canvas.enabled = toggle;
+    }
+    public void ToggleStartCanvas(bool toggle)
+    {
+        StartCanvas.enabled = toggle;
+    }
+
+    public void ToggleVolume(bool toggle)
+    {
+        if (volume != null)
+        {
+            volume.enabled = toggle;
+        }
+    }
 
     public void Restart()
     {
@@ -224,9 +246,9 @@ public class GameSceneUIManager : MonoBehaviour
 
     private void _PayDiamondsToRevive()
     {
-        if(PlayerManager.instance.playerData.Diamonds >= 10)
+        if(PlayerManager.instance.playerData.Gems >= 10)
         {
-            PlayerManager.instance.playerData.Diamonds -= 10;
+            PlayerManager.instance.playerData.Gems -= 10;
             AdManager.instance.InAdMenu = false;
             DeathAdScreen.SetActive(false);
             PlayerManager.instance.Respawn();
@@ -242,6 +264,13 @@ public class GameSceneUIManager : MonoBehaviour
     {
         Vector2 pos = coinTextAnimatorPosition.position + new Vector3(Random.Range(-100, 100), Random.Range(-100, 100));
         var obj = Instantiate(coinTextAnimator.gameObject, pos,Quaternion.identity,canvas.transform);
+        Destroy(obj.gameObject, 1f);
+    }
+
+    public void GemGainText()
+    {
+        Vector2 pos = coinTextAnimatorPosition.position + new Vector3(Random.Range(-100, 100), Random.Range(-100, 100));
+        var obj = Instantiate(gemTextAnimator.gameObject, pos, Quaternion.identity, canvas.transform);
         Destroy(obj.gameObject, 1f);
     }
 
